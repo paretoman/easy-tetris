@@ -55,6 +55,7 @@ var rotateLock = false;
 var movementLock = false;
 var movementInterval = 0.15;
 var hAxis = 0;
+var timer;
 
 function preload(){
 	game.load.atlas('blocoatlas', 'img/blocoatlas.png', 'js/blocoatlas.json');
@@ -117,6 +118,7 @@ function testTick(){
 	if(testDrop()){
 		tick();
 	} else {
+		testLineClear();
 		newPiece();
 		drawPiece();
 	}
@@ -217,7 +219,7 @@ function moveRight(){
 		drawPiece();
 	}
 	movementLock = true;
-	game.time.events.add(Phaser.Timer.SECOND * movementInterval, unlockMovement, this);
+	timer = game.time.events.add(Phaser.Timer.SECOND * movementInterval, unlockMovement, this);
 }
 
 function moveLeft(){
@@ -227,7 +229,7 @@ function moveLeft(){
 		drawPiece();
 	}	
 	movementLock = true;
-	game.time.events.add(Phaser.Timer.SECOND * movementInterval, unlockMovement, this);
+	timer = game.time.events.add(Phaser.Timer.SECOND * movementInterval, unlockMovement, this);
 }
 
 function newPiece(){
@@ -316,6 +318,7 @@ function getInput(){
 		hAxis++;
 	} else {
 		movementLock = false;
+		//game.timer.events.remove(timer);
 	}
 
 	if(hAxis > 0){
@@ -340,4 +343,35 @@ function getInput(){
 
 function unlockMovement(){
 	movementLock = false;
+}
+
+function testLineClear(){
+	for(var i=0; i < 20; i++){
+		for(var j=0; j < 10; j++){
+			lineCleared = true;
+			if(board[i][j] == "_"){
+				lineCleared = false;
+				break;
+			}
+		}
+		if(lineCleared){
+			lineClear(i);
+			i--;
+		}
+	}
+}
+
+function lineClear(lineNum){
+	var prevLine;
+	for(var i = lineNum; i > 0; i--){
+		prevLine = i -1;
+		for(var j=0; j< 10; j++){
+			board[i][j] = board[prevLine][j];
+		}
+	}
+	
+	for(var i=0; i< 10; i++){
+			board[0][i] = "_";
+	}
+	console.log("Line "+lineNum+" cleared");
 }
