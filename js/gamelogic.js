@@ -57,8 +57,6 @@ var movementInterval = 0.15;
 var hAxis = 0;
 
 function preload(){
-	//game.load.image('bloco', 'img/bloco.png');
-	//game.load.image('bloco_contorno', 'img/bloco_contorno.png');
 	game.load.atlas('blocoatlas', 'img/blocoatlas.png', 'js/blocoatlas.json');
 	game.load.json('tetraminosJSON', 'js/tetraminos.json')
 }
@@ -71,9 +69,6 @@ function create(){
 }
 
 function update(){
-	//eraseBlocos();
-	//drawBlocos();
-	//blocoOn(curX, curY);
 	getInput();
 	updateBoardDisplayed();
 }
@@ -116,8 +111,6 @@ function tick(){ //move piece a line down
 	clearPiece();
 	curY++;
 	drawPiece();
-	//printBoard();
-	//drawBlocos();
 }
 
 function testTick(){
@@ -126,13 +119,11 @@ function testTick(){
 	} else {
 		newPiece();
 		drawPiece();
-		//printBoard();
 	}
 	setTimeout(testTick, 100);
 }
 
 function clearPiece(){
-	//board[curY][curX] = "_";
 	for(var i = 0; i < 4; i++){
 		if(piece.poses[curPose][i][0] + curX < 0 || piece.poses[curPose][i][1] + curY < 0){
 			// do nothing
@@ -185,31 +176,67 @@ function testDrop(){
 	return true;
 }
 
+function testMoveRight(){
+	for(var i = 0; i < 4; i++){
+		if(piece.poses[curPose][i][0] + curX + 1 < 10){
+			if(curY + piece.poses[curPose][i][1] < 0){ //if offscreen
+				//do nothing
+			} else if(board[curY + piece.poses[curPose][i][1]] [curX + piece.poses[curPose][i][0] + 1] != "X"){
+				//do nothing
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+	return true;
+}
+
+function testMoveLeft(){
+	for(var i = 0; i < 4; i++){
+		if(piece.poses[curPose][i][0] + curX - 1 > -1){
+			if(curY + piece.poses[curPose][i][1] < 0){  //if offscreen
+				//do nothing
+			} else 	if(board[curY + piece.poses[curPose][i][1]] [curX - 1 + piece.poses[curPose][i][0]] != "X"){
+				//do nothing
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+	return true;
+}
+
 function moveRight(){
-	clearPiece();
-	curX ++;
-	drawPiece();
+	if(testMoveRight()){
+		clearPiece();
+		curX ++;
+		drawPiece();
+	}
 	movementLock = true;
 	game.time.events.add(Phaser.Timer.SECOND * movementInterval, unlockMovement, this);
 }
 
 function moveLeft(){
-	clearPiece();
-	curX --;
-	drawPiece();
+	if(testMoveLeft()){
+		clearPiece();
+		curX --;
+		drawPiece();
+	}	
 	movementLock = true;
 	game.time.events.add(Phaser.Timer.SECOND * movementInterval, unlockMovement, this);
 }
 
 function newPiece(){
-	//moveRight();
 	placeOnBoard();
 	getPiece();
-	curY = -1;
+	curY = 0;
 	curX = 4;
 }
 
-//test
 function printBoard(){
 	var line = "";
 	for (var i = 0; i < 20; i++){
@@ -221,22 +248,64 @@ function printBoard(){
 	}
 }
 
-function rotateClockWise(){
-	clearPiece();
-	curPose++;
-	if(curPose > 3){
-		curPose = 0;
+function testRotateClockWise(){
+	testPose = curPose++;
+	if(testPose > 3){
+		testPose = 0;
 	}
-	drawPiece();
+	for(var i = 0; i < 4; i++){
+		if(piece.poses[testPose][i][0] + curX > -1 || piece.poses[testPose][i][0] + curX < 10){
+			if(board[curY + piece.poses[testPose][i][1]] [curX + piece.poses[testPose][i][0]] != "X"){
+				//do nothing
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+	return true;
+}
+
+function testRotateCounterClockWise(){
+	testPose = curPose++;
+	if(testPose > 3){
+		testPose = 0;
+	}
+	for(var i = 0; i < 4; i++){
+		if(piece.poses[testPose][i][0] + curX > -1 || piece.poses[testPose][i][0] + curX < 10){
+			if(board[curY + piece.poses[testPose][i][1]] [curX + piece.poses[testPose][i][0]] != "X"){
+				//do nothing
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+	return true;
+}
+
+function rotateClockWise(){
+	if(testRotateClockWise){
+		clearPiece();
+		curPose++;
+		if(curPose > 3){
+			curPose = 0;
+		}
+		drawPiece();
+	} 
 }
 
 function rotateCounterClockWise(){
-	clearPiece();
-	curPose--;
-	if(curPose < 0){
-		curPose = 3;
+	if(rotateCounterClockWise()){
+		clearPiece();
+		curPose--;
+		if(curPose < 0){
+			curPose = 3;
+		}
+		drawPiece();
 	}
-	drawPiece();
 }
 
 function getInput(){
