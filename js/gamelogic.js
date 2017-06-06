@@ -73,7 +73,7 @@ function update(){
 }
 
 function getPiece(){
-	piece = tetraminos.tetraminos[0].poses[0];
+	piece = tetraminos.tetraminos[game.rnd.integerInRange(0, 7)].poses[0];
 }
 
 function blocoOn(x, y){ //lits bloco at positio x, y
@@ -105,11 +105,6 @@ function updateBoardDisplayed(){
 	}
 }
 
-function init (){
-	//setInterval(testTick, 500);
-	getPiece();
-}
-
 function tick(){ //move piece a line down
 	clearPiece();
 	curY++;
@@ -119,7 +114,7 @@ function tick(){ //move piece a line down
 }
 
 function testTick(){
-	if(curY < 19){
+	if(testDrop()){
 		tick();
 	} else {
 		newPiece();
@@ -149,9 +144,38 @@ function drawPiece(){
 		} else if(piece[i][0] + curX > 9 || piece[i][1] + curY > 19){
 			// do nothing
 		} else {
+			board[curY + piece[i][1]][curX + piece[i][0]] = "p";
+		}
+	}
+}
+
+function placeOnBoard(){
+	for(var i = 0; i < 4; i++){
+		if(piece[i][0] + curX < 0 || piece[i][1] + curY < 0){
+			// do nothing
+		} else if(piece[i][0] + curX > 9 || piece[i][1] + curY > 19){
+			// do nothing
+		} else {
 			board[curY + piece[i][1]][curX + piece[i][0]] = "X";
 		}
 	}
+}
+
+function testDrop(){
+	if(curY < 19){
+		for(var i = 0; i < 4; i++){
+			if(piece[i][0] + curX < 0 || piece[i][1] + curY < 0){
+			// do nothing
+		} else if(piece[i][0] + curX > 9 || piece[i][1] + curY > 19){
+			// do nothing
+		} else if(board[curY + piece[i][1] + 1] [curX + piece[i][0]] == "X"){
+				return false;
+			}
+		}
+	} else {
+		return false;
+	}
+	return true;
 }
 
 function moveRight(){
@@ -167,9 +191,11 @@ function moveLeft(){
 }
 
 function newPiece(){
-	moveRight();
+	//moveRight();
+	placeOnBoard();
 	getPiece();
-	curY = 0;
+	curY = -1;
+	curX = 4;
 }
 
 //test
