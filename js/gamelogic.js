@@ -55,7 +55,26 @@ var rotateLock = false;
 var movementLock = false;
 var movementInterval = 0.15;
 var hAxis = 0;
-var timer;
+var timer = null;
+
+//===========================TODO==================================:
+// FIX TIMER ISSUES
+// SHOW NEXT PIECE
+// COLORS
+// SCORE
+// INCREASE SPEED
+// SOUND
+// MUSIC
+// HIGHSCORE
+// CUSTOM CONTROLS
+// IMPROVE PRESENTATION
+// IMPROVE GAMEPLAY/GAME FEEL
+// JOYSTICK INPUT
+// MULTIPLAYER
+// BATTLE MODE
+// CREDITS
+// GET RIC
+//=================================================================
 
 function preload(){
 	game.load.atlas('blocoatlas', 'img/blocoatlas.png', 'js/blocoatlas.json');
@@ -218,8 +237,9 @@ function moveRight(){
 		curX ++;
 		drawPiece();
 	}
+	unlockMovement();
 	movementLock = true;
-	timer = game.time.events.add(Phaser.Timer.SECOND * movementInterval, unlockMovement, this);
+	timer = game.time.events.loop(Phaser.Timer.SECOND * movementInterval, unlockMovement, this);
 }
 
 function moveLeft(){
@@ -228,6 +248,7 @@ function moveLeft(){
 		curX --;
 		drawPiece();
 	}	
+	unlockMovement();
 	movementLock = true;
 	timer = game.time.events.add(Phaser.Timer.SECOND * movementInterval, unlockMovement, this);
 }
@@ -317,8 +338,7 @@ function getInput(){
 	} else if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
 		hAxis++;
 	} else {
-		movementLock = false;
-		//game.timer.events.remove(timer);
+		unlockMovement();
 	}
 
 	if(hAxis > 0){
@@ -329,6 +349,8 @@ function getInput(){
 		if(!movementLock){
 			moveLeft();
 		}
+	} else {
+		unlockMovement();
 	}
 	
 	if(game.input.keyboard.isDown(Phaser.Keyboard.UP)){
@@ -343,6 +365,10 @@ function getInput(){
 
 function unlockMovement(){
 	movementLock = false;
+	if(timer != null){
+		game.time.events.remove(timer);
+	}
+	
 }
 
 function testLineClear(){
