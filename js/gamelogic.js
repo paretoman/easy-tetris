@@ -1,4 +1,4 @@
-var game = new Phaser.Game(320, 640, Phaser.AUTO, '', {preload: preload, create: create, update: update});
+var game = new Phaser.Game(640, 640, Phaser.AUTO, '', {preload: preload, create: create, update: update});
 var blocos = [];
 var tetraminos;
 var board = [
@@ -23,7 +23,6 @@ var board = [
 	['_','_','_','_','_','_','_','_','_','_'],
 	['_','_','_','_','_','_','_','_','_','_']
 	];
-
 var boardDisplay = [
 	[,,,,,,,,,],
 	[,,,,,,,,,],
@@ -46,20 +45,29 @@ var boardDisplay = [
 	[,,,,,,,,,],
 	[,,,,,,,,,],
 	];
+var nextWindow = [
+	[,,],
+	[,,],
+	[,,],
+	[,,]
+];
 
 var curX = 0;
 var curY = 0;
 var curPose = 0;
 var piece;
+var nextPiece;
 var rotateLock = false;
 var movementLock = false;
 var movementInterval = 0.15;
 var hAxis = 0;
 var timer = null;
+var blockSide = 32;
 
 //===========================TODO==================================:
-// FIX TIMER ISSUES
-// SHOW NEXT PIECE
+// FIX TIMER ISSUES - DONE
+// SHOW NEXT PIECE - DONE
+// GAME OVER
 // COLORS
 // SCORE
 // INCREASE SPEED
@@ -83,18 +91,22 @@ function preload(){
 
 function create(){
 	createBlocos();
+	createNextWindow()
 	tetraminos = game.cache.getJSON('tetraminosJSON');
 	getPiece();
+	getPiece();//proper init
 
 }
 
 function update(){
 	getInput();
 	updateBoardDisplayed();
+	updateNextWindow();
 }
 
 function getPiece(){
-	piece = tetraminos.tetraminos[game.rnd.integerInRange(0, 6)];
+	piece = nextPiece;
+	nextPiece = tetraminos.tetraminos[game.rnd.integerInRange(0, 6)];
 	curPose = 0;
 }
 
@@ -110,7 +122,15 @@ function createBlocos(){
 	//create grid with blocos
 	for(var i = 0; i < 10; i++){
 		for(var j = 0; j < 20; j++){
-			boardDisplay[j][i] = game.add.sprite(i * 32, j * 32, 'blocoatlas', 'OFF');
+			boardDisplay[j][i] = game.add.sprite(i * blockSide, j * blockSide, 'blocoatlas', 'OFF');
+		}
+	}
+}
+
+function createNextWindow(){
+	for(var i = 0; i < 3; i++){
+		for(var j = 0; j < 4; j++){
+			nextWindow[j][i] = game.add.sprite((i +11) * blockSide , (j +1) * blockSide, 'blocoatlas', 'OFF');
 		}
 	}
 }
@@ -124,6 +144,22 @@ function updateBoardDisplayed(){
 				blocoOn(i, j);
 			}
 		}
+	}
+}
+
+function updateNextWindow(){
+	var offsetX = 0;
+	var offsetY = 3;
+	for(var i = 0; i < 3; i++){
+		for(var j = 0; j < 4; j++){
+			nextWindow[j][i].frameName = "OFF";
+		}
+	}
+
+	for(var i = 0; i < 4; i++){
+		var blocoX = (nextPiece.poses[0][i][0]) + offsetX;
+		var blocoY = (nextPiece.poses[0][i][1]) + offsetY;
+		nextWindow[blocoY][blocoX].frameName = "ON";
 	}
 }
 
