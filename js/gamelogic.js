@@ -1,7 +1,14 @@
 var game = new Phaser.Game(640, 640, Phaser.AUTO, '', {preload: preload, create: create, update: update});
+var BLOCK_SIDE = 32;
+var MAX_BLOCK_COUNT_HORIZONTAL = 10;
+var MAX_BLOCK_COUNT_VERTICAL = 20;
+var MAX_INDEX_HORIZONTAL = 9;
+var MAX_INDEX_VERTICAL = 20;
+var VERTICAL_OFFSET = 1;
 var blocos = [];
 var tetraminos;
 var board = [
+	['_','_','_','_','_','_','_','_','_','_'],//DEADZONE if drop occurs here it means GAMEOVER
 	['_','_','_','_','_','_','_','_','_','_'],
 	['_','_','_','_','_','_','_','_','_','_'],
 	['_','_','_','_','_','_','_','_','_','_'],
@@ -62,12 +69,14 @@ var movementLock = false;
 var movementInterval = 0.15;
 var hAxis = 0;
 var timer = null;
-var blockSide = 32;
+var gameover = false;
 
 //===========================TODO==================================:
 // FIX TIMER ISSUES - DONE
 // SHOW NEXT PIECE - DONE
-// GAME OVER
+// GAME OVER - 
+// LINE CLEAR ANIMATION
+// GAME OVER ANIMATION
 // COLORS
 // SCORE
 // INCREASE SPEED
@@ -90,7 +99,7 @@ function preload(){
 }
 
 function create(){
-	createBlocos();
+	createBoardDisplay();
 	createNextWindow()
 	tetraminos = game.cache.getJSON('tetraminosJSON');
 	getPiece();
@@ -99,9 +108,15 @@ function create(){
 }
 
 function update(){
-	getInput();
-	updateBoardDisplayed();
-	updateNextWindow();
+	if(!gameover){
+		getInput();
+		updateBoardDisplayed();
+		updateNextWindow();
+	} else {
+		clearNextWindow();
+		clearBoardDisplay();
+		console.log("GAME OVER");
+	}
 }
 
 function getPiece(){
@@ -118,11 +133,11 @@ function blocoOff(x, y){
 	boardDisplay[y][x].frameName = 'OFF';
 }
 
-function createBlocos(){
+function createBoardDisplay(){
 	//create grid with blocos
-	for(var i = 0; i < 10; i++){
-		for(var j = 0; j < 20; j++){
-			boardDisplay[j][i] = game.add.sprite(i * blockSide, j * blockSide, 'blocoatlas', 'OFF');
+	for(var i = 0; i < MAX_BLOCK_COUNT_HORIZONTAL; i++){
+		for(var j = 0; j < MAX_BLOCK_COUNT_VERTICAL; j++){
+			boardDisplay[j][i] = game.add.sprite(i * BLOCK_SIDE, j * BLOCK_SIDE, 'blocoatlas', 'OFF');
 		}
 	}
 }
@@ -130,15 +145,15 @@ function createBlocos(){
 function createNextWindow(){
 	for(var i = 0; i < 3; i++){
 		for(var j = 0; j < 4; j++){
-			nextWindow[j][i] = game.add.sprite((i +11) * blockSide , (j +1) * blockSide, 'blocoatlas', 'OFF');
+			nextWindow[j][i] = game.add.sprite((i +11) * BLOCK_SIDE , (j +1) * BLOCK_SIDE, 'blocoatlas', 'OFF');
 		}
 	}
 }
 
 function updateBoardDisplayed(){
-	for(var i = 0; i < 10; i++){
-		for(var j = 0; j < 20; j++){
-			if(board[j][i] == "_"){
+	for(var i = 0; i < MAX_BLOCK_COUNT_HORIZONTAL; i++){
+		for(var j = 0; j < MAX_BLOCK_COUNT_VERTICAL; j++){
+			if(board[j+VERTICAL_OFFSET][i] == "_"){
 				blocoOff(i, j);
 			} else {
 				blocoOn(i, j);
@@ -150,16 +165,27 @@ function updateBoardDisplayed(){
 function updateNextWindow(){
 	var offsetX = 0;
 	var offsetY = 3;
+	clearNextWindow();
+	for(var i = 0; i < 4; i++){
+		var blocoX = (nextPiece.poses[0][i][0]) + offsetX;
+		var blocoY = (nextPiece.poses[0][i][1]) + offsetY;
+		nextWindow[blocoY][blocoX].frameName = "ON";
+	}
+}
+
+function clearNextWindow(){
 	for(var i = 0; i < 3; i++){
 		for(var j = 0; j < 4; j++){
 			nextWindow[j][i].frameName = "OFF";
 		}
 	}
+}
 
-	for(var i = 0; i < 4; i++){
-		var blocoX = (nextPiece.poses[0][i][0]) + offsetX;
-		var blocoY = (nextPiece.poses[0][i][1]) + offsetY;
-		nextWindow[blocoY][blocoX].frameName = "ON";
+function clearBoardDisplay(){
+	for(var i = 0; i < MAX_BLOCK_COUNT_HORIZONTAL; i++){
+		for(var j = 0; j < MAX_BLOCK_COUNT_VERTICAL; j++){
+			blocoOff(i, j);
+		}
 	}
 }
 
@@ -173,57 +199,77 @@ function testTick(){
 	if(testDrop()){
 		tick();
 	} else {
-		testLineClear();
-		newPiece();
-		drawPiece();
+		if(!testGameOver()){
+			newPiece();
+			testLineClear();
+			drawPiece();
+		}
+
 	}
 	setTimeout(testTick, 100);
 }
 
 function clearPiece(){
+	var tmpX;
+	var tmpY;
 	for(var i = 0; i < 4; i++){
-		if(piece.poses[curPose][i][0] + curX < 0 || piece.poses[curPose][i][1] + curY < 0){
+		tmpX = piece.poses[curPose][i][0] + curX ;
+		tmpY = piece.poses[curPose][i][1] + curY;
+		if(tmpX < 0 || tmpY < 0){
 			// do nothing
-		} else if(piece.poses[curPose][i][0] + curX > 9 || piece.poses[curPose][i][1] + curY > 19){
+		} else if(tmpX > MAX_INDEX_HORIZONTAL || tmpY > MAX_INDEX_VERTICAL){
 			// do nothing
 		} else {
-			board[curY + piece.poses[curPose][i][1]][curX + piece.poses[curPose][i][0]] = "_";
+			board[tmpY][tmpX] = "_";
 		}
 	}
 }
 
 function drawPiece(){
+	var tmpX;
+	var tmpY;
 	for(var i = 0; i < 4; i++){
-		if(piece.poses[curPose][i][0] + curX < 0 || piece.poses[curPose][i][1] + curY < 0){
+		tmpX = piece.poses[curPose][i][0] + curX ;
+		tmpY = piece.poses[curPose][i][1] + curY;
+		if(tmpX < 0 || tmpY < 0){
 			// do nothing
-		} else if(piece.poses[curPose][i][0] + curX > 9 || piece.poses[curPose][i][1] + curY > 19){
+		} else if(tmpX > MAX_INDEX_HORIZONTAL || tmpY > MAX_INDEX_VERTICAL){
 			// do nothing
 		} else {
-			board[curY + piece.poses[curPose][i][1]][curX + piece.poses[curPose][i][0]] = "p";
+			board[tmpY][tmpX] = "p";
 		}
 	}
 }
 
 function placeOnBoard(){
+	var tmpX;
+	var tmpY;
 	for(var i = 0; i < 4; i++){
-		if(piece.poses[curPose][i][0] + curX < 0 || piece.poses[curPose][i][1] + curY < 0){
+		tmpX = piece.poses[curPose][i][0] + curX ;
+		tmpY = piece.poses[curPose][i][1] + curY;
+		if(tmpX < 0 || tmpY < 0){
 			// do nothing
-		} else if(piece.poses[curPose][i][0] + curX > 9 || piece.poses[curPose][i][1] + curY > 19){
+		} else if(tmpX > MAX_INDEX_HORIZONTAL || tmpY > MAX_INDEX_VERTICAL){
 			// do nothing
 		} else {
-			board[curY + piece.poses[curPose][i][1]][curX + piece.poses[curPose][i][0]] = "X";
+			board[tmpY][tmpX] = "X";
 		}
 	}
 }
 
 function testDrop(){
-	if(curY < 19){
+	var tmpX;
+	var tmpY;
+	if(curY < MAX_INDEX_VERTICAL){
 		for(var i = 0; i < 4; i++){
-			if(piece.poses[curPose][i][0] + curX < 0 || piece.poses[curPose][i][1] + curY < 0){
+			tmpX = piece.poses[curPose][i][0] + curX;
+			tmpY = piece.poses[curPose][i][1] + curY;
+
+			if(tmpX < 0 ||  tmpY< 0){
 			// do nothing
-		} else if(piece.poses[curPose][i][0] + curX > 9 || piece.poses[curPose][i][1] + curY > 19){
+		} else if(tmpX > MAX_INDEX_HORIZONTAL || tmpY > MAX_INDEX_VERTICAL){
 			// do nothing
-		} else if(board[curY + piece.poses[curPose][i][1] + 1] [curX + piece.poses[curPose][i][0]] == "X"){
+		} else if(board[tmpY + 1][tmpX] == "X"){
 				return false;
 			}
 		}
@@ -234,11 +280,15 @@ function testDrop(){
 }
 
 function testMoveRight(){
+	var tmpX;
+	var tmpY;
 	for(var i = 0; i < 4; i++){
-		if(piece.poses[curPose][i][0] + curX + 1 < 10){
-			if(curY + piece.poses[curPose][i][1] < 0){ //if offscreen
+			tmpX = piece.poses[curPose][i][0] + curX + 1;
+			tmpY = piece.poses[curPose][i][1] + curY;
+		if(tmpX <= MAX_INDEX_HORIZONTAL){ // test if there is room to go right
+			if(tmpY < 0){ //if offscreen
 				//do nothing
-			} else if(board[curY + piece.poses[curPose][i][1]] [curX + piece.poses[curPose][i][0] + 1] != "X"){
+			} else if(board[tmpY][tmpX] != "X"){
 				//do nothing
 			} else {
 				return false;
@@ -251,11 +301,15 @@ function testMoveRight(){
 }
 
 function testMoveLeft(){
+	var tmpX;
+	var tmpY;
 	for(var i = 0; i < 4; i++){
-		if(piece.poses[curPose][i][0] + curX - 1 > -1){
-			if(curY + piece.poses[curPose][i][1] < 0){  //if offscreen
+			tmpX = piece.poses[curPose][i][0] + curX - 1;
+			tmpY = piece.poses[curPose][i][1] + curY;
+		if(tmpX >= 0){ // test if there is room to go left
+			if(tmpY < 0){ //if offscreen
 				//do nothing
-			} else 	if(board[curY + piece.poses[curPose][i][1]] [curX - 1 + piece.poses[curPose][i][0]] != "X"){
+			} else if(board[tmpY][tmpX] != "X"){
 				//do nothing
 			} else {
 				return false;
@@ -289,53 +343,76 @@ function moveLeft(){
 	timer = game.time.events.add(Phaser.Timer.SECOND * movementInterval, unlockMovement, this);
 }
 
+function testGameOver(){
+	if(curY == 0){
+		gameover = true;
+		return true;
+	}
+	return false;
+}
+
 function newPiece(){
 	placeOnBoard();
 	getPiece();
-	curY = 0;
+	curY = -2;
 	curX = 4;
 }
 
-function printBoard(){
+function printBoard(showOffset = true){
+	var tmpOffset;
+	if(showOffset){
+		tmpOffset = VERTICAL_OFFSET;
+	} else {
+		tmpOffset = 0;
+	}
 	var line = "";
-	for (var i = 0; i < 20; i++){
+	for (var i = 0; i < MAX_BLOCK_COUNT_VERTICAL; i++){
 		line = i + " - ";
-		for (var j = 0; j < 10; j++){
-			line+= board[i][j];
+		for (var j = 0; j < MAX_BLOCK_COUNT_HORIZONTAL; j++){
+			line+= board[i + tmpOffset][j];
 		}
 		console.log(line);
 	}
 }
 
 function testRotateClockWise(){
-	testPose = curPose++;
+	var tmpX;
+	var tmpY;
+	var testPose = curPose +1;
 	if(testPose > 3){
 		testPose = 0;
 	}
 	for(var i = 0; i < 4; i++){
-		if(piece.poses[testPose][i][0] + curX > -1 || piece.poses[testPose][i][0] + curX < 10){
-			if(board[curY + piece.poses[testPose][i][1]] [curX + piece.poses[testPose][i][0]] != "X"){
-				//do nothing
+		tmpX = piece.poses[testPose][i][0] + curX;
+		tmpY = piece.poses[testPose][i][1] + curY;
+		//console.log("board[tmpY][tmpX] : "+ board[tmpY][tmpX] + "  // tmpX : " + tmpX + "  // tmpY : " + tmpY);
+		if(tmpY < 0){
+			//do nothing
+		} else {
+			if(tmpX > -1 && tmpX < MAX_BLOCK_COUNT_HORIZONTAL){
+				if(board[tmpY][tmpX] == "X"){
+					return false
+				}
 			} else {
 				return false;
 			}
-		} else {
-			return false;
 		}
 	}
 	return true;
 }
 
 function testRotateCounterClockWise(){
-	testPose = curPose++;
-	if(testPose > 3){
-		testPose = 0;
+	var tmpX;
+	var tmpY;
+	var testPose = curPose -1;
+	if(testPose < 0){
+		testPose = 3;
 	}
 	for(var i = 0; i < 4; i++){
-		if(piece.poses[testPose][i][0] + curX > -1 || piece.poses[testPose][i][0] + curX < 10){
-			if(board[curY + piece.poses[testPose][i][1]] [curX + piece.poses[testPose][i][0]] != "X"){
-				//do nothing
-			} else {
+		tmpX = piece.poses[testPose][i][0] + curX;
+		tmpY = piece.poses[testPose][i][1] + curY;
+		if(tmpX > -1 && tmpX < MAX_BLOCK_COUNT_HORIZONTAL){
+			if(board[tmpY][tmpX] == "X"){
 				return false;
 			}
 		} else {
@@ -346,7 +423,7 @@ function testRotateCounterClockWise(){
 }
 
 function rotateClockWise(){
-	if(testRotateClockWise){
+	if(testRotateClockWise()){
 		clearPiece();
 		curPose++;
 		if(curPose > 3){
@@ -357,7 +434,7 @@ function rotateClockWise(){
 }
 
 function rotateCounterClockWise(){
-	if(rotateCounterClockWise()){
+	if(testRotateCounterClockWise()){
 		clearPiece();
 		curPose--;
 		if(curPose < 0){
@@ -408,8 +485,8 @@ function unlockMovement(){
 }
 
 function testLineClear(){
-	for(var i=0; i < 20; i++){
-		for(var j=0; j < 10; j++){
+	for(var i=0; i < MAX_BLOCK_COUNT_VERTICAL; i++){
+		for(var j=0; j < MAX_BLOCK_COUNT_HORIZONTAL; j++){
 			lineCleared = true;
 			if(board[i][j] == "_"){
 				lineCleared = false;
@@ -427,12 +504,12 @@ function lineClear(lineNum){
 	var prevLine;
 	for(var i = lineNum; i > 0; i--){
 		prevLine = i -1;
-		for(var j=0; j< 10; j++){
+		for(var j=0; j< MAX_BLOCK_COUNT_HORIZONTAL; j++){
 			board[i][j] = board[prevLine][j];
 		}
 	}
 	
-	for(var i=0; i< 10; i++){
+	for(var i=0; i< MAX_BLOCK_COUNT_HORIZONTAL; i++){
 			board[0][i] = "_";
 	}
 	console.log("Line "+lineNum+" cleared");
