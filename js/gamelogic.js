@@ -87,6 +87,9 @@ var speedUpGoal = 10;
 
 var gameover = false;
 var softDrop = false;
+var hardDrop = false;
+var hardDropLock = false;
+
 
 //===========================TODO==================================:
 // FIX TIMER ISSUES - DONE
@@ -96,7 +99,7 @@ var softDrop = false;
 // GAME OVER ANIMATION
 // COLORS
 // SCORE
-// INCREASE SPEED
+// INCREASE SPEED - DONE
 // SOUND
 // MUSIC
 // HIGHSCORE
@@ -108,7 +111,7 @@ var softDrop = false;
 // BATTLE MODE
 // CREDITS
 // SOFT DROP - DONE
-// HARD DROP
+// HARD DROP - 
 // POLISH ROTATION
 // MENU SYSTEM
 //=================================================================
@@ -146,8 +149,18 @@ function create(){
 
 function update(){
 	if(!gameover){
-		updateTickSpeed();
 		getInput();
+		if(hardDrop){
+			console.log("hard Drop");
+			while(testDrop()){
+				clearPiece();
+				curY++;
+				drawPiece();
+			}
+			hardDrop = false;
+			testTick();
+		}
+		updateTickSpeed();
 		updateBoardDisplayed();
 		updateNextWindow();
 	} else {
@@ -275,7 +288,17 @@ function getInput(){
 			softDrop = false;
 			testTick();
 		}
-		
+	}
+
+	if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
+		if (!hardDropLock){
+			hardDropLock = true;
+			hardDrop = true;
+		}
+	} else {
+		if(hardDropLock){
+			hardDropLock = false;
+		}
 	}
 }
 
