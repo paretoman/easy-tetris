@@ -1,15 +1,21 @@
-var game = new Phaser.Game(640, 640, Phaser.AUTO, '', {preload: preload, create: create, update: update});
+var game = new Phaser.Game(640, 480, Phaser.AUTO, '', {preload: preload, create: create, update: update});
 
-var BLOCK_SIDE = 32;
+//var BLOCK_SIDE = 32;
+var BLOCK_SIDE = 16;
 var MAX_BLOCK_COUNT_HORIZONTAL = 10;
 var MAX_BLOCK_COUNT_VERTICAL = 20;
 var MAX_INDEX_HORIZONTAL = 9;
 var MAX_INDEX_VERTICAL = 20;
 var VERTICAL_OFFSET = 1;
+var DISPLAY_OFFSET_VERTICAL = 80;
+var DISPLAY_OFFSET_HORIZONTAL = 240;
+var NEXT_WINDOW_OFFSET_VERTICAL = 80;
+var NEXT_WINDOW_OFFSET_HORIZONTAL = 416;
+
 
 var tetraminos;
 var blocos = [];
-var board = [
+/*var board = [
 	['_','_','_','_','_','_','_','_','_','_'],//DEADZONE if drop occurs here it means GAMEOVER
 	['_','_','_','_','_','_','_','_','_','_'],
 	['_','_','_','_','_','_','_','_','_','_'],
@@ -32,8 +38,8 @@ var board = [
 	['_','X','X','X','X','X','X','X','X','X'],
 	['X','X','X','X','X','X','X','X','X','_']
 	];
-/*
-	var board = [
+*/
+var board = [
 	['_','_','_','_','_','_','_','_','_','_'],//DEADZONE if drop occurs here it means GAMEOVER
 	['_','_','_','_','_','_','_','_','_','_'],
 	['_','_','_','_','_','_','_','_','_','_'],
@@ -56,7 +62,7 @@ var board = [
 	['_','_','_','_','_','_','_','_','_','_'],
 	['_','_','_','_','_','_','_','_','_','_']
 	];
-	*/
+
 var boardDisplay = [
 	[,,,,,,,,,],
 	[,,,,,,,,,],
@@ -122,9 +128,13 @@ var gameover = false;
 function preload(){
 	game.load.atlas('blocoatlas', 'img/blocoatlas.png', 'js/blocoatlas.json');
 	game.load.json('tetraminosJSON', 'js/tetraminos.json')
+	game.load.image('bg', 'img/phaser_universe_bg.png');
+	game.load.image('board', 'img/bg1.png');
 }
 
 function create(){
+	game.add.sprite(0, 0, 'bg');
+	game.add.sprite(0, 0, 'board');
 	createBoardDisplay();
 	createNextWindow()
 	tetraminos = game.cache.getJSON('tetraminosJSON');
@@ -190,7 +200,8 @@ function createBoardDisplay(){
 	//create grid with blocos
 	for(var i = 0; i < MAX_BLOCK_COUNT_HORIZONTAL; i++){
 		for(var j = 0; j < MAX_BLOCK_COUNT_VERTICAL; j++){
-			boardDisplay[j][i] = game.add.sprite(i * BLOCK_SIDE, j * BLOCK_SIDE, 'blocoatlas', 'OFF');
+			boardDisplay[j][i] = game.add.sprite(DISPLAY_OFFSET_HORIZONTAL + (i * BLOCK_SIDE), DISPLAY_OFFSET_VERTICAL + (j * BLOCK_SIDE), 'blocoatlas', 'OFF');
+			boardDisplay[j][i].scale.setTo(0.5, 0.5);
 		}
 	}
 }
@@ -198,7 +209,8 @@ function createBoardDisplay(){
 function createNextWindow(){
 	for(var i = 0; i < 3; i++){
 		for(var j = 0; j < 4; j++){
-			nextWindow[j][i] = game.add.sprite((i +11) * BLOCK_SIDE , (j +1) * BLOCK_SIDE, 'blocoatlas', 'OFF');
+			nextWindow[j][i] = game.add.sprite(NEXT_WINDOW_OFFSET_HORIZONTAL + (i * BLOCK_SIDE) , NEXT_WINDOW_OFFSET_VERTICAL + (j * BLOCK_SIDE), 'blocoatlas', 'OFF');
+			nextWindow[j][i].scale.setTo(0.5, 0.5);
 		}
 	}
 }
