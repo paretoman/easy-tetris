@@ -66,7 +66,7 @@ var nextWindow = [
 	[,,],
 	[,,],
 	[,,] ];
-var curX = 0;
+var curX = 4;
 var curY = 0;
 var curPose = 0;
 var piece;
@@ -74,13 +74,17 @@ var nextPiece;
 var rotateLock = false;
 var movementLock = false;
 var movementInterval = 0.15;
+var tickInterval = 1000;
+var tickIntervalsoftDrop = 50;
 var hAxis = 0;
 var bgsNames;
 var curBg = 4;
 var bgs = [];
 var timer = null;
+var ticktimer = null;
 
 var gameover = false;
+var softDrop = false;
 
 //===========================TODO==================================:
 // FIX TIMER ISSUES - DONE
@@ -101,7 +105,8 @@ var gameover = false;
 // MULTIPLAYER
 // BATTLE MODE
 // CREDITS
-// GET RIC
+// SOFT DROP
+// HARD DROP
 //=================================================================
 
 function preload(){
@@ -110,14 +115,6 @@ function preload(){
 	//game.load.image('bg', 'img/phaser_universe_bg.png');
 	game.load.image('board', 'img/bg1.png');
 	loadBgs();
-}
-
-function loadBgs(){
-	bgsNames = ["img/phaser_universe_bg.png", "img/bg_PROERD.png", "img/bg_PROERD2.png", "img/virgilio_pokemon_ghosts.png", "img/virgilio_master_sword.png"];
-	var bgsCount = bgsNames.length;
-	for(var i=0; i < bgsCount; i++){
-		game.load.image('bg'+i,bgsNames[i]);
-	}
 }
 
 function create(){
@@ -259,12 +256,35 @@ function getInput(){
 	} else {
 		rotateLock = false;
 	}
+
+	if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
+		if(!softDrop){
+			killSoftDropTimer();
+			softDrop = true;
+			testTick();
+		}
+	} else {
+		if(softDrop)
+		{
+			killSoftDropTimer();
+			softDrop = false;
+			testTick();
+		}
+		
+	}
 }
 
 function getPiece(){
 	piece = nextPiece;
 	nextPiece = tetraminos.tetraminos[game.rnd.integerInRange(0, 6)];
 	curPose = 0;
+}
+
+function killSoftDropTimer(){
+	if(ticktimer != null){
+		game.time.events.remove(ticktimer);
+		console.log(game.time.events.length);
+	}
 }
 
 function lineClear(lineNum){
@@ -280,6 +300,14 @@ function lineClear(lineNum){
 			board[0][i] = "_";
 	}
 	console.log("Line "+lineNum+" cleared");
+}
+
+function loadBgs(){
+	bgsNames = ["img/phaser_universe_bg.png", "img/bg_PROERD.png", "img/bg_PROERD2.png", "img/virgilio_pokemon_ghosts.png", "img/virgilio_master_sword.png"];
+	var bgsCount = bgsNames.length;
+	for(var i=0; i < bgsCount; i++){
+		game.load.image('bg'+i,bgsNames[i]);
+	}
 }
 
 function moveRight(){
@@ -307,7 +335,7 @@ function moveLeft(){
 function newPiece(){
 	placeOnBoard();
 	getPiece();
-	curY = -2;
+	curY = 0;
 	curX = 4;
 }
 
@@ -501,6 +529,7 @@ function testRotateCounterClockWise(){
 }
 
 function testTick(){
+	console.log("testTick");
 	if(testDrop()){
 		tick();
 	} else {
@@ -509,9 +538,16 @@ function testTick(){
 			testLineClear();
 			drawPiece();
 		}
-
 	}
-	setTimeout(testTick, 100);
+
+	killSoftDropTimer();
+	var ticktime;
+	if(softDrop){
+		ticktime = Phaser.Timer.SECOND * tickIntervalsoftDrop / 1000;
+	} else {
+		ticktime = Phaser.Timer.SECOND * tickInterval / 1000;
+	}
+	ticktimer = game.time.events.loop(ticktime , testTick, this);
 }
 
 function tick(){ //move piece a line down
