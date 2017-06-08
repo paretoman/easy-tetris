@@ -12,33 +12,9 @@ var DISPLAY_OFFSET_HORIZONTAL = 240;
 var NEXT_WINDOW_OFFSET_VERTICAL = 80;
 var NEXT_WINDOW_OFFSET_HORIZONTAL = 416;
 
-
 var tetraminos;
 var blocos = [];
-/*var board = [
-	['_','_','_','_','_','_','_','_','_','_'],//DEADZONE if drop occurs here it means GAMEOVER
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','X','X','X','X','X','X','X','X','X'],
-	['_','X','X','X','X','X','X','X','X','X'],
-	['_','X','X','X','X','X','X','X','X','X'],
-	['X','X','X','X','X','X','X','X','X','_']
-	];
-*/
+
 var board = [
 	['_','_','_','_','_','_','_','_','_','_'],//DEADZONE if drop occurs here it means GAMEOVER
 	['_','_','_','_','_','_','_','_','_','_'],
@@ -99,6 +75,9 @@ var rotateLock = false;
 var movementLock = false;
 var movementInterval = 0.15;
 var hAxis = 0;
+var bgsNames;
+var curBg = 4;
+var bgs = [];
 var timer = null;
 
 var gameover = false;
@@ -127,19 +106,39 @@ var gameover = false;
 
 function preload(){
 	game.load.atlas('blocoatlas', 'img/blocoatlas.png', 'js/blocoatlas.json');
-	game.load.json('tetraminosJSON', 'js/tetraminos.json')
-	game.load.image('bg', 'img/phaser_universe_bg.png');
+	game.load.json('tetraminosJSON', 'js/tetraminos.json');
+	//game.load.image('bg', 'img/phaser_universe_bg.png');
 	game.load.image('board', 'img/bg1.png');
+	loadBgs();
+}
+
+function loadBgs(){
+	bgsNames = ["img/phaser_universe_bg.png", "img/bg_PROERD.png", "img/bg_PROERD2.png", "img/virgilio_pokemon_ghosts.png", "img/virgilio_master_sword.png"];
+	var bgsCount = bgsNames.length;
+	for(var i=0; i < bgsCount; i++){
+		game.load.image('bg'+i,bgsNames[i]);
+	}
 }
 
 function create(){
-	game.add.sprite(0, 0, 'bg');
+	game.add.sprite(0, 0, 'bg'+curBg);
 	game.add.sprite(0, 0, 'board');
 	createBoardDisplay();
 	createNextWindow()
 	tetraminos = game.cache.getJSON('tetraminosJSON');
 	getPiece();
 	getPiece();//proper init
+	
+	var style = { font: "16px Arial", fill: "#fff", 
+        align: "left", 
+        boundsAlignH: "left", 
+        boundsAlignV: "middle", 
+        wordWrap: true, wordWrapWidth: 300 };
+    var imageCredit = "Master Sword\nby Virgilio Silveira";
+
+    text = game.add.text(0, 0, imageCredit, style);
+
+    text.setTextBounds(426, 336, 150, 64);
 	testTick();
 
 }
@@ -152,7 +151,6 @@ function update(){
 	} else {
 		clearNextWindow();
 		clearBoardDisplay();
-		console.log("GAME OVER");
 	}
 }
 
@@ -466,7 +464,6 @@ function testRotateClockWise(){
 	for(var i = 0; i < 4; i++){
 		tmpX = piece.poses[testPose][i][0] + curX;
 		tmpY = piece.poses[testPose][i][1] + curY;
-		//console.log("board[tmpY][tmpX] : "+ board[tmpY][tmpX] + "  // tmpX : " + tmpX + "  // tmpY : " + tmpY);
 		if(tmpY < 0){
 			//do nothing
 		} else {
