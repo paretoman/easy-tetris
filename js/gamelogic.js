@@ -82,6 +82,8 @@ var curBg = 4;
 var bgs = [];
 var timer = null;
 var ticktimer = null;
+var lineCount = 0;
+var speedUpGoal = 10;
 
 var gameover = false;
 var softDrop = false;
@@ -105,8 +107,10 @@ var softDrop = false;
 // MULTIPLAYER
 // BATTLE MODE
 // CREDITS
-// SOFT DROP
+// SOFT DROP - DONE
 // HARD DROP
+// POLISH ROTATION
+// MENU SYSTEM
 //=================================================================
 
 function preload(){
@@ -142,6 +146,7 @@ function create(){
 
 function update(){
 	if(!gameover){
+		updateTickSpeed();
 		getInput();
 		updateBoardDisplayed();
 		updateNextWindow();
@@ -283,7 +288,6 @@ function getPiece(){
 function killSoftDropTimer(){
 	if(ticktimer != null){
 		game.time.events.remove(ticktimer);
-		console.log(game.time.events.length);
 	}
 }
 
@@ -299,7 +303,7 @@ function lineClear(lineNum){
 	for(var i=0; i< MAX_BLOCK_COUNT_HORIZONTAL; i++){
 			board[0][i] = "_";
 	}
-	console.log("Line "+lineNum+" cleared");
+	lineCount++;
 }
 
 function loadBgs(){
@@ -529,7 +533,6 @@ function testRotateCounterClockWise(){
 }
 
 function testTick(){
-	console.log("testTick");
 	if(testDrop()){
 		tick();
 	} else {
@@ -583,5 +586,13 @@ function updateNextWindow(){
 		var blocoX = (nextPiece.poses[0][i][0]) + offsetX;
 		var blocoY = (nextPiece.poses[0][i][1]) + offsetY;
 		nextWindow[blocoY][blocoX].frameName = "ON";
+	}
+}
+
+function updateTickSpeed(){
+	if(lineCount  >= speedUpGoal){
+		tickInterval *= 0.9;
+		speedUpGoal += 10;
+		console.log("speed up");
 	}
 }
