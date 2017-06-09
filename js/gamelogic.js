@@ -16,27 +16,27 @@ var tetraminos;
 var blocos = [];
 
 var board = [
-	['_','_','_','_','_','_','_','_','_','_'],//DEADZONE if drop occurs here it means GAMEOVER
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_'],
-	['_','_','_','_','_','_','_','_','_','_']
+	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],//DEADZONE if drop occurs here it means GAMEOVER
+	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
 	];
 
 var boardDisplay = [
@@ -66,11 +66,15 @@ var nextWindow = [
 	[,,],
 	[,,],
 	[,,] ];
+var blocosColors = [0xa000f1, 0xefa000, 0x0002ec, 0xedf201, 0x04efed, 0xf10002, 0x00f000];
+
 var curX = 4;
 var curY = 0;
 var curPose = 0;
 var piece;
 var nextPiece;
+var pieceIndex;
+var nextPieceIndex;
 var rotateLock = false;
 var movementLock = false;
 var movementInterval = 0.15;
@@ -111,9 +115,10 @@ var hardDropLock = false;
 // BATTLE MODE
 // CREDITS
 // SOFT DROP - DONE
-// HARD DROP - 
+// HARD DROP - DONE
 // POLISH ROTATION
 // MENU SYSTEM
+// REDONE BOARD GRID, NO NEED FOR EXTRA ROW AT THE TOP
 //=================================================================
 
 function preload(){
@@ -144,7 +149,6 @@ function create(){
 
     text.setTextBounds(426, 336, 150, 64);
 	testTick();
-
 }
 
 function update(){
@@ -174,7 +178,12 @@ function blocoOff(x, y){
 }
 
 function blocoOn(x, y){ //lits bloco at positio x, y
+	var colorIndex = board[y+1][x] -10;
+	if(colorIndex < 0){
+		colorIndex += 10;
+	}
 	boardDisplay[y][x].frameName = 'ON';
+	boardDisplay[y][x].tint = blocosColors[colorIndex];
 }
 
 function clearBoardDisplay(){
@@ -204,7 +213,7 @@ function clearPiece(){
 		} else if(tmpX > MAX_INDEX_HORIZONTAL || tmpY > MAX_INDEX_VERTICAL){
 			// do nothing
 		} else {
-			board[tmpY][tmpX] = "_";
+			board[tmpY][tmpX] = -1;
 		}
 	}
 }
@@ -239,7 +248,7 @@ function drawPiece(){
 		} else if(tmpX > MAX_INDEX_HORIZONTAL || tmpY > MAX_INDEX_VERTICAL){
 			// do nothing
 		} else {
-			board[tmpY][tmpX] = "p";
+			board[tmpY][tmpX] = pieceIndex;
 		}
 	}
 }
@@ -304,7 +313,9 @@ function getInput(){
 
 function getPiece(){
 	piece = nextPiece;
-	nextPiece = tetraminos.tetraminos[game.rnd.integerInRange(0, 6)];
+	pieceIndex = nextPieceIndex;
+	nextPieceIndex = game.rnd.integerInRange(0, 6);
+	nextPiece = tetraminos.tetraminos[nextPieceIndex];
 	curPose = 0;
 }
 
@@ -324,7 +335,7 @@ function lineClear(lineNum){
 	}
 	
 	for(var i=0; i< MAX_BLOCK_COUNT_HORIZONTAL; i++){
-			board[0][i] = "_";
+			board[0][i] = -1;
 	}
 	lineCount++;
 }
@@ -377,7 +388,9 @@ function placeOnBoard(){
 		} else if(tmpX > MAX_INDEX_HORIZONTAL || tmpY > MAX_INDEX_VERTICAL){
 			// do nothing
 		} else {
-			board[tmpY][tmpX] = "X";
+			//board[tmpY][tmpX] = "X";
+			board[tmpY][tmpX] = pieceIndex + 10;
+
 		}
 	}
 }
@@ -393,7 +406,7 @@ function printBoard(showOffset = true){
 	for (var i = tmpOffset; i <= MAX_BLOCK_COUNT_VERTICAL; i++){
 		line = i + " - ";
 		for (var j = 0; j < MAX_BLOCK_COUNT_HORIZONTAL; j++){
-			line+= board[i][j];
+			line+= board[i][j] + "|";
 		}
 		console.log(line);
 	}
@@ -433,7 +446,7 @@ function testDrop(){
 			// do nothing
 		} else if(tmpX > MAX_INDEX_HORIZONTAL || tmpY > MAX_INDEX_VERTICAL){
 			// do nothing
-		} else if(board[tmpY + 1][tmpX] == "X"){
+		} else if(board[tmpY + 1][tmpX] >= 10){
 				return false;
 			}
 		}
@@ -455,7 +468,7 @@ function testLineClear(){
 	for(var i=0; i <= MAX_BLOCK_COUNT_VERTICAL; i++){
 		for(var j=0; j < MAX_BLOCK_COUNT_HORIZONTAL; j++){
 			lineCleared = true;
-			if(board[i][j] == "_"){
+			if(board[i][j] == -1){
 				lineCleared = false;
 				break;
 			}
@@ -523,7 +536,7 @@ function testRotateClockWise(){
 			//do nothing
 		} else {
 			if(tmpX > -1 && tmpX < MAX_BLOCK_COUNT_HORIZONTAL){
-				if(board[tmpY][tmpX] == "X"){
+				if(board[tmpY][tmpX] >= 10){
 					return false
 				}
 			} else {
@@ -545,7 +558,7 @@ function testRotateCounterClockWise(){
 		tmpX = piece.poses[testPose][i][0] + curX;
 		tmpY = piece.poses[testPose][i][1] + curY;
 		if(tmpX > -1 && tmpX < MAX_BLOCK_COUNT_HORIZONTAL){
-			if(board[tmpY][tmpX] == "X"){
+			if(board[tmpY][tmpX] >= 10){
 				return false;
 			}
 		} else {
@@ -592,7 +605,7 @@ function unlockMovement(){
 function updateBoardDisplayed(){
 	for(var i = 0; i < MAX_BLOCK_COUNT_HORIZONTAL; i++){
 		for(var j = 0; j < MAX_BLOCK_COUNT_VERTICAL; j++){
-			if(board[j+VERTICAL_OFFSET][i] == "_"){
+			if(board[j+VERTICAL_OFFSET][i] == -1){
 				blocoOff(i, j);
 			} else {
 				blocoOn(i, j);
@@ -609,6 +622,8 @@ function updateNextWindow(){
 		var blocoX = (nextPiece.poses[0][i][0]) + offsetX;
 		var blocoY = (nextPiece.poses[0][i][1]) + offsetY;
 		nextWindow[blocoY][blocoX].frameName = "ON";
+		nextWindow[blocoY][blocoX].tint = blocosColors[nextPieceIndex];
+
 	}
 }
 
