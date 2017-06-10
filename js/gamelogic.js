@@ -101,7 +101,7 @@ var hardDropLock = false;
 // COLORS - DONE
 // SOFT DROP - DONE
 // HARD DROP - DONE
-// FIX HORIZONTAL MOVEMENT BUG (EATING BLOCKS)
+// FIX HORIZONTAL MOVEMENT BUG (EATING BLOCKS) - DONE
 // POLISH ROTATION
 // LINE CLEAR ANIMATION
 // GAME OVER ANIMATION
@@ -115,7 +115,7 @@ var hardDropLock = false;
 // JOYSTICK INPUT
 // MULTIPLAYER
 // BATTLE MODE
-// REDONE BOARD GRID, NO NEED FOR EXTRA ROW AT THE TOP - 
+// REDONE BOARD GRID, NO NEED FOR EXTRA ROW AT THE TOP - DONE
 // IMPROVE GAMEPLAY/GAME FEEL
 // IMPROVE PRESENTATION
 //=================================================================
@@ -482,9 +482,7 @@ function testMoveLeft(){
 		if(tmpX >= 0){ // test if there is room to go left
 			if(tmpY < 0){ //if offscreen
 				//do nothing
-			} else if(board[tmpY][tmpX] != "X"){
-				//do nothing
-			} else {
+			} else if(board[tmpY][tmpX] >= 10){
 				return false;
 			}
 		} else {
@@ -503,9 +501,7 @@ function testMoveRight(){
 		if(tmpX <= MAX_INDEX_HORIZONTAL){ // test if there is room to go right
 			if(tmpY < 0){ //if offscreen
 				//do nothing
-			} else if(board[tmpY][tmpX] != "X"){
-				//do nothing
-			} else {
+			} else if(board[tmpY][tmpX] >= 10){
 				return false;
 			}
 		} else {
