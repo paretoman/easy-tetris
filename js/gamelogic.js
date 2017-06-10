@@ -86,12 +86,17 @@ var timer = null;
 var ticktimer = null;
 var lineCount = 0;
 var speedUpGoal = 10;
+var linesToClear = [];
+var lineClearX = 0;
+var lineClearInterval = 50;
+var lineClearTimer;
 
 var gameover = false;
 var softDrop = false;
 var hardDrop = false;
 var hardDropLock = false;
-
+var cleaningLines = false;
+var waitingLineClear = false;
 
 //===========================TODO==================================:
 // FIX TIMER ISSUES - DONE
@@ -102,8 +107,8 @@ var hardDropLock = false;
 // SOFT DROP - DONE
 // HARD DROP - DONE
 // FIX HORIZONTAL MOVEMENT BUG (EATING BLOCKS) - DONE
+// LINE CLEAR ANIMATION - 
 // POLISH ROTATION
-// LINE CLEAR ANIMATION
 // GAME OVER ANIMATION
 // SCORE
 // HIGHSCORE
@@ -151,20 +156,26 @@ function create(){
 
 function update(){
 	if(!gameover){
-		getInput();
-		if(hardDrop){
-			console.log("hard Drop");
-			while(testDrop()){
-				clearPiece();
-				curY++;
-				drawPiece();
+		if(cleaningLines){
+			if(!waitingLineClear){
+				waitingLineClear = true;
+				lineClearTimer = game.time.events.loop(Phaser.Timer.SECOND * lineClearInterval / 1000, lineClear, this);
 			}
-			hardDrop = false;
-			testTick();
+		} else {
+			getInput();
+			if(hardDrop){
+				while(testDrop()){
+					clearPiece();
+					curY++;
+					drawPiece();
+				}
+				hardDrop = false;
+				testTick();
+			}
+			updateTickSpeed();
+			updateBoardDisplayed();
+			updateNextWindow();
 		}
-		updateTickSpeed();
-		updateBoardDisplayed();
-		updateNextWindow();
 	} else {
 		clearNextWindow();
 		clearBoardDisplay();
@@ -175,13 +186,32 @@ function blocoOff(x, y){
 	boardDisplay[y][x].frameName = 'OFF';
 }
 
-function blocoOn(x, y){ //lits bloco at positio x, y
+function blocoOn(x, y){ //lits bloco at position x, y
 	var colorIndex = board[y][x] -10;
 	if(colorIndex < 0){
 		colorIndex += 10;
 	}
 	boardDisplay[y][x].frameName = 'ON';
 	boardDisplay[y][x].tint = blocosColors[colorIndex];
+}
+
+function bringLinesDown(){
+	var prevLine;
+	for(var k = 0; k < linesToClear.length; k ++ ){
+		for(var i = linesToClear[k]; i > 0; i--){
+			prevLine = i -1;
+			for(var j=0; j< MAX_BLOCK_COUNT_HORIZONTAL; j++){
+				board[i][j] = board[prevLine][j];
+			}
+		}
+		lineCount++;
+	}
+	cleaningLines = false;
+	waitingLineClear = false;
+	linesToClear = [];
+	game.time.events.remove(lineClearTimer);
+	//newPiece();
+	//drawPiece();
 }
 
 function clearBoardDisplay(){
@@ -323,19 +353,19 @@ function killSoftDropTimer(){
 	}
 }
 
-function lineClear(lineNum){
-	var prevLine;
-	for(var i = lineNum; i > 0; i--){
-		prevLine = i -1;
-		for(var j=0; j< MAX_BLOCK_COUNT_HORIZONTAL; j++){
-			board[i][j] = board[prevLine][j];
-		}
+function lineClear(){
+	for(var i = 0; i < linesToClear.length; i++ ){
+		board[linesToClear[i][lineClearX]] = -1;
+		console.log("x: " + lineClearX + " / y: " + linesToClear[i]);
+		blocoOff(lineClearX, linesToClear[i]);
 	}
-	
-	for(var i=0; i< MAX_BLOCK_COUNT_HORIZONTAL; i++){
-			board[0][i] = -1;
+	//updateBoardDisplayed();
+	if(lineClearX >= MAX_INDEX_HORIZONTAL){
+		bringLinesDown();
+	} else {
+		lineClearX++;
+		//updateBoardDisplayed();
 	}
-	lineCount++;
 }
 
 function loadBgs(){
@@ -467,10 +497,15 @@ function testLineClear(){
 			}
 		}
 		if(lineCleared){
-			lineClear(i);
-			i--;
+			linesToClear.push(i);
 		}
 	}
+	if(linesToClear.length > 0){
+		cleaningLines = true;
+		lineClearX = 0
+		//lineClear(linesToClear);
+	}
+	
 }
 
 function testMoveLeft(){
@@ -562,20 +597,24 @@ function testTick(){
 		tick();
 	} else {
 		if(!testGameOver()){
-			newPiece();
 			testLineClear();
-			drawPiece();
+			if(!waitingLineClear){
+				newPiece();
+				drawPiece();
+			}
 		}
 	}
 
 	killSoftDropTimer();
-	var ticktime;
-	if(softDrop){
-		ticktime = Phaser.Timer.SECOND * tickIntervalsoftDrop / 1000;
-	} else {
-		ticktime = Phaser.Timer.SECOND * tickInterval / 1000;
+	if(!waitingLineClear){
+		var ticktime;
+		if(softDrop){
+			ticktime = Phaser.Timer.SECOND * tickIntervalsoftDrop / 1000;
+		} else {
+			ticktime = Phaser.Timer.SECOND * tickInterval / 1000;
+		}
+		ticktimer = game.time.events.loop(ticktime , testTick, this);
 	}
-	ticktimer = game.time.events.loop(ticktime , testTick, this);
 }
 
 function tick(){ //move piece a line down
