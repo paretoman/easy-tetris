@@ -5,8 +5,7 @@ var BLOCK_SIDE = 16;
 var MAX_BLOCK_COUNT_HORIZONTAL = 10;
 var MAX_BLOCK_COUNT_VERTICAL = 20;
 var MAX_INDEX_HORIZONTAL = 9;
-var MAX_INDEX_VERTICAL = 20;
-var VERTICAL_OFFSET = 1;
+var MAX_INDEX_VERTICAL = 19;
 var DISPLAY_OFFSET_VERTICAL = 80;
 var DISPLAY_OFFSET_HORIZONTAL = 240;
 var NEXT_WINDOW_OFFSET_VERTICAL = 80;
@@ -16,7 +15,6 @@ var tetraminos;
 var blocos = [];
 
 var board = [
-	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],//DEADZONE if drop occurs here it means GAMEOVER
 	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
 	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
 	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
@@ -99,32 +97,32 @@ var hardDropLock = false;
 // FIX TIMER ISSUES - DONE
 // SHOW NEXT PIECE - DONE
 // GAME OVER - DONE
+// INCREASE SPEED - DONE
+// COLORS - DONE
+// SOFT DROP - DONE
+// HARD DROP - DONE
+// FIX HORIZONTAL MOVEMENT BUG (EATING BLOCKS)
+// POLISH ROTATION
 // LINE CLEAR ANIMATION
 // GAME OVER ANIMATION
-// COLORS
 // SCORE
-// INCREASE SPEED - DONE
+// HIGHSCORE
+// MENU SYSTEM
+// CREDITS
 // SOUND
 // MUSIC
-// HIGHSCORE
 // CUSTOM CONTROLS
-// IMPROVE PRESENTATION
-// IMPROVE GAMEPLAY/GAME FEEL
 // JOYSTICK INPUT
 // MULTIPLAYER
 // BATTLE MODE
-// CREDITS
-// SOFT DROP - DONE
-// HARD DROP - DONE
-// POLISH ROTATION
-// MENU SYSTEM
-// REDONE BOARD GRID, NO NEED FOR EXTRA ROW AT THE TOP
+// REDONE BOARD GRID, NO NEED FOR EXTRA ROW AT THE TOP - 
+// IMPROVE GAMEPLAY/GAME FEEL
+// IMPROVE PRESENTATION
 //=================================================================
 
 function preload(){
 	game.load.atlas('blocoatlas', 'img/blocoatlas.png', 'js/blocoatlas.json');
 	game.load.json('tetraminosJSON', 'js/tetraminos.json');
-	//game.load.image('bg', 'img/phaser_universe_bg.png');
 	game.load.image('board', 'img/bg1.png');
 	loadBgs();
 }
@@ -178,7 +176,7 @@ function blocoOff(x, y){
 }
 
 function blocoOn(x, y){ //lits bloco at positio x, y
-	var colorIndex = board[y+1][x] -10;
+	var colorIndex = board[y][x] -10;
 	if(colorIndex < 0){
 		colorIndex += 10;
 	}
@@ -373,7 +371,7 @@ function moveLeft(){
 function newPiece(){
 	placeOnBoard();
 	getPiece();
-	curY = 0;
+	curY = -1;
 	curX = 4;
 }
 
@@ -395,15 +393,9 @@ function placeOnBoard(){
 	}
 }
 
-function printBoard(showOffset = true){
-	var tmpOffset;
-	if(showOffset){
-		tmpOffset = VERTICAL_OFFSET;
-	} else {
-		tmpOffset = 0;
-	}
+function printBoard(){
 	var line = "";
-	for (var i = tmpOffset; i <= MAX_BLOCK_COUNT_VERTICAL; i++){
+	for (var i = 0; i <= MAX_BLOCK_COUNT_VERTICAL; i++){
 		line = i + " - ";
 		for (var j = 0; j < MAX_BLOCK_COUNT_HORIZONTAL; j++){
 			line+= board[i][j] + "|";
@@ -440,13 +432,13 @@ function testDrop(){
 	if(curY < MAX_INDEX_VERTICAL){
 		for(var i = 0; i < 4; i++){
 			tmpX = piece.poses[curPose][i][0] + curX;
-			tmpY = piece.poses[curPose][i][1] + curY;
+			tmpY = piece.poses[curPose][i][1] + curY + 1;
 
 			if(tmpX < 0 ||  tmpY< 0){
 			// do nothing
 		} else if(tmpX > MAX_INDEX_HORIZONTAL || tmpY > MAX_INDEX_VERTICAL){
 			// do nothing
-		} else if(board[tmpY + 1][tmpX] >= 10){
+		} else if(board[tmpY][tmpX] >= 10){
 				return false;
 			}
 		}
@@ -457,15 +449,16 @@ function testDrop(){
 }
 
 function testGameOver(){
-	if(curY == 0){
+	if(curY == -1){
 		gameover = true;
 		return true;
 	}
+	
 	return false;
 }
 
 function testLineClear(){
-	for(var i=0; i <= MAX_BLOCK_COUNT_VERTICAL; i++){
+	for(var i=0; i < MAX_BLOCK_COUNT_VERTICAL; i++){
 		for(var j=0; j < MAX_BLOCK_COUNT_HORIZONTAL; j++){
 			lineCleared = true;
 			if(board[i][j] == -1){
@@ -605,7 +598,7 @@ function unlockMovement(){
 function updateBoardDisplayed(){
 	for(var i = 0; i < MAX_BLOCK_COUNT_HORIZONTAL; i++){
 		for(var j = 0; j < MAX_BLOCK_COUNT_VERTICAL; j++){
-			if(board[j+VERTICAL_OFFSET][i] == -1){
+			if(board[j][i] == -1){
 				blocoOff(i, j);
 			} else {
 				blocoOn(i, j);
