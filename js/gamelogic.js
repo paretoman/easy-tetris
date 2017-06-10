@@ -76,7 +76,7 @@ var nextPieceIndex;
 var rotateLock = false;
 var movementLock = false;
 var movementInterval = 0.15;
-var tickInterval = 1000;
+var tickInterval = 500;
 var tickIntervalsoftDrop = 50;
 var hAxis = 0;
 var bgsNames;
@@ -107,7 +107,7 @@ var waitingLineClear = false;
 // SOFT DROP - DONE
 // HARD DROP - DONE
 // FIX HORIZONTAL MOVEMENT BUG (EATING BLOCKS) - DONE
-// LINE CLEAR ANIMATION - 
+// LINE CLEAR ANIMATION - DONE
 // POLISH ROTATION
 // GAME OVER ANIMATION
 // SCORE
@@ -202,6 +202,10 @@ function bringLinesDown(){
 			prevLine = i -1;
 			for(var j=0; j< MAX_BLOCK_COUNT_HORIZONTAL; j++){
 				board[i][j] = board[prevLine][j];
+				if(board[i][j] < 10){
+					board[i][j] = -1;
+				}
+
 			}
 		}
 		lineCount++;
@@ -210,8 +214,9 @@ function bringLinesDown(){
 	waitingLineClear = false;
 	linesToClear = [];
 	game.time.events.remove(lineClearTimer);
-	//newPiece();
-	//drawPiece();
+	curY = -1; //gambiarra
+	
+	testTick();
 }
 
 function clearBoardDisplay(){
@@ -359,12 +364,10 @@ function lineClear(){
 		console.log("x: " + lineClearX + " / y: " + linesToClear[i]);
 		blocoOff(lineClearX, linesToClear[i]);
 	}
-	//updateBoardDisplayed();
 	if(lineClearX >= MAX_INDEX_HORIZONTAL){
 		bringLinesDown();
 	} else {
 		lineClearX++;
-		//updateBoardDisplayed();
 	}
 }
 
@@ -416,16 +419,14 @@ function placeOnBoard(){
 		} else if(tmpX > MAX_INDEX_HORIZONTAL || tmpY > MAX_INDEX_VERTICAL){
 			// do nothing
 		} else {
-			//board[tmpY][tmpX] = "X";
 			board[tmpY][tmpX] = pieceIndex + 10;
-
 		}
 	}
 }
 
 function printBoard(){
 	var line = "";
-	for (var i = 0; i <= MAX_BLOCK_COUNT_VERTICAL; i++){
+	for (var i = 0; i < MAX_BLOCK_COUNT_VERTICAL; i++){
 		line = i + " - ";
 		for (var j = 0; j < MAX_BLOCK_COUNT_HORIZONTAL; j++){
 			line+= board[i][j] + "|";
@@ -503,8 +504,9 @@ function testLineClear(){
 	if(linesToClear.length > 0){
 		cleaningLines = true;
 		lineClearX = 0
-		//lineClear(linesToClear);
+		return true;
 	}
+	return false;
 	
 }
 
@@ -597,11 +599,11 @@ function testTick(){
 		tick();
 	} else {
 		if(!testGameOver()){
-			testLineClear();
 			if(!waitingLineClear){
 				newPiece();
 				drawPiece();
 			}
+			testLineClear();
 		}
 	}
 
