@@ -210,7 +210,7 @@ function update(){
 			if(!waitingLineClear){
 				waitingLineClear = true;
 				lineClearTimer = game.time.events.loop(Phaser.Timer.SECOND * lineClearInterval / 1000, lineClear, this);
-				score(lineClearPts[linesToClear.length - 1]);
+				score(lineClearPts[linesToClear.length - 1] * level);
 			}
 		} else {
 			getInput();
@@ -560,7 +560,7 @@ function rotateCounterClockWise(){
 }
 
 function score(pts){
-	curScore += pts * level;
+	curScore += pts;
 	updateLabelScore();
 }
 
