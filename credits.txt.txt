@@ -1,0 +1,40 @@
+bg_PROERD.png
+bg_PROERD2.png
+Nestablo Ramos
+http://nestablo.blogspot.com.br/2012/05/proerd.html
+
+phaser_universe_bg.png
+Phaser Site
+http://phaser.io/
+
+virgilio_master_sword.png
+virgilio_pokemon_ghosts.png
+Virgílio Silveira
+https://www.facebook.com/VirgilioSilveiraArts/
+==============
+Font: Exo by Natanael Gama
+https://www.fontsquirrel.com/fonts/exo
+==============
+Scoring System
+Based on section 'Recent guideline compatible games' in http://tetris.wikia.com/wiki/Scoring
+
+Action...........................................Points
+Single/Mini T-Spin...............................100×level
+Mini T-Spin Single...............................200×level
+Double/Back To Back Mini T-Spin Single...........300×level
+T-Spin...........................................400×level
+Triple...........................................500×level
+Tetris/T-Spin Single.............................800×level
+B2B T-Spin Single..............................1,200×level
+Perfect Clear..................................1,200×level
+B2B Tetris.....................................1,200×level
+T-Spin Double..................................1,200×level
+T-Spin Triple..................................1,600×level
+B2B T-Spin Double..............................1,800×level
+B2B T-Spin Triple..............................2,400×level
+
+Combo
+N lineclears in a row..........................50pts. * N
+
+Soft drop......................................1 point per cell (Max of 20)
+Hard drop......................................2 points per cell (Max of 40)

@@ -36,6 +36,10 @@ var board = [
 	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
 	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
 	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+	//[12,12,12,12,12,12,12,12,12,-1],
+	//[12,12,12,12,12,12,12,12,12,-1],
+	//[12,12,12,12,12,12,12,12,12,-1],
+	//[12,12,12,12,12,12,12,12,12,-1]
 	];
 
 var boardDisplay = [
@@ -93,6 +97,17 @@ var lineClearX = 0;
 var lineClearInterval = 50;
 var lineClearTimer;
 var ghostY = 0;
+var level = 1;
+var curScore = 0;
+var lineClearPts = [100, 300, 500, 800] // single, double, triple, tetris
+var softDropPts = 1;
+var hardDropPts = 2;
+var comboIncrement = 50;
+var curCombo = 0;
+var bgArtLabel;
+var labelLines;
+var labelScore;
+var labelLevel;
 
 var gameover = false;
 var softDrop = false;
@@ -115,7 +130,7 @@ var waitingLineClear = false;
 	// GHOST PIECES - DONE
 	// POLISH ROTATION (rotate on screen limits)
 	// GAME OVER ANIMATION
-	// SCORE
+	// SCORE - 
 	// HIGHSCORE
 	// MENU SYSTEM
 	// CREDITS
@@ -145,17 +160,48 @@ function create(){
 	getPiece();
 	getPiece();//proper init
 	
-	var style = { font: "16px Arial", fill: "#fff", 
+	createTexts();
+	testTick();
+}
+
+function createTexts(){
+	var bgArtStyle = { font: "16px Arial", fill: "#fff", 
         align: "left", 
         boundsAlignH: "left", 
         boundsAlignV: "middle", 
         wordWrap: true, wordWrapWidth: 300 };
-    var imageCredit = "Master Sword\nby Virgilio Silveira";
+    var bgArtText = "Master Sword\nby Virgilio Silveira";
+    bgArtLabel = game.add.text(0, 0, bgArtText, bgArtStyle);
+    bgArtLabel.setTextBounds(463, 378, 154, 92);
 
-    text = game.add.text(0, 0, imageCredit, style);
+	var scoreStyle = { font: "16px Arial", fill: "#fff", 
+        align: "center", 
+        boundsAlignH: "center", 
+        boundsAlignV: "middle", 
+        wordWrap: false, wordWrapWidth: 159 };
+    var scoreText = curScore;
+    labelScore = game.add.text(0, 0, scoreText, scoreStyle);
+    labelScore.setTextBounds(23, 348, 159, 23);
 
-    text.setTextBounds(463, 378, 154, 92);
-	testTick();
+    var levelText = level;
+    labelLevel = game.add.text(0, 0, levelText, scoreStyle);
+    labelLevel.setTextBounds(23, 397, 159, 23);
+
+	var linesText = lineCount;
+    labelLines = game.add.text(0, 0, linesText, scoreStyle);
+    labelLines.setTextBounds(23, 446, 159, 23);
+}
+
+function updateLabelLines(){
+	labelLines.text = lineCount;
+}
+
+function updateLabelScore(){
+	labelScore.text = curScore;
+}
+
+function updateLabelLevel(){
+	labelLevel.text = level;
 }
 
 function update(){
@@ -164,11 +210,13 @@ function update(){
 			if(!waitingLineClear){
 				waitingLineClear = true;
 				lineClearTimer = game.time.events.loop(Phaser.Timer.SECOND * lineClearInterval / 1000, lineClear, this);
+				score(lineClearPts[linesToClear.length - 1]);
 			}
 		} else {
 			getInput();
 			if(hardDrop){
 				while(testDrop()){
+					score(hardDropPts);
 					clearPiece();
 					curY++;
 					drawPiece();
@@ -220,6 +268,7 @@ function bringLinesDown(){
 			}
 		}
 		lineCount++;
+		updateLabelLines();
 	}
 	cleaningLines = false;
 	waitingLineClear = false;
@@ -244,7 +293,6 @@ function clearGhost(){
 	for(var i = 0; i < 4; i++){
 		tmpX = piece.poses[curPose][i][0] + curX ;
 		tmpY = piece.poses[curPose][i][1] + ghostY;
-		console.log(tmpX + " / " + tmpY);
 		if(tmpX < 0 || tmpY < 0){
 			// do nothing
 		} else if(tmpX > MAX_INDEX_HORIZONTAL || tmpY > MAX_INDEX_VERTICAL){
@@ -264,7 +312,6 @@ function clearNextWindow(){
 }
 
 function clearPiece(){
-	console.log("piece cleared");
 	clearGhost();
 	var tmpX;
 	var tmpY;
@@ -309,7 +356,6 @@ function drawGhost(){
 			break;
 		}
 	}
-	//console.log("ghostY: "+ghostY);
 	if(ghostY < MAX_BLOCK_COUNT_VERTICAL){
 		for(var i = 0; i < 4; i++){
 			tmpX = piece.poses[curPose][i][0] + curX ;
@@ -418,7 +464,6 @@ function killSoftDropTimer(){
 function lineClear(){
 	for(var i = 0; i < linesToClear.length; i++ ){
 		board[linesToClear[i][lineClearX]] = -1;
-		console.log("x: " + lineClearX + " / y: " + linesToClear[i]);
 		blocoOff(lineClearX, linesToClear[i]);
 	}
 	if(lineClearX >= MAX_INDEX_HORIZONTAL){
@@ -514,6 +559,11 @@ function rotateCounterClockWise(){
 	}
 }
 
+function score(pts){
+	curScore += pts * level;
+	updateLabelScore();
+}
+
 function testDrop(){
 	var tmpX;
 	var tmpY;
@@ -586,7 +636,6 @@ function testLineClear(){
 		return true;
 	}
 	return false;
-	
 }
 
 function testMoveLeft(){
@@ -685,6 +734,9 @@ function testTick(){
 			testLineClear();
 		}
 	}
+	if(softDrop){
+		score(softDropPts);
+	}
 
 	killSoftDropTimer();
 	if(!waitingLineClear){
@@ -702,6 +754,7 @@ function tick(){ //move piece a line down
 	clearPiece();
 	curY++;
 	drawPiece();
+
 }
 
 function unlockMovement(){
@@ -740,6 +793,7 @@ function updateTickSpeed(){
 	if(lineCount  >= speedUpGoal){
 		tickInterval *= 0.9;
 		speedUpGoal += 10;
-		console.log("speed up");
+		level++;
+		updateLabelLevel();
 	}
 }
