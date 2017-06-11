@@ -65,7 +65,7 @@ var nextWindow = [
 	[,,],
 	[,,] ];
 var blocosColors = [0xa000f1, 0xefa000, 0x0002ec, 0xedf201, 0x04efed, 0xf10002, 0x00f000];
-var ghostColor = 0xe7e7e7;
+var ghostColor = 0x555555;
 
 var curX = 4;
 var curY = 0;
@@ -190,17 +190,19 @@ function blocoOff(x, y){
 }
 
 function blocoOn(x, y){ //lits bloco at position x, y
-	var colorIndex = board[y][x] -10;
-	if(colorIndex < 0){
-		colorIndex += 10;
+	var colorIndex = board[y][x];
+	if(colorIndex == -2){
+		boardDisplay[y][x].frameName = 'ON';
+	boardDisplay[y][x].tint = ghostColor;
+	} else {
+		colorIndex -= 10;
+		if(colorIndex < 0){
+			colorIndex += 10;
+		}
+		boardDisplay[y][x].frameName = 'ON';
+		boardDisplay[y][x].tint = blocosColors[colorIndex];
 	}
-	boardDisplay[y][x].frameName = 'ON';
-	boardDisplay[y][x].tint = blocosColors[colorIndex];
-}
-
-function ghostOn(x, y, blocoColor){ //lits bloco at position x, y
-	boardDisplay[y][x].frameName = 'ON';
-	boardDisplay[y][x].tint = blocoColor;
+	
 }
 
 function bringLinesDown(){
@@ -317,7 +319,7 @@ function drawGhost(){
 				// do nothing
 			} else {
 				board[tmpY][tmpX] = -2;//ghost index
-				ghostOn(tmpX, tmpY, ghostColor);
+				//ghostOn(tmpX, tmpY);
 			}
 		}
 	}
