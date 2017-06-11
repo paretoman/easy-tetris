@@ -568,7 +568,7 @@ function testLineClear(){
 	for(var i=0; i < MAX_BLOCK_COUNT_VERTICAL; i++){
 		for(var j=0; j < MAX_BLOCK_COUNT_HORIZONTAL; j++){
 			lineCleared = true;
-			if(board[i][j] == -1){
+			if(board[i][j] <= -1){
 				lineCleared = false;
 				break;
 			}
