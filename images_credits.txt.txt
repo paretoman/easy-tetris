@@ -11,3 +11,6 @@ virgilio_master_sword.png
 virgilio_pokemon_ghosts.png
 Virgílio Silveira
 https://www.facebook.com/VirgilioSilveiraArts/
+
+Font: Exo by Natanael Gama
+https://www.fontsquirrel.com/fonts/exo

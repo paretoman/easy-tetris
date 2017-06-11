@@ -1,15 +1,16 @@
 var game = new Phaser.Game(640, 480, Phaser.AUTO, '', {preload: preload, create: create, update: update});
 
 //var BLOCK_SIDE = 32;
-var BLOCK_SIDE = 16;
+var BLOCK_SIDE = 23;
+var BLOCO_SPRITE_SCALE = BLOCK_SIDE / 32;
 var MAX_BLOCK_COUNT_HORIZONTAL = 10;
 var MAX_BLOCK_COUNT_VERTICAL = 20;
 var MAX_INDEX_HORIZONTAL = 9;
 var MAX_INDEX_VERTICAL = 19;
-var DISPLAY_OFFSET_VERTICAL = 80;
-var DISPLAY_OFFSET_HORIZONTAL = 240;
-var NEXT_WINDOW_OFFSET_VERTICAL = 80;
-var NEXT_WINDOW_OFFSET_HORIZONTAL = 416;
+var DISPLAY_OFFSET_VERTICAL = 10;
+var DISPLAY_OFFSET_HORIZONTAL = 205;
+var NEXT_WINDOW_OFFSET_VERTICAL = 53;
+var NEXT_WINDOW_OFFSET_HORIZONTAL = 458;
 
 var tetraminos;
 var blocos = [];
@@ -109,9 +110,10 @@ var waitingLineClear = false;
 	// SOFT DROP - DONE
 	// HARD DROP - DONE
 	// FIX HORIZONTAL MOVEMENT BUG (EATING BLOCKS) - DONE
+	// REDONE BOARD GRID, NO NEED FOR EXTRA ROW AT THE TOP - DONE
 	// LINE CLEAR ANIMATION - DONE
-	// GHOST PIECES
-	// POLISH ROTATION
+	// GHOST PIECES - DONE
+	// POLISH ROTATION (rotate on screen limits)
 	// GAME OVER ANIMATION
 	// SCORE
 	// HIGHSCORE
@@ -123,7 +125,6 @@ var waitingLineClear = false;
 	// JOYSTICK INPUT
 	// MULTIPLAYER
 	// BATTLE MODE
-	// REDONE BOARD GRID, NO NEED FOR EXTRA ROW AT THE TOP - DONE
 	// IMPROVE GAMEPLAY/GAME FEEL
 	// IMPROVE PRESENTATION
 //=================================================================
@@ -153,7 +154,7 @@ function create(){
 
     text = game.add.text(0, 0, imageCredit, style);
 
-    text.setTextBounds(426, 336, 150, 64);
+    text.setTextBounds(463, 378, 154, 92);
 	testTick();
 }
 
@@ -285,7 +286,7 @@ function createBoardDisplay(){
 	for(var i = 0; i < MAX_BLOCK_COUNT_HORIZONTAL; i++){
 		for(var j = 0; j < MAX_BLOCK_COUNT_VERTICAL; j++){
 			boardDisplay[j][i] = game.add.sprite(DISPLAY_OFFSET_HORIZONTAL + (i * BLOCK_SIDE), DISPLAY_OFFSET_VERTICAL + (j * BLOCK_SIDE), 'blocoatlas', 'OFF');
-			boardDisplay[j][i].scale.setTo(0.5, 0.5);
+			boardDisplay[j][i].scale.setTo(BLOCO_SPRITE_SCALE, BLOCO_SPRITE_SCALE);
 		}
 	}
 }
@@ -294,7 +295,7 @@ function createNextWindow(){
 	for(var i = 0; i < 3; i++){
 		for(var j = 0; j < 4; j++){
 			nextWindow[j][i] = game.add.sprite(NEXT_WINDOW_OFFSET_HORIZONTAL + (i * BLOCK_SIDE) , NEXT_WINDOW_OFFSET_VERTICAL + (j * BLOCK_SIDE), 'blocoatlas', 'OFF');
-			nextWindow[j][i].scale.setTo(0.5, 0.5);
+			nextWindow[j][i].scale.setTo(BLOCO_SPRITE_SCALE, BLOCO_SPRITE_SCALE);
 		}
 	}
 }
