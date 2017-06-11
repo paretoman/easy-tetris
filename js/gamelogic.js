@@ -65,6 +65,7 @@ var nextWindow = [
 	[,,],
 	[,,] ];
 var blocosColors = [0xa000f1, 0xefa000, 0x0002ec, 0xedf201, 0x04efed, 0xf10002, 0x00f000];
+var ghostColor = 0xe7e7e7;
 
 var curX = 4;
 var curY = 0;
@@ -90,6 +91,7 @@ var linesToClear = [];
 var lineClearX = 0;
 var lineClearInterval = 50;
 var lineClearTimer;
+var ghostY = 0;
 
 var gameover = false;
 var softDrop = false;
@@ -99,30 +101,31 @@ var cleaningLines = false;
 var waitingLineClear = false;
 
 //===========================TODO==================================:
-// FIX TIMER ISSUES - DONE
-// SHOW NEXT PIECE - DONE
-// GAME OVER - DONE
-// INCREASE SPEED - DONE
-// COLORS - DONE
-// SOFT DROP - DONE
-// HARD DROP - DONE
-// FIX HORIZONTAL MOVEMENT BUG (EATING BLOCKS) - DONE
-// LINE CLEAR ANIMATION - DONE
-// POLISH ROTATION
-// GAME OVER ANIMATION
-// SCORE
-// HIGHSCORE
-// MENU SYSTEM
-// CREDITS
-// SOUND
-// MUSIC
-// CUSTOM CONTROLS
-// JOYSTICK INPUT
-// MULTIPLAYER
-// BATTLE MODE
-// REDONE BOARD GRID, NO NEED FOR EXTRA ROW AT THE TOP - DONE
-// IMPROVE GAMEPLAY/GAME FEEL
-// IMPROVE PRESENTATION
+	// FIX TIMER ISSUES - DONE
+	// SHOW NEXT PIECE - DONE
+	// GAME OVER - DONE
+	// INCREASE SPEED - DONE
+	// COLORS - DONE
+	// SOFT DROP - DONE
+	// HARD DROP - DONE
+	// FIX HORIZONTAL MOVEMENT BUG (EATING BLOCKS) - DONE
+	// LINE CLEAR ANIMATION - DONE
+	// GHOST PIECES
+	// POLISH ROTATION
+	// GAME OVER ANIMATION
+	// SCORE
+	// HIGHSCORE
+	// MENU SYSTEM
+	// CREDITS
+	// SOUND
+	// MUSIC
+	// CUSTOM CONTROLS
+	// JOYSTICK INPUT
+	// MULTIPLAYER
+	// BATTLE MODE
+	// REDONE BOARD GRID, NO NEED FOR EXTRA ROW AT THE TOP - DONE
+	// IMPROVE GAMEPLAY/GAME FEEL
+	// IMPROVE PRESENTATION
 //=================================================================
 
 function preload(){
@@ -195,6 +198,11 @@ function blocoOn(x, y){ //lits bloco at position x, y
 	boardDisplay[y][x].tint = blocosColors[colorIndex];
 }
 
+function ghostOn(x, y, blocoColor){ //lits bloco at position x, y
+	boardDisplay[y][x].frameName = 'ON';
+	boardDisplay[y][x].tint = blocoColor;
+}
+
 function bringLinesDown(){
 	var prevLine;
 	for(var k = 0; k < linesToClear.length; k ++ ){
@@ -227,6 +235,23 @@ function clearBoardDisplay(){
 	}
 }
 
+function clearGhost(){
+	var tmpX;
+	var tmpY;
+	for(var i = 0; i < 4; i++){
+		tmpX = piece.poses[curPose][i][0] + curX ;
+		tmpY = piece.poses[curPose][i][1] + ghostY;
+		console.log(tmpX + " / " + tmpY);
+		if(tmpX < 0 || tmpY < 0){
+			// do nothing
+		} else if(tmpX > MAX_INDEX_HORIZONTAL || tmpY > MAX_INDEX_VERTICAL){
+			break;
+		} else if(board[tmpY][tmpX] == -2){
+			board[tmpY][tmpX] = -1;
+		}
+	}
+}
+
 function clearNextWindow(){
 	for(var i = 0; i < 3; i++){
 		for(var j = 0; j < 4; j++){
@@ -236,6 +261,8 @@ function clearNextWindow(){
 }
 
 function clearPiece(){
+	console.log("piece cleared");
+	clearGhost();
 	var tmpX;
 	var tmpY;
 	for(var i = 0; i < 4; i++){
@@ -270,7 +297,34 @@ function createNextWindow(){
 	}
 }
 
+function drawGhost(){
+	ghostY = curY;
+	while(testGhostDrop()){
+		ghostY++;
+		if(ghostY >= MAX_BLOCK_COUNT_VERTICAL){
+			ghostY--;
+			break;
+		}
+	}
+	//console.log("ghostY: "+ghostY);
+	if(ghostY < MAX_BLOCK_COUNT_VERTICAL){
+		for(var i = 0; i < 4; i++){
+			tmpX = piece.poses[curPose][i][0] + curX ;
+			tmpY = piece.poses[curPose][i][1] + ghostY;
+			if(tmpX < 0 || tmpY < 0){
+				// do nothing
+			} else if(tmpX > MAX_INDEX_HORIZONTAL || tmpY > MAX_INDEX_VERTICAL){
+				// do nothing
+			} else {
+				board[tmpY][tmpX] = -2;//ghost index
+				ghostOn(tmpX, tmpY, ghostColor);
+			}
+		}
+	}
+}
+
 function drawPiece(){
+	drawGhost();
 	var tmpX;
 	var tmpY;
 	for(var i = 0; i < 4; i++){
@@ -486,6 +540,28 @@ function testGameOver(){
 	}
 	
 	return false;
+}
+
+function testGhostDrop(){
+	var tmpX;
+	var tmpY;
+	if(curY < MAX_INDEX_VERTICAL){
+		for(var i = 0; i < 4; i++){
+			tmpX = piece.poses[curPose][i][0] + curX;
+			tmpY = piece.poses[curPose][i][1] + ghostY + 1;
+
+			if(tmpX < 0 ||  tmpY< 0){
+			// do nothing
+		} else if(tmpX > MAX_INDEX_HORIZONTAL || tmpY > MAX_INDEX_VERTICAL){
+			// do nothing
+		} else if(board[tmpY][tmpX] >= 10){
+				return false;
+			}
+		}
+	} else {
+		return false;
+	}
+	return true;
 }
 
 function testLineClear(){
