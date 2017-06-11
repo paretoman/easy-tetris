@@ -231,6 +231,7 @@ function update(){
 	} else {
 		clearNextWindow();
 		clearBoardDisplay();
+		softDrop = false;
 	}
 }
 
