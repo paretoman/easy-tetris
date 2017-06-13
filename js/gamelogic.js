@@ -1,6 +1,5 @@
 var game = new Phaser.Game(640, 480, Phaser.AUTO, '', {preload: preload, create: create, update: update});
 
-//var BLOCK_SIDE = 32;
 var BLOCK_SIDE = 23;
 var BLOCO_SPRITE_SCALE = BLOCK_SIDE / 32;
 var MAX_BLOCK_COUNT_HORIZONTAL = 10;
@@ -77,6 +76,14 @@ var nextWindow = [
 	[,,],
 	[,,],
 	[,,],
+	[,,],
+	[,,],
+	[,,],
+	[,,],
+	[,,],
+	[,,],
+	[,,],
+	[,,],
 	[,,] ];
 
 var holdWindow = [
@@ -92,9 +99,9 @@ var curY = 0;
 var curPose = 0;
 var piece;
 var holdPiece;
-var nextPiece;
+var nextPiece = [-1, -1, -1];
 var pieceIndex;
-var nextPieceIndex;
+var nextPieceIndex = [-1, -1, -1];
 var holdPieceIndex;
 var rotateLock = false;
 var movementLock = false;
@@ -146,7 +153,8 @@ var holdLock = false;
 	// REDONE BOARD GRID, NO NEED FOR EXTRA ROW AT THE TOP - DONE
 	// LINE CLEAR ANIMATION - DONE
 	// GHOST PIECES - DONE
-	// SCORE - DONE
+	// SCORE - 25% DONE
+	// HOLD PIECE - DONE
 	// POLISH ROTATION (WALL KICKS) - DONE
 	// POLISH ROTATION (FLOOR KICKS) - 
 	// LAST MINUTE TICK - 
@@ -163,6 +171,7 @@ var holdLock = false;
 	// IMPROVE GAMEPLAY/GAME FEEL
 	// IMPROVE PRESENTATION
 	// IMPROVE BLOCKS
+	// EXTEND NEXT WINDOW to 3 pieces in queue
 //=================================================================
 
 function preload(){
@@ -179,9 +188,7 @@ function create(){
 	createNextWindow();
 	createHoldWindow();
 	tetraminos = game.cache.getJSON('tetraminosJSON');
-	getPiece();
-	getPiece();//proper init
-	
+	initPieces();
 	createTexts();
 	testTick();
 }
@@ -336,7 +343,7 @@ function clearHoldWindow(){
 
 function clearNextWindow(){
 	for(var i = 0; i < 3; i++){
-		for(var j = 0; j < 4; j++){
+		for(var j = 0; j < 12; j++){
 			nextWindow[j][i].frameName = "OFF";
 		}
 	}
@@ -379,11 +386,17 @@ function createHoldWindow(){
 }
 
 function createNextWindow(){
+	var nextMargin = 0;
+	var marginIncrement = 5;
 	for(var i = 0; i < 3; i++){
-		for(var j = 0; j < 4; j++){
-			nextWindow[j][i] = game.add.sprite(NEXT_WINDOW_OFFSET_HORIZONTAL + (i * BLOCK_SIDE) , NEXT_WINDOW_OFFSET_VERTICAL + (j * BLOCK_SIDE), 'blocoatlas', 'OFF');
+		for(var j = 0; j < 12; j++){
+			if((j) % 4 == 0 && j > 3){
+				nextMargin += marginIncrement;
+			}
+			nextWindow[j][i] = game.add.sprite(NEXT_WINDOW_OFFSET_HORIZONTAL + (i * BLOCK_SIDE) , NEXT_WINDOW_OFFSET_VERTICAL + (j * BLOCK_SIDE) + nextMargin, 'blocoatlas', 'OFF');
 			nextWindow[j][i].scale.setTo(BLOCO_SPRITE_SCALE, BLOCO_SPRITE_SCALE);
 		}
+		nextMargin = 0;
 	}
 }
 
@@ -406,7 +419,6 @@ function drawGhost(){
 				// do nothing
 			} else {
 				board[tmpY][tmpX] = -2;//ghost index
-				//ghostOn(tmpX, tmpY);
 			}
 		}
 	}
@@ -502,10 +514,17 @@ function getInput(){
 }
 
 function getPiece(){
-	piece = nextPiece;
-	pieceIndex = nextPieceIndex;
-	nextPieceIndex = game.rnd.integerInRange(0, 6);
-	nextPiece = tetraminos.tetraminos[nextPieceIndex];
+	piece = nextPiece[0];
+	pieceIndex = nextPieceIndex[0];
+
+	nextPieceIndex[0] = nextPieceIndex[1];
+	nextPieceIndex[1] = nextPieceIndex[2];
+	nextPieceIndex[2] = game.rnd.integerInRange(0, 6);
+
+	nextPiece[0] = nextPiece[1];
+	nextPiece[1] = nextPiece[2];
+	nextPiece[2] = tetraminos.tetraminos[nextPieceIndex[2]];
+	
 	curPose = 0;
 }
 
@@ -530,6 +549,16 @@ function hold(){
 	}
 	clearHoldWindow();
 	updateHoldWindow();
+}
+
+function initPieces(){
+	pieceIndex = game.rnd.integerInRange(0, 6);
+	piece = tetraminos.tetraminos[pieceIndex];
+	for(var i = 0; i < 3; i++){
+		nextPieceIndex[i] = game.rnd.integerInRange(0, 6);
+		nextPiece[i] = tetraminos.tetraminos[nextPieceIndex[i]];
+	}
+	curPose = 0;
 }
 
 function killSoftDropTimer(){
@@ -915,13 +944,15 @@ function updateNextWindow(){
 	var offsetX = 0;
 	var offsetY = 3;
 	clearNextWindow();
-	for(var i = 0; i < 4; i++){
-		var blocoX = (nextPiece.poses[0][i][0]) + offsetX;
-		var blocoY = (nextPiece.poses[0][i][1]) + offsetY;
-		nextWindow[blocoY][blocoX].frameName = "ON";
-		nextWindow[blocoY][blocoX].tint = blocosColors[nextPieceIndex];
-
+	for(var j = 0; j < 3; j++ ){
+		for(var i = 0; i < 4; i++){
+			var blocoX = (nextPiece[j].poses[0][i][0]) + offsetX;
+			var blocoY = (nextPiece[j].poses[0][i][1]) + (offsetY * (j+1) + j);
+			nextWindow[blocoY][blocoX].frameName = "ON";
+			nextWindow[blocoY][blocoX].tint = blocosColors[nextPieceIndex[j]];
+		}
 	}
+	
 }
 
 function updateTickSpeed(){
