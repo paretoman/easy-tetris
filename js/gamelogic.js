@@ -11,6 +11,8 @@ var DISPLAY_OFFSET_VERTICAL = 10;
 var DISPLAY_OFFSET_HORIZONTAL = 205;
 var NEXT_WINDOW_OFFSET_VERTICAL = 53;
 var NEXT_WINDOW_OFFSET_HORIZONTAL = 458;
+var HOLD_WINDOW_OFFSET_VERTICAL = 53;
+var HOLD_WINDOW_OFFSET_HORIZONTAL = 113;
 
 var tetraminos;
 var blocos = [];
@@ -32,10 +34,17 @@ var board = [
 	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
 	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
 	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+	// regular
 	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
 	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
 	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
 	[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+	//t-spin test
+	//[13,13,13,13,13,13,13,13,-1,-1],
+	//[13,13,13,13,13,13,13,-1,-1,-1],
+	//[13,13,13,13,13,13,13,13,-1,13],
+	//[13,13,13,13,-1,13,13,13,13,13]
+	// ready to tetris
 	//[12,12,12,12,12,12,12,12,12,-1],
 	//[12,12,12,12,12,12,12,12,12,-1],
 	//[12,12,12,12,12,12,12,12,12,-1],
@@ -69,6 +78,12 @@ var nextWindow = [
 	[,,],
 	[,,],
 	[,,] ];
+
+var holdWindow = [
+	[,,],
+	[,,],
+	[,,],
+	[,,] ];
 var blocosColors = [0xa000f1, 0xefa000, 0x0002ec, 0xedf201, 0x04efed, 0xf10002, 0x00f000];
 var ghostColor = 0x555555;
 
@@ -76,9 +91,11 @@ var curX = 4;
 var curY = 0;
 var curPose = 0;
 var piece;
+var holdPiece;
 var nextPiece;
 var pieceIndex;
 var nextPieceIndex;
+var holdPieceIndex;
 var rotateLock = false;
 var movementLock = false;
 var movementInterval = 0.15;
@@ -115,6 +132,7 @@ var hardDrop = false;
 var hardDropLock = false;
 var cleaningLines = false;
 var waitingLineClear = false;
+var holdLock = false;
 
 //===========================TODO==================================:
 	// FIX TIMER ISSUES - DONE
@@ -128,9 +146,11 @@ var waitingLineClear = false;
 	// REDONE BOARD GRID, NO NEED FOR EXTRA ROW AT THE TOP - DONE
 	// LINE CLEAR ANIMATION - DONE
 	// GHOST PIECES - DONE
-	// POLISH ROTATION (rotate on screen limits)
+	// SCORE - DONE
+	// POLISH ROTATION (WALL KICKS) - DONE
+	// POLISH ROTATION (FLOOR KICKS) - 
+	// LAST MINUTE TICK - 
 	// GAME OVER ANIMATION
-	// SCORE - 
 	// HIGHSCORE
 	// MENU SYSTEM
 	// CREDITS
@@ -142,6 +162,7 @@ var waitingLineClear = false;
 	// BATTLE MODE
 	// IMPROVE GAMEPLAY/GAME FEEL
 	// IMPROVE PRESENTATION
+	// IMPROVE BLOCKS
 //=================================================================
 
 function preload(){
@@ -155,7 +176,8 @@ function create(){
 	game.add.sprite(0, 0, 'bg'+curBg);
 	game.add.sprite(0, 0, 'board');
 	createBoardDisplay();
-	createNextWindow()
+	createNextWindow();
+	createHoldWindow();
 	tetraminos = game.cache.getJSON('tetraminosJSON');
 	getPiece();
 	getPiece();//proper init
@@ -304,6 +326,14 @@ function clearGhost(){
 	}
 }
 
+function clearHoldWindow(){
+	for(var i = 0; i < 3; i++){
+		for(var j = 0; j < 4; j++){
+			holdWindow[j][i].frameName = "OFF";
+		}
+	}
+}
+
 function clearNextWindow(){
 	for(var i = 0; i < 3; i++){
 		for(var j = 0; j < 4; j++){
@@ -335,6 +365,15 @@ function createBoardDisplay(){
 		for(var j = 0; j < MAX_BLOCK_COUNT_VERTICAL; j++){
 			boardDisplay[j][i] = game.add.sprite(DISPLAY_OFFSET_HORIZONTAL + (i * BLOCK_SIDE), DISPLAY_OFFSET_VERTICAL + (j * BLOCK_SIDE), 'blocoatlas', 'OFF');
 			boardDisplay[j][i].scale.setTo(BLOCO_SPRITE_SCALE, BLOCO_SPRITE_SCALE);
+		}
+	}
+}
+
+function createHoldWindow(){
+	for(var i = 0; i < 3; i++){
+		for(var j = 0; j < 4; j++){
+			holdWindow[j][i] = game.add.sprite(HOLD_WINDOW_OFFSET_HORIZONTAL + (i * BLOCK_SIDE) , HOLD_WINDOW_OFFSET_VERTICAL + (j * BLOCK_SIDE), 'blocoatlas', 'OFF');
+			holdWindow[j][i].scale.setTo(BLOCO_SPRITE_SCALE, BLOCO_SPRITE_SCALE);
 		}
 	}
 }
@@ -417,9 +456,16 @@ function getInput(){
 			rotateClockWise();
 			rotateLock = true;
 		}
+	} else if(game.input.keyboard.isDown(Phaser.Keyboard.Z)){
+		if(!rotateLock){
+			rotateCounterClockWise();
+			rotateLock = true;
+		}
 	} else {
 		rotateLock = false;
 	}
+
+	
 
 	if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
 		if(!softDrop){
@@ -446,6 +492,13 @@ function getInput(){
 			hardDropLock = false;
 		}
 	}
+
+	if(game.input.keyboard.isDown(Phaser.Keyboard.X)){
+		if(!holdLock){
+			holdLock = true;
+			hold();
+		}
+	}
 }
 
 function getPiece(){
@@ -454,6 +507,29 @@ function getPiece(){
 	nextPieceIndex = game.rnd.integerInRange(0, 6);
 	nextPiece = tetraminos.tetraminos[nextPieceIndex];
 	curPose = 0;
+}
+
+function hold(){
+	clearPiece();
+	if(holdPiece == null){
+		holdPiece = piece;
+		holdPieceIndex = pieceIndex;
+		newPiece();
+	} else {
+		foo = holdPiece;
+		holdPiece = piece;
+		piece = foo;
+
+		bar = holdPieceIndex;
+		holdPieceIndex = pieceIndex;
+		pieceIndex = bar;
+
+		curY = -1;
+		curX = 4;
+		curPose = 0;
+	}
+	clearHoldWindow();
+	updateHoldWindow();
 }
 
 function killSoftDropTimer(){
@@ -505,13 +581,13 @@ function moveLeft(){
 }
 
 function newPiece(){
-	placeOnBoard();
 	getPiece();
 	curY = -1;
 	curX = 4;
 }
 
 function placeOnBoard(){
+	//unecessary testings
 	var tmpX;
 	var tmpY;
 	for(var i = 0; i < 4; i++){
@@ -524,6 +600,9 @@ function placeOnBoard(){
 		} else {
 			board[tmpY][tmpX] = pieceIndex + 10;
 		}
+	}
+	if(holdLock){
+		holdLock = false;
 	}
 }
 
@@ -539,24 +618,28 @@ function printBoard(){
 }
 
 function rotateClockWise(){
-	if(testRotateClockWise()){
+	if(testRotateClockWise(curX, curY)){
 		clearPiece();
 		curPose++;
 		if(curPose > 3){
 			curPose = 0;
 		}
 		drawPiece();
-	} 
+	} else {
+		testWallKicks(true);
+	}
 }
 
 function rotateCounterClockWise(){
-	if(testRotateCounterClockWise()){
+	if(testRotateCounterClockWise(curX, curY)){
 		clearPiece();
 		curPose--;
 		if(curPose < 0){
 			curPose = 3;
 		}
 		drawPiece();
+	} else {
+		testWallKicks(false);
 	}
 }
 
@@ -677,7 +760,7 @@ function testMoveRight(){
 	return true;
 }
 
-function testRotateClockWise(){
+function testRotateClockWise(x, y){
 	var tmpX;
 	var tmpY;
 	var testPose = curPose +1;
@@ -685,14 +768,14 @@ function testRotateClockWise(){
 		testPose = 0;
 	}
 	for(var i = 0; i < 4; i++){
-		tmpX = piece.poses[testPose][i][0] + curX;
-		tmpY = piece.poses[testPose][i][1] + curY;
+		tmpX = piece.poses[testPose][i][0] + x;
+		tmpY = piece.poses[testPose][i][1] + y;
 		if(tmpY < 0){
 			//do nothing
 		} else {
 			if(tmpX > -1 && tmpX < MAX_BLOCK_COUNT_HORIZONTAL){
 				if(board[tmpY][tmpX] >= 10){
-					return false
+					return false;
 				}
 			} else {
 				return false;
@@ -702,7 +785,7 @@ function testRotateClockWise(){
 	return true;
 }
 
-function testRotateCounterClockWise(){
+function testRotateCounterClockWise(x, y){
 	var tmpX;
 	var tmpY;
 	var testPose = curPose -1;
@@ -710,8 +793,8 @@ function testRotateCounterClockWise(){
 		testPose = 3;
 	}
 	for(var i = 0; i < 4; i++){
-		tmpX = piece.poses[testPose][i][0] + curX;
-		tmpY = piece.poses[testPose][i][1] + curY;
+		tmpX = piece.poses[testPose][i][0] + x;
+		tmpY = piece.poses[testPose][i][1] + y;
 		if(tmpX > -1 && tmpX < MAX_BLOCK_COUNT_HORIZONTAL){
 			if(board[tmpY][tmpX] >= 10){
 				return false;
@@ -729,6 +812,7 @@ function testTick(){
 	} else {
 		if(!testGameOver()){
 			if(!waitingLineClear){
+				placeOnBoard();
 				newPiece();
 				drawPiece();
 			}
@@ -758,6 +842,43 @@ function tick(){ //move piece a line down
 
 }
 
+function testWallKicks(clockWise){
+	var poseIncrement = 0;
+	var kicked = false;
+	if(clockWise){
+		poseIncrement = 1;
+	} else {
+		poseIncrement = -1;
+	}
+
+	for(var i = 1; i<= 2; i++){ //left wall kick
+		if(testRotateClockWise(curX + i, curY)){ 
+			clearPiece();
+			curX += i;
+			curPose += poseIncrement;
+			kicked = true;
+			break;
+		}
+	}
+	if(!kicked){
+		for(var i = -1; i>= -2; i--){ //right wall kick
+			if(testRotateClockWise(curX + i, curY)){ 
+				clearPiece();
+				curX += i;
+				curPose += poseIncrement;;
+				break;
+			}
+		}
+	}
+	if(curPose > 3){
+		curPose = 0;
+	}
+	if(curPose < 0){
+		curPose = 3;
+	}
+	drawPiece();
+}
+
 function unlockMovement(){
 	movementLock = false;
 	if(timer != null){
@@ -774,6 +895,19 @@ function updateBoardDisplayed(){
 				blocoOn(i, j);
 			}
 		}
+	}
+}
+
+function updateHoldWindow(){
+	var offsetX = 0;
+	var offsetY = 3;
+	clearHoldWindow();
+	for(var i = 0; i < 4; i++){
+		var blocoX = (holdPiece.poses[0][i][0]) + offsetX;
+		var blocoY = (holdPiece.poses[0][i][1]) + offsetY;
+		holdWindow[blocoY][blocoX].frameName = "ON";
+		holdWindow[blocoY][blocoX].tint = blocosColors[holdPieceIndex];
+
 	}
 }
 
