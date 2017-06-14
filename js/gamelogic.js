@@ -1,4 +1,6 @@
 var game = new Phaser.Game(640, 480, Phaser.AUTO, '', {preload: preload, create: create, update: update});
+//game.state.create('menu', menuState);
+//game.state.create('play', playstate);
 
 var BLOCK_SIDE = 23;
 var BLOCO_SPRITE_SCALE = BLOCK_SIDE / 32;
@@ -159,6 +161,7 @@ var holdLock = false;
 	// POLISH ROTATION (WALL KICKS) - DONE
 	// POLISH ROTATION (FLOOR KICKS) - 
 	// LAST MINUTE TICK - 
+	// MAIN MENU SCREEN - SELECT BACKGROUND - 
 	// GAME OVER ANIMATION
 	// HIGHSCORE
 	// MENU SYSTEM
@@ -228,7 +231,11 @@ function update(){
 			if(!waitingLineClear){
 				waitingLineClear = true;
 				lineClearTimer = game.time.events.loop(Phaser.Timer.SECOND * lineClearInterval / 1000, lineClear, this);
-				score(lineClearPts[linesToClear.length - 1] * level);
+				score(lineClearPts[linesToClear.length - 1] * level + (comboIncrement * curCombo));
+				if(curCombo > 0){
+					console.log(curCombo+ " Combo!");
+				}
+				curCombo += 1;
 			}
 		} else {
 			getInput();
@@ -738,6 +745,7 @@ function testLineClear(){
 		lineClearX = 0
 		return true;
 	}
+	curCombo = 0;
 	return false;
 }
 
