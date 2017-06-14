@@ -73,6 +73,12 @@ var singlePlayerPrepState = {
 		cleaningLines = false;
 		waitingLineClear = false;
 		holdLock = false;
+		lineCount = 0;
+		speedUpGoal = 10;
+		curCombo = 0;
+		curScore = 0;
+		level = 1;
+		tickInterval = 500;
 		game.state.start('play');
 	}
 };
