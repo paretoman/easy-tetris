@@ -163,34 +163,6 @@ function create(){
 	testTick();
 }
 
-function createTexts(){
-	var bgArtStyle = { font: "16px Arial", fill: "#fff", 
-        align: "left", 
-        boundsAlignH: "left", 
-        boundsAlignV: "middle", 
-        wordWrap: true, wordWrapWidth: 300 };
-    var bgArtText = bgsTexts[curBg];
-    labelArt = game.add.text(0, 0, bgArtText, bgArtStyle);
-    labelArt.setTextBounds(463, 378, 154, 92);
-
-	var scoreStyle = { font: "16px Arial", fill: "#fff", 
-        align: "center", 
-        boundsAlignH: "center", 
-        boundsAlignV: "middle", 
-        wordWrap: false, wordWrapWidth: 159 };
-    var scoreText = curScore;
-    labelScore = game.add.text(0, 0, scoreText, scoreStyle);
-    labelScore.setTextBounds(23, 348, 159, 23);
-
-    var levelText = level;
-    labelLevel = game.add.text(0, 0, levelText, scoreStyle);
-    labelLevel.setTextBounds(23, 397, 159, 23);
-
-	var linesText = lineCount;
-    labelLines = game.add.text(0, 0, linesText, scoreStyle);
-    labelLines.setTextBounds(23, 446, 159, 23);
-}
-
 function update(){
 	if(!gameover){
 		if(cleaningLines){
@@ -243,7 +215,6 @@ function blocoOn(x, y){ //lits bloco at position x, y
 		boardDisplay[y][x].frameName = 'ON';
 		boardDisplay[y][x].tint = blocosColors[colorIndex];
 	}
-	
 }
 
 function bringLinesDown(){
@@ -360,6 +331,34 @@ function createNextWindow(){
 		}
 		nextMargin = 0;
 	}
+}
+
+function createTexts(){
+	var bgArtStyle = { font: "16px Arial", fill: "#fff", 
+        align: "left", 
+        boundsAlignH: "left", 
+        boundsAlignV: "middle", 
+        wordWrap: true, wordWrapWidth: 300 };
+    var bgArtText = bgsTexts[curBg];
+    labelArt = game.add.text(0, 0, bgArtText, bgArtStyle);
+    labelArt.setTextBounds(463, 378, 154, 92);
+
+	var scoreStyle = { font: "16px Arial", fill: "#fff", 
+        align: "center", 
+        boundsAlignH: "center", 
+        boundsAlignV: "middle", 
+        wordWrap: false, wordWrapWidth: 159 };
+    var scoreText = curScore;
+    labelScore = game.add.text(0, 0, scoreText, scoreStyle);
+    labelScore.setTextBounds(23, 348, 159, 23);
+
+    var levelText = level;
+    labelLevel = game.add.text(0, 0, levelText, scoreStyle);
+    labelLevel.setTextBounds(23, 397, 159, 23);
+
+	var linesText = lineCount;
+    labelLines = game.add.text(0, 0, linesText, scoreStyle);
+    labelLines.setTextBounds(23, 446, 159, 23);
 }
 
 function drawGhost(){
