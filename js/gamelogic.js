@@ -110,7 +110,7 @@ var tickInterval = 500;
 var tickIntervalsoftDrop = 50;
 var hAxis = 0;
 var bgsNames;
-var curBg = 4;
+var curBg = 5;
 var bgs = [];
 var timer = null;
 var ticktimer = null;
@@ -128,10 +128,11 @@ var softDropPts = 1;
 var hardDropPts = 2;
 var comboIncrement = 50;
 var curCombo = 0;
-var bgArtLabel;
+var labelArt;
 var labelLines;
 var labelScore;
 var labelLevel;
+var bg;
 
 var gameover = false;
 var softDrop = false;
@@ -182,7 +183,7 @@ function preload(){
 }
 
 function create(){
-	game.add.sprite(0, 0, 'bg'+curBg);
+	bg = game.add.sprite(0, 0, 'bg'+curBg);
 	game.add.sprite(0, 0, 'board');
 	createBoardDisplay();
 	createNextWindow();
@@ -199,9 +200,9 @@ function createTexts(){
         boundsAlignH: "left", 
         boundsAlignV: "middle", 
         wordWrap: true, wordWrapWidth: 300 };
-    var bgArtText = "Master Sword\nby Virgilio Silveira";
-    bgArtLabel = game.add.text(0, 0, bgArtText, bgArtStyle);
-    bgArtLabel.setTextBounds(463, 378, 154, 92);
+    var bgArtText = bgsTexts[curBg];
+    labelArt = game.add.text(0, 0, bgArtText, bgArtStyle);
+    labelArt.setTextBounds(463, 378, 154, 92);
 
 	var scoreStyle = { font: "16px Arial", fill: "#fff", 
         align: "center", 
@@ -219,18 +220,6 @@ function createTexts(){
 	var linesText = lineCount;
     labelLines = game.add.text(0, 0, linesText, scoreStyle);
     labelLines.setTextBounds(23, 446, 159, 23);
-}
-
-function updateLabelLines(){
-	labelLines.text = lineCount;
-}
-
-function updateLabelScore(){
-	labelScore.text = curScore;
-}
-
-function updateLabelLevel(){
-	labelLevel.text = level;
 }
 
 function update(){
@@ -580,7 +569,8 @@ function lineClear(){
 }
 
 function loadBgs(){
-	bgsNames = ["img/phaser_universe_bg.png", "img/bg_PROERD.png", "img/bg_PROERD2.png", "img/virgilio_pokemon_ghosts.png", "img/virgilio_master_sword.png"];
+	bgsNames = ["img/phaser_universe_bg.png", "img/bg_PROERD.png", "img/bg_PROERD2.png", "img/virgilio_pokemon_ghosts.png", "img/virgilio_master_sword.png","img/ratinho.png"];
+	bgsTexts = ["Phaser Universe\nby Phaser", "Proerd\nby Nestablo Ramos", "Proerd2\nby Nestablo Ramos", "Pokemon Ghosts\nby Virgilio Silveira", "Master Sword\nby Virgilio Silveira", "Ratinho in space\nby Caio Marchi"];
 	var bgsCount = bgsNames.length;
 	for(var i=0; i < bgsCount; i++){
 		game.load.image('bg'+i,bgsNames[i]);
@@ -915,6 +905,12 @@ function unlockMovement(){
 	}
 }
 
+function updateBg(newBg){
+	curBg = newBg;
+	bg.loadTexture('bg'+curBg);
+	updateLabelArt();
+}
+
 function updateBoardDisplayed(){
 	for(var i = 0; i < MAX_BLOCK_COUNT_HORIZONTAL; i++){
 		for(var j = 0; j < MAX_BLOCK_COUNT_VERTICAL; j++){
@@ -940,6 +936,22 @@ function updateHoldWindow(){
 	}
 }
 
+function updateLabelArt(){
+	labelArt.text = bgsTexts[curBg];
+}
+
+function updateLabelLevel(){
+	labelLevel.text = level;
+}
+
+function updateLabelLines(){
+	labelLines.text = lineCount;
+}
+
+function updateLabelScore(){
+	labelScore.text = curScore;
+}
+
 function updateNextWindow(){
 	var offsetX = 0;
 	var offsetY = 3;
@@ -963,3 +975,4 @@ function updateTickSpeed(){
 		updateLabelLevel();
 	}
 }
+
