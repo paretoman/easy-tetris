@@ -144,40 +144,6 @@ var cleaningLines = false;
 var waitingLineClear = false;
 var holdLock = false;
 
-//===========================TODO==================================:
-	// FIX TIMER ISSUES - DONE
-	// SHOW NEXT PIECE - DONE
-	// GAME OVER - DONE
-	// INCREASE SPEED - DONE
-	// COLORS - DONE
-	// SOFT DROP - DONE
-	// HARD DROP - DONE
-	// FIX HORIZONTAL MOVEMENT BUG (EATING BLOCKS) - DONE
-	// REDONE BOARD GRID, NO NEED FOR EXTRA ROW AT THE TOP - DONE
-	// LINE CLEAR ANIMATION - DONE
-	// GHOST PIECES - DONE
-	// SCORE - 25% DONE
-	// HOLD PIECE - DONE
-	// POLISH ROTATION (WALL KICKS) - DONE
-	// POLISH ROTATION (FLOOR KICKS) - 
-	// LAST MINUTE TICK - 
-	// MAIN MENU SCREEN - SELECT BACKGROUND - 
-	// GAME OVER ANIMATION
-	// HIGHSCORE
-	// MENU SYSTEM
-	// CREDITS
-	// SOUND
-	// MUSIC
-	// CUSTOM CONTROLS
-	// JOYSTICK INPUT
-	// MULTIPLAYER
-	// BATTLE MODE
-	// IMPROVE GAMEPLAY/GAME FEEL
-	// IMPROVE PRESENTATION
-	// IMPROVE BLOCKS
-	// EXTEND NEXT WINDOW to 3 pieces in queue
-//=================================================================
-
 function preload(){
 	game.load.atlas('blocoatlas', 'img/blocoatlas.png', 'js/blocoatlas.json');
 	game.load.json('tetraminosJSON', 'js/tetraminos.json');
