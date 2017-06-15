@@ -20,6 +20,9 @@ var loadState = {
 		game.load.audio('lineClear', 'snd/clear.ogg');
 		game.load.audio('tetris', 'snd/tetris.ogg');
 		game.load.audio('combo', 'snd/combo_ext.ogg');
+		game.load.audio('move', 'snd/move.ogg');
+		game.load.audio('rotate', 'snd/rotate.ogg');
+		game.load.audio('hold', 'snd/hold.ogg');
 		game.load.audio('theme-a', 'snd/themeA.ogg');
 		console.log('sounds loaded');
 	},

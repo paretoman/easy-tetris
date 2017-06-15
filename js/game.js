@@ -69,6 +69,9 @@ var fxPiecePlaced = null;
 var fxLineClear = null;
 var fxTetris = null;
 var fxCombo = null;
+var fxMove = null;
+var fxRotate = null;
+var fxHold = null;
 var music = null;
 
 var gameover;

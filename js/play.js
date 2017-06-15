@@ -10,6 +10,7 @@ var playState = {
 		createTexts();
 		createSounds();
 		music.loopFull(1);
+		music.volume = 0.2; //testing purposes
 		testTick();
 	},
 
@@ -193,8 +194,12 @@ function createSounds(){
 	fxPiecePlaced = (fxPiecePlaced == null) ? game.add.audio('piecePlaced'):fxPiecePlaced;
 	fxLineClear = (fxLineClear == null) ? game.add.audio('lineClear'):fxLineClear;
 	fxTetris = (fxTetris == null) ? game.add.audio('tetris'):fxTetris;
+	fxRotate = (fxRotate == null) ? game.add.audio('rotate'):fxRotate;
 	fxCombo = (fxCombo == null) ? game.add.audio('combo'):fxCombo;
+	fxMove = (fxMove == null) ? game.add.audio('move'):fxMove;
+	fxHold = (fxHold == null) ? game.add.audio('hold'):fxHold;
 	music = (music == null) ? game.add.audio('theme-a'):music;
+
 }
 
 function createTexts(){
@@ -374,6 +379,7 @@ function hold(){
 	}
 	clearHoldWindow();
 	updateHoldWindow();
+	fxHold.play();
 }
 
 function initPieces(){
@@ -415,6 +421,7 @@ function moveRight(){
 	unlockMovement();
 	movementLock = true;
 	timer = game.time.events.loop(Phaser.Timer.SECOND * movementInterval, unlockMovement, this);
+	fxMove.play();
 }
 
 function moveLeft(){
@@ -426,6 +433,7 @@ function moveLeft(){
 	unlockMovement();
 	movementLock = true;
 	timer = game.time.events.add(Phaser.Timer.SECOND * movementInterval, unlockMovement, this);
+	fxMove.play();
 }
 
 function newPiece(){
@@ -474,6 +482,7 @@ function rotateClockWise(){
 			curPose = 0;
 		}
 		drawPiece();
+		fxRotate.play();
 	} else {
 		testWallKicks(true);
 	}
@@ -487,6 +496,7 @@ function rotateCounterClockWise(){
 			curPose = 3;
 		}
 		drawPiece();
+		fxRotate.play();
 	} else {
 		testWallKicks(false);
 	}
@@ -715,7 +725,8 @@ function testWallKicks(clockWise){
 			if(testRotateClockWise(curX + i, curY)){ 
 				clearPiece();
 				curX += i;
-				curPose += poseIncrement;;
+				curPose += poseIncrement;
+				kicked = true;
 				break;
 			}
 		}
@@ -725,6 +736,9 @@ function testWallKicks(clockWise){
 	}
 	if(curPose < 0){
 		curPose = 3;
+	}
+	if(kicked){
+		fxRotate.play();
 	}
 	drawPiece();
 }
