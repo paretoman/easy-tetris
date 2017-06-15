@@ -1,7 +1,8 @@
 var loadState = {
 	preload: function(){
 		var loadingLabel = game.add.text(80, 150, 'loading...', {font: '30px Courier', fill:'#ffffff'});
-		game.load.atlas('blocoatlas', 'img/blocoatlas.png', 'js/blocoatlas.json');
+		//game.load.atlas('blocoatlas', 'img/blocoatlas.png', 'js/blocoatlas.json');
+		game.load.atlas('blocoatlas', 'img/blocoatlas_v3.png', 'js/blocoatlas_v2.json');
 		game.load.json('tetraminosJSON', 'js/tetraminos.json');
 		game.load.image('board', 'img/bg1.png');
 		console.log("images loaded");
@@ -14,11 +15,13 @@ var loadState = {
 		}
 		console.log("bgs loaded");
 		//load sounds
+		console.log("loading sounds");
 		game.load.audio('piecePlaced', 'snd/placed.ogg');
 		game.load.audio('lineClear', 'snd/clear.ogg');
 		game.load.audio('tetris', 'snd/tetris.ogg');
 		game.load.audio('combo', 'snd/combo_ext.ogg');
 		game.load.audio('theme-a', 'snd/themeA.ogg');
+		console.log('sounds loaded');
 	},
 
 	create: function(){

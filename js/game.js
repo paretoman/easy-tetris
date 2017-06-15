@@ -3,7 +3,7 @@ var game = new Phaser.Game(640, 480, Phaser.AUTO, 'gameDiv');
 
 //Global Variables
 var BLOCK_SIDE = 23;
-var BLOCO_SPRITE_SCALE = BLOCK_SIDE / 32;
+//var BLOCO_SPRITE_SCALE = BLOCK_SIDE / 32;
 var MAX_BLOCK_COUNT_HORIZONTAL = 10;
 var MAX_BLOCK_COUNT_VERTICAL = 20;
 var MAX_INDEX_HORIZONTAL = 9;
@@ -24,8 +24,7 @@ var boardDisplay;
 var nextWindow;
 
 var holdWindow;
-var blocosColors = [0xa000f1, 0xefa000, 0x0002ec, 0xedf201, 0x04efed, 0xf10002, 0x00f000];
-var ghostColor = 0x555555;
+var blocosColors = ["T", "L", "J", "O", "I", "Z", "S"];
 
 var curX = 4;
 var curY = 0;

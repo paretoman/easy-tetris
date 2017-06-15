@@ -63,15 +63,13 @@ function blocoOff(x, y){
 function blocoOn(x, y){ //lits bloco at position x, y
 	var colorIndex = board[y][x];
 	if(colorIndex == -2){
-		boardDisplay[y][x].frameName = 'ON';
-	boardDisplay[y][x].tint = ghostColor;
+		boardDisplay[y][x].frameName = 'GHOST';
 	} else {
 		colorIndex -= 10;
 		if(colorIndex < 0){
 			colorIndex += 10;
 		}
-		boardDisplay[y][x].frameName = 'ON';
-		boardDisplay[y][x].tint = blocosColors[colorIndex];
+		boardDisplay[y][x].frameName = blocosColors[colorIndex];
 	}
 }
 
@@ -162,7 +160,7 @@ function createBoardDisplay(){
 	for(var i = 0; i < MAX_BLOCK_COUNT_HORIZONTAL; i++){
 		for(var j = 0; j < MAX_BLOCK_COUNT_VERTICAL; j++){
 			boardDisplay[j][i] = game.add.sprite(DISPLAY_OFFSET_HORIZONTAL + (i * BLOCK_SIDE), DISPLAY_OFFSET_VERTICAL + (j * BLOCK_SIDE), 'blocoatlas', 'OFF');
-			boardDisplay[j][i].scale.setTo(BLOCO_SPRITE_SCALE, BLOCO_SPRITE_SCALE);
+			//boardDisplay[j][i].scale.setTo(BLOCO_SPRITE_SCALE, BLOCO_SPRITE_SCALE);
 		}
 	}
 }
@@ -171,7 +169,7 @@ function createHoldWindow(){
 	for(var i = 0; i < 3; i++){
 		for(var j = 0; j < 4; j++){
 			holdWindow[j][i] = game.add.sprite(HOLD_WINDOW_OFFSET_HORIZONTAL + (i * BLOCK_SIDE) , HOLD_WINDOW_OFFSET_VERTICAL + (j * BLOCK_SIDE), 'blocoatlas', 'OFF');
-			holdWindow[j][i].scale.setTo(BLOCO_SPRITE_SCALE, BLOCO_SPRITE_SCALE);
+			//holdWindow[j][i].scale.setTo(BLOCO_SPRITE_SCALE, BLOCO_SPRITE_SCALE);
 		}
 	}
 }
@@ -185,7 +183,7 @@ function createNextWindow(){
 				nextMargin += marginIncrement;
 			}
 			nextWindow[j][i] = game.add.sprite(NEXT_WINDOW_OFFSET_HORIZONTAL + (i * BLOCK_SIDE) , NEXT_WINDOW_OFFSET_VERTICAL + (j * BLOCK_SIDE) + nextMargin, 'blocoatlas', 'OFF');
-			nextWindow[j][i].scale.setTo(BLOCO_SPRITE_SCALE, BLOCO_SPRITE_SCALE);
+			//nextWindow[j][i].scale.setTo(BLOCO_SPRITE_SCALE, BLOCO_SPRITE_SCALE);
 		}
 		nextMargin = 0;
 	}
@@ -763,9 +761,7 @@ function updateHoldWindow(){
 	for(var i = 0; i < 4; i++){
 		var blocoX = (holdPiece.poses[0][i][0]) + offsetX;
 		var blocoY = (holdPiece.poses[0][i][1]) + offsetY;
-		holdWindow[blocoY][blocoX].frameName = "ON";
-		holdWindow[blocoY][blocoX].tint = blocosColors[holdPieceIndex];
-
+		holdWindow[blocoY][blocoX].frameName = blocosColors[holdPieceIndex];
 	}
 }
 
@@ -793,8 +789,7 @@ function updateNextWindow(){
 		for(var i = 0; i < 4; i++){
 			var blocoX = (nextPiece[j].poses[0][i][0]) + offsetX;
 			var blocoY = (nextPiece[j].poses[0][i][1]) + (offsetY * (j+1) + j);
-			nextWindow[blocoY][blocoX].frameName = "ON";
-			nextWindow[blocoY][blocoX].tint = blocosColors[nextPieceIndex[j]];
+			nextWindow[blocoY][blocoX].frameName = blocosColors[nextPieceIndex[j]];
 		}
 	}
 	
