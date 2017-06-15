@@ -18,6 +18,7 @@ var loadState = {
 		game.load.audio('lineClear', 'snd/clear.ogg');
 		game.load.audio('tetris', 'snd/tetris.ogg');
 		game.load.audio('combo', 'snd/combo_ext.ogg');
+		game.load.audio('theme-a', 'snd/themeA.ogg');
 	},
 
 	create: function(){

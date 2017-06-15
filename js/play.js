@@ -9,6 +9,7 @@ var playState = {
 		initPieces();
 		createTexts();
 		createSounds();
+		music.loopFull(1);
 		testTick();
 	},
 
@@ -191,10 +192,11 @@ function createNextWindow(){
 }
 
 function createSounds(){
-	fxPiecePlaced = game.add.audio('piecePlaced');
-	fxLineClear = game.add.audio('lineClear');
-	fxTetris = game.add.audio('tetris');
-	fxCombo = game.add.audio('combo');
+	fxPiecePlaced = (fxPiecePlaced == null) ? game.add.audio('piecePlaced'):fxPiecePlaced;
+	fxLineClear = (fxLineClear == null) ? game.add.audio('lineClear'):fxLineClear;
+	fxTetris = (fxTetris == null) ? game.add.audio('tetris'):fxTetris;
+	fxCombo = (fxCombo == null) ? game.add.audio('combo'):fxCombo;
+	music = (music == null) ? game.add.audio('theme-a'):music;
 }
 
 function createTexts(){

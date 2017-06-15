@@ -66,10 +66,11 @@ var labelLines;
 var labelScore;
 var labelLevel;
 var bg;
-var fxPiecePlaced;
-var fxLineClear;
-var fxTetris;
-var fxCombo;
+var fxPiecePlaced = null;
+var fxLineClear = null;
+var fxTetris = null;
+var fxCombo = null;
+var music = null;
 
 var gameover;
 var softDrop;
