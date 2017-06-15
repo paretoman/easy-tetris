@@ -8,6 +8,7 @@ var playState = {
 		tetraminos = game.cache.getJSON('tetraminosJSON');
 		initPieces();
 		createTexts();
+		createSounds();
 		testTick();
 	},
 
@@ -16,12 +17,18 @@ var playState = {
 			if(cleaningLines){
 				if(!waitingLineClear){
 					waitingLineClear = true;
+
 					lineClearTimer = game.time.events.loop(Phaser.Timer.SECOND * lineClearInterval / 1000, lineClear, this);
 					score(lineClearPts[linesToClear.length - 1] * level + (comboIncrement * curCombo));
 					if(curCombo > 0){
-						console.log(curCombo+ " Combo!");
+						fxCombo.play();
 					}
 					curCombo += 1;
+					if(linesToClear.length == 4){
+						fxTetris.play();
+					} else {
+						fxLineClear.play();
+					}
 				}
 			} else {
 				getInput();
@@ -181,6 +188,13 @@ function createNextWindow(){
 		}
 		nextMargin = 0;
 	}
+}
+
+function createSounds(){
+	fxPiecePlaced = game.add.audio('piecePlaced');
+	fxLineClear = game.add.audio('lineClear');
+	fxTetris = game.add.audio('tetris');
+	fxCombo = game.add.audio('combo');
 }
 
 function createTexts(){
@@ -438,6 +452,7 @@ function placeOnBoard(){
 	if(holdLock){
 		holdLock = false;
 	}
+	fxPiecePlaced.play();
 }
 
 function printBoard(){

@@ -66,6 +66,10 @@ var labelLines;
 var labelScore;
 var labelLevel;
 var bg;
+var fxPiecePlaced;
+var fxLineClear;
+var fxTetris;
+var fxCombo;
 
 var gameover;
 var softDrop;

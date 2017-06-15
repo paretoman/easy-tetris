@@ -13,6 +13,11 @@ var loadState = {
 			game.load.image('bg'+i,bgsNames[i]);
 		}
 		console.log("bgs loaded");
+		//load sounds
+		game.load.audio('piecePlaced', 'snd/placed.ogg');
+		game.load.audio('lineClear', 'snd/clear.ogg');
+		game.load.audio('tetris', 'snd/tetris.ogg');
+		game.load.audio('combo', 'snd/combo_ext.ogg');
 	},
 
 	create: function(){
