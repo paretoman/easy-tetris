@@ -811,7 +811,7 @@ function updateNextWindow(){
 
 function updateTickSpeed(){
 	if(lineCount  >= speedUpGoal){
-		tickInterval *= 0.9;
+		tickInterval *= 0.75;
 		speedUpGoal += 10;
 		level++;
 		updateLabelLevel();
