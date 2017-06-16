@@ -1,5 +1,6 @@
 var gameoverState = {
 	create: function(){
+		music.stop();
 		var gameoverLabel = game.add.text(80, 80, 'G A M E    O V E R',
 			{font: '50px Arial', fill:'#ffffff'});
 		var finalScoreLabel = game.add.text(80, game.world.height - 240, 'Score: '+ curScore,

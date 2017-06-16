@@ -42,7 +42,7 @@ var tickInterval = 500;
 var tickIntervalsoftDrop = 50;
 var hAxis = 0;
 var bgsNames;
-var curBg = 5;
+var curBg = 3;
 var bgs = [];
 var timer = null;
 var ticktimer = null;
@@ -87,6 +87,8 @@ game.state.add('load', loadState);
 game.state.add('play', playState);
 game.state.add('singlePlayerPrep', singlePlayerPrepState);
 game.state.add('menu', menuState);
+game.state.add('settings', settingsState);
+game.state.add('credits', creditsState);
 game.state.add('gameover', gameoverState);
 
 game.state.start('boot');
