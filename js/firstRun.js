@@ -1,6 +1,7 @@
 function firstRun(){
 	localStorage.clear();
 	initScoreSystem();
+	localStorage.setItem("curBg", "0");
 	localStorage.setItem("firstRun", "DONE");
 }
 

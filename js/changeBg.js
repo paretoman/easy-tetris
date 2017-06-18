@@ -85,5 +85,6 @@ function createButtons(){
 
 function saveSettings(){
 	curBg = tmpBg;
+	localStorage.curBg = curBg;
 	goBack();
 }
