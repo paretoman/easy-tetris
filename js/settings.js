@@ -1,93 +1,27 @@
 var settingsState = {
 	create: function(){
-		btns = [,,,,,]; //buttons
-		lbls = [,,,,,]; //labels
-		bg = game.add.sprite(0, 0, 'bg'+curBg);
-		tmpBg = curBg;
-		game.add.sprite(0, 0, 'board');
-		textStyle = {font: '25px Arial', fill:'#ffffff'};
-		text = game.add.text(game.world.width / 2, 50, "Select Background", textStyle);
-		text.anchor.setTo(0.5, 0.5);
-		var bgArtStyle = { font: "16px Arial", fill: "#fff", 
-	        align: "left", 
-	        boundsAlignH: "left", 
-	        boundsAlignV: "middle", 
-	        wordWrap: true, wordWrapWidth: 300 };
-	    var bgArtText = bgsTexts[curBg];
-	    labelArt = game.add.text(0, 0, bgArtText, bgArtStyle);
-	    labelArt.setTextBounds(463, 378, 154, 92);
-		createButtons();
+		var titleLabel = game.add.text(80, 80, 'Settings',
+			{font: '50px Arial', fill:'#ffffff'});
+		var buttonStyle = {font: '25px Arial', fill:'#080808'};
+		btnNewGame = game.add.button(game.world.width / 2, game.world.height / 2, 'big_button', function (){show('changeBgSt')}, this, 1, 2, 0);
+		btnNewGame.anchor.setTo(0.5, 0.5);
+		lblNewGame = game.add.text(game.world.width / 2, game.world.height / 2, "Change Background", buttonStyle);
+		lblNewGame.anchor.setTo(0.5, 0.5);
+
+		btnSettings = game.add.button(game.world.width / 2, (game.world.height / 2) + 60, 'big_button', function(){show('soundMenu')}, this, 1, 2, 0);
+		btnSettings.anchor.setTo(0.5, 0.5);
+		lblSettings = game.add.text(game.world.width / 2, (game.world.height / 2) + 60, "Sound/Music", buttonStyle);
+		lblSettings.anchor.setTo(0.5, 0.5);
+
+		btnCredits = game.add.button(game.world.width / 2, (game.world.height / 2) + 120, 'big_button', function(){show('controls')}, this, 1, 2, 0);
+		btnCredits.anchor.setTo(0.5, 0.5);
+		lblCredits = game.add.text(game.world.width / 2, (game.world.height / 2) + 120, "Controls", buttonStyle);
+		lblCredits.anchor.setTo(0.5, 0.5);
+
+		btnBack = game.add.button(game.world.width / 2, (game.world.height / 2) + 180, 'big_button', goBack, this, 1, 2, 0);
+		btnBack.anchor.setTo(0.5, 0.5);
+		lblBack = game.add.text(game.world.width / 2, (game.world.height / 2) + 180, "Back", buttonStyle);
+		lblBack.anchor.setTo(0.5, 0.5);
+		
 	}
 };
-
-function changeBg(bgIndex){
-	bg.loadTexture('bg'+bgIndex);
-	labelArt.text = bgsTexts[bgIndex];
-	tmpBg = bgIndex;
-}
-
-function createButtons(){
-	lblStyle = {font: '25px Arial', fill:'#080808'};
-	tmpX = (game.world.width / 2) - 25;
-	tmpY = (game.world.height / 2);
-	btns[0] = btnSettings = game.add.button(tmpX, tmpY, 'button', function(){changeBg(0)}, this, 1, 2, 0);
-	btns[0].anchor.setTo(0.5, 0.5);
-	lbls[0] = game.add.text(tmpX, tmpY, "1", lblStyle);
-	lbls[0].anchor.setTo(0.5, 0.5);
-
-	tmpX = (game.world.width / 2) + 25;
-	btns[1] = btnSettings = game.add.button(tmpX, tmpY, 'button', function(){changeBg(1)}, this, 1, 2, 0);
-	btns[1].anchor.setTo(0.5, 0.5);
-	lbls[1] = game.add.text(tmpX, tmpY, "2", lblStyle);
-	lbls[1].anchor.setTo(0.5, 0.5);
-
-	tmpX = (game.world.width / 2) - 25;
-	tmpY = (game.world.height / 2) + 50;
-	btns[2] = btnSettings = game.add.button(tmpX, tmpY, 'button', function(){changeBg(2)}, this, 1, 2, 0);
-	btns[2].anchor.setTo(0.5, 0.5);
-	lbls[2] = game.add.text(tmpX, tmpY, "3", lblStyle);
-	lbls[2].anchor.setTo(0.5, 0.5);
-
-	tmpX = (game.world.width / 2) + 25;
-	btns[3] = btnSettings = game.add.button(tmpX, tmpY, 'button', function(){changeBg(3)}, this, 1, 2, 0);
-	btns[3].anchor.setTo(0.5, 0.5);
-	lbls[3] = game.add.text(tmpX, tmpY, "4", lblStyle);
-	lbls[3].anchor.setTo(0.5, 0.5);
-
-	tmpX = (game.world.width / 2) - 25;
-	tmpY = (game.world.height / 2) + 100;
-	btns[4] = btnSettings = game.add.button(tmpX, tmpY, 'button', function(){changeBg(4)}, this, 1, 2, 0);
-	btns[4].anchor.setTo(0.5, 0.5);
-	lbls[4] = game.add.text(tmpX, tmpY, "5", lblStyle);
-	lbls[4].anchor.setTo(0.5, 0.5);
-
-	tmpX = (game.world.width / 2) + 25;
-	btns[5] = btnSettings = game.add.button(tmpX, tmpY, 'button', function(){changeBg(5)}, this, 1, 2, 0);
-	btns[5].anchor.setTo(0.5, 0.5);
-	lbls[5] = game.add.text(tmpX, tmpY, "6", lblStyle);
-	lbls[5].anchor.setTo(0.5, 0.5);
-
-	saveCancelStyle = {font: '18px Arial', fill:'#080808'};
-
-	tmpX = (game.world.width / 2) - 50;
-	tmpY = (game.world.height / 2) + 200;
-	btnSave = btnSettings = game.add.button(tmpX, tmpY, 'medium_button', saveSettings, this, 1, 2, 0);
-	btnSave.anchor.setTo(0.5, 0.5);
-	lblSave = game.add.text(tmpX, tmpY + 4, "SAVE", saveCancelStyle);
-	lblSave.anchor.setTo(0.5, 0.5);
-
-	tmpX = (game.world.width / 2) + 50;
-	btnCancel = btnSettings = game.add.button(tmpX, tmpY, 'medium_button', cancelSettings, this, 1, 2, 0);
-	btnCancel.anchor.setTo(0.5, 0.5);
-	lblCancel = game.add.text(tmpX, tmpY + 4, "CANCEL", saveCancelStyle);
-	lblCancel.anchor.setTo(0.5, 0.5);
-}
-
-function saveSettings(){
-	curBg = tmpBg;
-	game.state.start('menu');
-}
-
-function cancelSettings(){
-	game.state.start('menu');
-}

@@ -1,5 +1,6 @@
 var playState = {
 	create: function(){
+		resetNav();
 		bg = game.add.sprite(0, 0, 'bg'+curBg);
 		game.add.sprite(0, 0, 'board');
 		createBoardDisplay();
@@ -161,7 +162,6 @@ function createBoardDisplay(){
 	for(var i = 0; i < MAX_BLOCK_COUNT_HORIZONTAL; i++){
 		for(var j = 0; j < MAX_BLOCK_COUNT_VERTICAL; j++){
 			boardDisplay[j][i] = game.add.sprite(DISPLAY_OFFSET_HORIZONTAL + (i * BLOCK_SIDE), DISPLAY_OFFSET_VERTICAL + (j * BLOCK_SIDE), 'blocoatlas', 'OFF');
-			//boardDisplay[j][i].scale.setTo(BLOCO_SPRITE_SCALE, BLOCO_SPRITE_SCALE);
 		}
 	}
 }
@@ -170,7 +170,6 @@ function createHoldWindow(){
 	for(var i = 0; i < 3; i++){
 		for(var j = 0; j < 4; j++){
 			holdWindow[j][i] = game.add.sprite(HOLD_WINDOW_OFFSET_HORIZONTAL + (i * BLOCK_SIDE) , HOLD_WINDOW_OFFSET_VERTICAL + (j * BLOCK_SIDE), 'blocoatlas', 'OFF');
-			//holdWindow[j][i].scale.setTo(BLOCO_SPRITE_SCALE, BLOCO_SPRITE_SCALE);
 		}
 	}
 }
@@ -184,7 +183,6 @@ function createNextWindow(){
 				nextMargin += marginIncrement;
 			}
 			nextWindow[j][i] = game.add.sprite(NEXT_WINDOW_OFFSET_HORIZONTAL + (i * BLOCK_SIDE) , NEXT_WINDOW_OFFSET_VERTICAL + (j * BLOCK_SIDE) + nextMargin, 'blocoatlas', 'OFF');
-			//nextWindow[j][i].scale.setTo(BLOCO_SPRITE_SCALE, BLOCO_SPRITE_SCALE);
 		}
 		nextMargin = 0;
 	}

@@ -82,13 +82,19 @@ var cleaningLines;
 var waitingLineClear;
 var holdLock;
 
+var breadCrumbs = [];
+
 game.state.add('boot', bootState);
 game.state.add('load', loadState);
 game.state.add('play', playState);
 game.state.add('singlePlayerPrep', singlePlayerPrepState);
 game.state.add('menu', menuState);
 game.state.add('settings', settingsState);
+game.state.add('changeBgSt', changeBgState);
 game.state.add('credits', creditsState);
+game.state.add('controls', controlsState);
+game.state.add('soundMenu', soundMenuState);
+game.state.add('leaderboard', leaderboardState);
 game.state.add('gameover', gameoverState);
 
 game.state.start('boot');
