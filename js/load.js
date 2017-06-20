@@ -23,6 +23,7 @@ var loadState = {
 		game.load.audio('rotate', 'snd/rotate.ogg');
 		game.load.audio('hold', 'snd/hold.ogg');
 		game.load.audio('theme-a', 'snd/themeA.ogg');
+		game.load.audio('chaves', 'snd/chaves.ogg');
 		createSounds();
 		//loads data from disk
 		curBg = parseInt(localStorage.curBg);

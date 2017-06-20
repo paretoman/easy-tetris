@@ -73,6 +73,7 @@ var fxMove = null;
 var fxRotate = null;
 var fxHold = null;
 var music = null;
+var trackNames = [];
 
 var gameover;
 var softDrop;

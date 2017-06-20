@@ -10,9 +10,9 @@ function setFxVolume(value){
 	fxPiecePlaced.volume = value;
 	fxLineClear.volume = value;
 	fxTetris.volume = value;
+	fxRotate.volume = value;
 	fxCombo.volume = value;
 	fxMove.volume = value;
-	fxRotate.volume = value;
 	fxHold.volume = value;
 }
 
@@ -36,6 +36,9 @@ function createSounds(){
 	fxCombo.volume = fxVol;
 	fxMove.volume = fxVol;
 	fxHold.volume = fxVol;
+
+	trackNames = ["theme-a", "chaves"];
+	trackDesc = ["Theme-A (Acappela)\nby Smooth McGroove", "Boa Noite Vizinhanca\nby Fabio Lima"];
 }
 
 function saveSoundSettings(musicVol, fxVol, track){
@@ -54,4 +57,30 @@ function getStoredFxVolume(){
 
 function getStoredMusicVolume(){
 	return parseFloat(localStorage.musicVolume);
+}
+
+function nextTrack(){
+	musVol = music.volume;
+	trackCount = trackNames.length;
+	curTrack = trackNames.indexOf(music.name);
+	curTrack++;
+	if(curTrack == trackCount){
+		curTrack = 0;
+	}
+	music.destroy();
+	music = game.add.audio(trackNames[curTrack]);
+	music.loopFull(musVol);
+}
+
+function prevTrack(){
+	musVol = music.volume;
+	trackCount = trackNames.length;
+	curTrack = trackNames.indexOf(music.name);
+	curTrack--;
+	if(curTrack < 0){
+		curTrack = trackCount - 1;
+	}
+	music.destroy();
+	music = game.add.audio(trackNames[curTrack]);
+	music.loopFull(musVol);
 }

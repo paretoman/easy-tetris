@@ -3,6 +3,7 @@ var fxValue = 0;
 
 var curMusicVolume = 0;
 var curFxVolume = 0;
+var labelInfo = 0;
 var soundMenuState = {
 	create: function(){
 		music.stop();
@@ -43,6 +44,28 @@ var soundMenuState = {
 		lblFxPlus = game.add.text((game.world.width / 2) - 100, (game.world.height / 2) + 100, "+", buttonStyle);
 		lblFxPlus.anchor.setTo(0.5, 0.5);
 
+		//change Track
+		trackInfoTitle = game.add.text(game.world.width / 2, 50, "Track Info", labelStyle);
+		trackInfoTitle.anchor.setTo(0.5, 0.5);
+		var trackInfoTextStyle = { font: "20px Arial", fill: "#fff", 
+	        align: "left", 
+	        boundsAlignH: "left", 
+	        boundsAlignV: "middle", 
+	        wordWrap: true, wordWrapWidth: 300 };
+	    trackInfoText = trackDesc[trackNames.indexOf(music.name)];
+	    labelInfo = game.add.text(0, 0, trackInfoText, trackInfoTextStyle);
+	    labelInfo.setTextBounds(game.world.width / 2 + 100, game.world.height / 2, 200, 100);
+
+	    btnPrevTrack = game.add.button((game.world.width / 2) + 100, (game.world.height / 2) + 100, 'button', function(){prevTrack();updateLabels()}, this, 1, 2, 0);
+		btnPrevTrack.anchor.setTo(0.5, 0.5);
+		lblPrevTrack = game.add.text((game.world.width / 2) + 100 , (game.world.height / 2) + 100, "<<", buttonStyle);
+		lblPrevTrack.anchor.setTo(0.5, 0.5);
+
+		btnNextTrack = game.add.button((game.world.width) -50, (game.world.height / 2) + 100, 'button', function(){nextTrack();updateLabels()}, this, 1, 2, 0);
+		btnNextTrack.anchor.setTo(0.5, 0.5);
+		lblNextTrack = game.add.text((game.world.width) -50, (game.world.height / 2) + 100, ">>", buttonStyle);
+		lblNextTrack.anchor.setTo(0.5, 0.5);
+
 		//save / cancel
 		saveCancelStyle = {font: '18px Arial', fill:'#080808'};
 		tmpX = (game.world.width / 2) - 50;
@@ -63,11 +86,12 @@ var soundMenuState = {
 };
 
 function updateLabels(){
-	mVol = Math.round(music.volume * 10) / 10;
-	fVol = Math.round(fxMove.volume * 10) / 10;
+	mVol = music.volume;
+	fVol = fxMove.volume;
 
-	musicValue.text = (mVol * 100) + "%";
-	fxValue.text = (fVol * 100) + "%";
+	musicValue.text = (mVol * 50).toFixed(0) + "%";
+	fxValue.text = (fVol * 50).toFixed(0) + "%";
+	labelInfo.text = trackDesc[trackNames.indexOf(music.name)];
 }
 
 function musicMinusButton(){
@@ -82,7 +106,7 @@ function musicMinusButton(){
 function musicPlusButton(){
 	console.log(typeof(music.volume));
 	curMusicVolume = music.volume;
-	if(curMusicVolume < 1){
+	if(curMusicVolume < 2){
 		curMusicVolume += 0.1;
 		setMusicVolume(curMusicVolume);
 		updateLabels();
@@ -101,7 +125,7 @@ function fxMinusButton(){
 
 function fxPlusButton(){
 	curFxVolume = fxMove.volume;
-	if(curFxVolume < 1){
+	if(curFxVolume < 2){
 		curFxVolume += 0.1;
 		fxMove.volume = curFxVolume;
 	}

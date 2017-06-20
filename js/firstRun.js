@@ -18,7 +18,7 @@ function initScoreSystem(){
 	localStorage.setItem("leaderNames_4", "Pajitnov");
 
 	//sounds
-	localStorage.setItem("musicVolume", "1");
-	localStorage.setItem("fxVolume", "1");
-	localStorage.setItem("musicTrack", "theme-a");
+	localStorage.setItem("musicVolume", "1.5");
+	localStorage.setItem("fxVolume", "1.5");
+	localStorage.setItem("musicTrack", "chaves");
 }
