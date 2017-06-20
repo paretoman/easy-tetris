@@ -1,12 +1,13 @@
 var menuState = {
 	create: function(){
 		resetNav();
+
 		var titleLabel = game.add.text(80, 80, 'Tetris by Caio Marchi\nPowered by Phaser.js',
 			{font: '50px Arial', fill:'#ffffff'});
-		var enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+		//var enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 		var buttonStyle = {font: '25px Arial', fill:'#080808'};
 
-		enterKey.onDown.addOnce(this.start, this);
+		//enterKey.onDown.addOnce(this.start, this);
 
 		btnNewGame = game.add.button(game.world.width / 2, game.world.height / 2, 'big_button', function(){show('singlePlayerPrep')}, this, 1, 2, 0);
 		btnNewGame.anchor.setTo(0.5, 0.5);

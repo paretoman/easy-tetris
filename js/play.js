@@ -10,8 +10,8 @@ var playState = {
 		initPieces();
 		createTexts();
 		createSounds();
-		music.loopFull(1);
-		music.volume = 0.2; //testing purposes
+		music.loopFull(music.volume);
+		//music.volume = 0.2; //testing purposes
 		testTick();
 	},
 
@@ -186,18 +186,6 @@ function createNextWindow(){
 		}
 		nextMargin = 0;
 	}
-}
-
-function createSounds(){
-	fxPiecePlaced = (fxPiecePlaced == null) ? game.add.audio('piecePlaced'):fxPiecePlaced;
-	fxLineClear = (fxLineClear == null) ? game.add.audio('lineClear'):fxLineClear;
-	fxTetris = (fxTetris == null) ? game.add.audio('tetris'):fxTetris;
-	fxRotate = (fxRotate == null) ? game.add.audio('rotate'):fxRotate;
-	fxCombo = (fxCombo == null) ? game.add.audio('combo'):fxCombo;
-	fxMove = (fxMove == null) ? game.add.audio('move'):fxMove;
-	fxHold = (fxHold == null) ? game.add.audio('hold'):fxHold;
-	music = (music == null) ? game.add.audio('theme-a'):music;
-
 }
 
 function createTexts(){

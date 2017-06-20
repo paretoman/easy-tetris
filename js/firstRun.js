@@ -10,9 +10,15 @@ function initScoreSystem(){
 		localStorage.setItem("leaderboard_" + i, 1000 - (i * 100));
 	}
 
+	//Leaderboard
 	localStorage.setItem("leaderNames_0", "Caio");
 	localStorage.setItem("leaderNames_1", "Dalton");
 	localStorage.setItem("leaderNames_2", "Rogers");
 	localStorage.setItem("leaderNames_3", "Zumba");
 	localStorage.setItem("leaderNames_4", "Pajitnov");
+
+	//sounds
+	localStorage.setItem("musicVolume", "1");
+	localStorage.setItem("fxVolume", "1");
+	localStorage.setItem("musicTrack", "theme-a");
 }
