@@ -782,7 +782,7 @@ function updateBoardDisplayed(){
 }
 
 function updateHoldWindow(){
-	var offsetX = 0;
+	var offsetX = 1;
 	var offsetY = 2;
 	clearHoldWindow();
 	for(var i = 0; i < 4; i++){
@@ -809,7 +809,7 @@ function updateLabelScore(){
 }
 
 function updateNextWindow(){
-	var offsetX = 0;
+	var offsetX = 1;
 	var offsetY = 2;
 	clearNextWindow();
 	for(var j = 0; j < 3; j++ ){ //next piece index
