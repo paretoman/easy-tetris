@@ -1,7 +1,6 @@
 var playState = {
 	create: function(){
 		resetNav();
-		printBoard();
 		bg = game.add.sprite(0, 0, 'bg'+curBg);
 		game.add.sprite(0, 0, 'board');
 		createBoardDisplay();
@@ -269,6 +268,7 @@ function getInput(){
 		hAxis++;
 	} else {
 		unlockMovement();
+		movementDelayLock = false;
 	}
 
 	if(hAxis > 0){
@@ -281,6 +281,7 @@ function getInput(){
 		}
 	} else {
 		unlockMovement();
+		movementDelayLock = false;
 	}
 	
 	if(game.input.keyboard.isDown(Phaser.Keyboard.UP)){
@@ -409,8 +410,15 @@ function moveRight(){
 		drawPiece();
 	}
 	unlockMovement();
+	interval = 0;
+	if(movementDelayLock){
+		interval = movementInterval;
+	} else {
+		interval = movementIntervalDelay;
+		movementDelayLock = true;
+	}
 	movementLock = true;
-	timer = game.time.events.loop(Phaser.Timer.SECOND * movementInterval, unlockMovement, this);
+	timer = game.time.events.loop(Phaser.Timer.SECOND * interval, unlockMovement, this);
 	fxMove.play();
 }
 
@@ -421,8 +429,15 @@ function moveLeft(){
 		drawPiece();
 	}	
 	unlockMovement();
+	interval = 0;
+	if(movementDelayLock){
+		interval = movementInterval;
+	} else {
+		interval = movementIntervalDelay;
+		movementDelayLock = true;
+	}
 	movementLock = true;
-	timer = game.time.events.add(Phaser.Timer.SECOND * movementInterval, unlockMovement, this);
+	timer = game.time.events.loop(Phaser.Timer.SECOND * interval, unlockMovement, this);
 	fxMove.play();
 }
 
