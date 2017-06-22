@@ -523,7 +523,7 @@ function testDrop(){
 			if(tmpX < 0 ||  tmpY< 0){
 			// do nothing
 		} else if(tmpX > MAX_INDEX_HORIZONTAL || tmpY > MAX_INDEX_VERTICAL){
-			// do nothing
+			return false;
 		} else if(board[tmpY][tmpX] >= 10){
 				return false;
 			}
@@ -554,7 +554,7 @@ function testGhostDrop(){
 			if(tmpX < 0 ||  tmpY< 0){
 			// do nothing
 		} else if(tmpX > MAX_INDEX_HORIZONTAL || tmpY > MAX_INDEX_VERTICAL){
-			// do nothing
+			return false;
 		} else if(board[tmpY][tmpX] >= 10){
 				return false;
 			}
@@ -775,7 +775,7 @@ function updateBoardDisplayed(){
 
 function updateHoldWindow(){
 	var offsetX = 0;
-	var offsetY = 3;
+	var offsetY = 2;
 	clearHoldWindow();
 	for(var i = 0; i < 4; i++){
 		var blocoX = (holdPiece.poses[0][i][0]) + offsetX;
@@ -802,12 +802,12 @@ function updateLabelScore(){
 
 function updateNextWindow(){
 	var offsetX = 0;
-	var offsetY = 3;
+	var offsetY = 2;
 	clearNextWindow();
-	for(var j = 0; j < 3; j++ ){
-		for(var i = 0; i < 4; i++){
+	for(var j = 0; j < 3; j++ ){ //next piece index
+		for(var i = 0; i < 4; i++){ //piece blocks
 			var blocoX = (nextPiece[j].poses[0][i][0]) + offsetX;
-			var blocoY = (nextPiece[j].poses[0][i][1]) + (offsetY * (j+1) + j);
+			var blocoY = (nextPiece[j].poses[0][i][1]) + (offsetY + (j*4));
 			nextWindow[blocoY][blocoX].frameName = blocosColors[nextPieceIndex[j]];
 		}
 	}
