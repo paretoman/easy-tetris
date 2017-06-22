@@ -1,6 +1,7 @@
 var playState = {
 	create: function(){
 		resetNav();
+		printBoard();
 		bg = game.add.sprite(0, 0, 'bg'+curBg);
 		game.add.sprite(0, 0, 'board');
 		createBoardDisplay();
@@ -90,6 +91,9 @@ function bringLinesDown(){
 		}
 		lineCount++;
 		updateLabelLines();
+	}
+	for(i = 0; i < 10; i++){
+		board[0][i] = -1;
 	}
 	cleaningLines = false;
 	waitingLineClear = false;
