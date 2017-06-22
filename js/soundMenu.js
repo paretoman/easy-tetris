@@ -98,6 +98,9 @@ function musicMinusButton(){
 	curMusicVolume = music.volume;
 	if(curMusicVolume > 0){
 		curMusicVolume -= 0.1;
+		if(curMusicVolume < 0){
+			curMusicVolume = 0;
+		}
 		setMusicVolume(curMusicVolume);
 		updateLabels();
 	}
@@ -117,6 +120,9 @@ function fxMinusButton(){
 	curFxVolume = fxMove.volume;
 	if(curFxVolume > 0){
 		curFxVolume -= 0.1;
+		if(curFxVolume < 0){
+			curFxVolume = 0;
+		}
 		fxMove.volume = curFxVolume;
 	}
 	fxMove.play();
