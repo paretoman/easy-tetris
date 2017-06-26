@@ -43,6 +43,8 @@ Hard drop......................................2 points per cell (Max of 40)
 TGM Rotation
 http://tetris.wikia.com/wiki/TGM_rotation
 
+SRS (Super Rotation system)
+http://tetris.wikia.com/wiki/SRS
 ============
 Tetris - Thema 'A' Acapella 
 Smooth McGroove
