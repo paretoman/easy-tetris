@@ -79,6 +79,7 @@ var singlePlayerPrepState = {
 		curScore = 0;
 		level = 1;
 		tickInterval = 500;
+		lastValidMoveWasASpin = false;
 		game.state.start('play');
 	}
 };

@@ -22,7 +22,11 @@ var playState = {
 					waitingLineClear = true;
 
 					lineClearTimer = game.time.events.loop(Phaser.Timer.SECOND * lineClearInterval / 1000, lineClear, this);
-					score(lineClearPts[linesToClear.length - 1] * level + (comboIncrement * curCombo));
+					if(lastValidMoveWasASpin && lastPieceIndex==0 && testTSpin()){ //if it is a t, if the last valid move was a rotation and if the t-spin verification is OK
+						score(tSpinPts[linesToClear.length - 1] * level + (comboIncrement * curCombo));
+					} else {
+						score(lineClearPts[linesToClear.length - 1] * level + (comboIncrement * curCombo));
+					}
 					if(curCombo > 0){
 						fxCombo.play();
 					}
@@ -319,6 +323,7 @@ function getInput(){
 		if (!hardDropLock){
 			hardDropLock = true;
 			hardDrop = true;
+			lastValidMoveWasASpin = false;
 		}
 	} else {
 		if(hardDropLock){
@@ -466,6 +471,9 @@ function placeOnBoard(){
 		holdLock = false;
 	}
 	fxPiecePlaced.play();
+	lastX = curX;
+	lastY= curY;
+	lastPieceIndex = pieceIndex;
 }
 
 function printBoard(){
@@ -488,8 +496,19 @@ function rotateClockWise(){
 		}
 		drawPiece();
 		fxRotate.play();
-	} else {
-		testWallKicks(true);
+	} else if(!testWallKicks(true)){
+		if(curY +1 <= MAX_INDEX_VERTICAL){
+			if(testRotateClockWise(curX, curY + 1)){ //test down kick
+				clearPiece();
+				curY++;
+				curPose++;
+				if(curPose > 3){
+					curPose = 0;
+				}
+				drawPiece();
+				fxRotate.play();
+			}
+		}
 	}
 }
 
@@ -502,8 +521,21 @@ function rotateCounterClockWise(){
 		}
 		drawPiece();
 		fxRotate.play();
-	} else {
-		testWallKicks(false);
+	} else if(!testWallKicks(false)){
+		if(curY +1 <= MAX_INDEX_VERTICAL){
+			if(testRotateCounterClockWise(curX, curY + 1)){ //test down kick
+				clearPiece();
+				curY++;
+				curPose++;
+				if(curPose > 3){
+					curPose = 0;
+				}
+				drawPiece();
+				fxRotate.play();
+			} else {
+				testWallKicksDownKicked(false);
+			}
+		}
 	}
 }
 
@@ -603,6 +635,7 @@ function testMoveLeft(){
 			return false;
 		}
 	}
+	lastValidMoveWasASpin = false;
 	return true;
 }
 
@@ -622,6 +655,7 @@ function testMoveRight(){
 			return false;
 		}
 	}
+	lastValidMoveWasASpin = false;
 	return true;
 }
 
@@ -649,6 +683,7 @@ function testRotateClockWise(x, y){
 			}
 		}
 	}
+	lastValidMoveWasASpin = true;
 	return true;
 }
 
@@ -667,7 +702,7 @@ function testRotateCounterClockWise(x, y){
 				return false;
 			}
 		} else {
-			if(tmpX > -1 && tmpX < MAX_BLOCK_COUNT_HORIZONTAL){
+			if(tmpX > -1 && tmpX < MAX_BLOCK_COUNT_HORIZONTAL && tmpY < MAX_BLOCK_COUNT_VERTICAL){
 				if(board[tmpY][tmpX] >= 10){
 					return false;
 				}
@@ -676,11 +711,13 @@ function testRotateCounterClockWise(x, y){
 			}
 		}
 	}
+	lastValidMoveWasASpin = true;
 	return true;
 }
 
 function testTick(){
 	if(testDrop()){
+		lastValidMoveWasASpin = false;
 		tick();
 	} else {
 		if(!testGameOver()){
@@ -708,11 +745,40 @@ function testTick(){
 	}
 }
 
-function tick(){ //move piece a line down
-	clearPiece();
-	curY++;
-	drawPiece();
+function testTSpin(){
+	occupied = 0;
+	tmpX = lastX -1;
+	tmpY = lastY -1;
+	if(board[tmpY][tmpX] >= 10){
+		occupied++;
+	}
 
+	tmpX = lastX -1;
+	tmpY = lastY +1;
+	if(tmpY > MAX_INDEX_VERTICAL){
+		occupied++;
+	} else 	if(board[tmpY][tmpX] >= 10){
+		occupied++;
+	}
+
+	tmpX = lastX +1;
+	tmpY = lastY -1;
+	if(board[tmpY][tmpX] >= 10){
+		occupied++;
+	}
+
+	tmpX = lastX +1;
+	tmpY = lastY +1;
+	if(tmpY > MAX_INDEX_VERTICAL){
+		occupied++;
+	} else if(board[tmpY][tmpX] >= 10){
+		occupied++;
+	}
+
+	if(occupied >=3){
+		return true;
+	}
+	return false;
 }
 
 function testWallKicks(clockWise){
@@ -720,21 +786,7 @@ function testWallKicks(clockWise){
 	var kicked = false;
 	if(clockWise){
 		poseIncrement = 1;
-	} else {
-		poseIncrement = -1;
-	}
-
-	for(var i = 1; i<= 2; i++){ //left wall kick
-		if(testRotateClockWise(curX + i, curY)){ 
-			clearPiece();
-			curX += i;
-			curPose += poseIncrement;
-			kicked = true;
-			break;
-		}
-	}
-	if(!kicked){
-		for(var i = -1; i>= -2; i--){ //right wall kick
+		for(var i = 1; i<= 2; i++){ //left wall kick
 			if(testRotateClockWise(curX + i, curY)){ 
 				clearPiece();
 				curX += i;
@@ -743,17 +795,130 @@ function testWallKicks(clockWise){
 				break;
 			}
 		}
+		if(!kicked){
+			for(var i = -1; i>= -2; i--){ //right wall kick
+				if(testRotateClockWise(curX + i, curY)){ 
+					clearPiece();
+					curX += i;
+					curPose += poseIncrement;
+					kicked = true;
+					break;
+				}
+			}
+		}
+	} else {
+		poseIncrement = -1;
+		for(var i = 1; i<= 2; i++){ //left wall kick
+			if(testRotateCounterClockWise(curX + i, curY)){ 
+				clearPiece();
+				curX += i;
+				curPose += poseIncrement;
+				kicked = true;
+				break;
+			}
+		}
+		if(!kicked){
+			for(var i = -1; i>= -2; i--){ //right wall kick
+				if(testRotateCounterClockWise(curX + i, curY)){ 
+					clearPiece();
+					curX += i;
+					curPose += poseIncrement;
+					kicked = true;
+					break;
+				}
+			}
+		}
 	}
+
+	
 	if(curPose > 3){
 		curPose = 0;
 	}
 	if(curPose < 0){
 		curPose = 3;
 	}
+	drawPiece();
 	if(kicked){
 		fxRotate.play();
+		return true;
+	}
+	return false;
+}
+
+function testWallKicksDownKicked(clockWise){
+	var poseIncrement = 0;
+	var kicked = false;
+	tmpY = curY +1;
+	if(clockWise){
+		poseIncrement = 1;
+		for(var i = 1; i<= 2; i++){ //left wall kick
+			if(testRotateClockWise(curX + i, tmpY)){ 
+				clearPiece();
+				curX += i;
+				curY += 1;
+				curPose += poseIncrement;
+				kicked = true;
+				break;
+			}
+		}
+		if(!kicked){
+			for(var i = -1; i>= -2; i--){ //right wall kick
+				if(testRotateClockWise(curX + i, tmpY)){ 
+					clearPiece();
+					curX += i;
+					curY += 1;
+					curPose += poseIncrement;
+					kicked = true;
+					break;
+				}
+			}
+		}
+	} else {
+		poseIncrement = -1;
+		for(var i = 1; i<= 2; i++){ //left wall kick
+			if(testRotateCounterClockWise(curX + i, tmpY)){ 
+				clearPiece();
+				curX += i;
+				curY += 1;
+				curPose += poseIncrement;
+				kicked = true;
+				break;
+			}
+		}
+		if(!kicked){
+			for(var i = -1; i>= -2; i--){ //right wall kick
+				if(testRotateCounterClockWise(curX + i, tmpY)){ 
+					clearPiece();
+					curX += i;
+					curY += 1;
+					curPose += poseIncrement;
+					kicked = true;
+					break;
+				}
+			}
+		}
+	}
+
+	
+	if(curPose > 3){
+		curPose = 0;
+	}
+	if(curPose < 0){
+		curPose = 3;
 	}
 	drawPiece();
+	if(kicked){
+		fxRotate.play();
+		return true;
+	}
+	return false;
+}
+
+function tick(){ //move piece a line down
+	clearPiece();
+	curY++;
+	drawPiece();
+
 }
 
 function unlockMovement(){

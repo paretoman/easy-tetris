@@ -45,6 +45,13 @@ http://tetris.wikia.com/wiki/TGM_rotation
 
 SRS (Super Rotation system)
 http://tetris.wikia.com/wiki/SRS
+
+T-spin
+http://tetris.wikia.com/wiki/T-Spin
+
+Coding T-spin
+https://katyscode.wordpress.com/2012/10/13/tetris-aside-coding-for-t-spins/
+
 ============
 Tetris - Thema 'A' Acapella 
 Smooth McGroove

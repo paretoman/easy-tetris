@@ -28,11 +28,14 @@ var blocosColors = ["T", "L", "J", "O", "I", "Z", "S"];
 
 var curX = 4;
 var curY = 0;
+var lastX = 0;
+var lastY = 0;
 var curPose = 0;
 var piece;
 var holdPiece;
 var nextPiece = [-1, -1, -1];
 var pieceIndex;
+var lastPieceIndex = 0;
 var nextPieceIndex = [-1, -1, -1];
 var holdPieceIndex;
 var rotateLock = false;
@@ -60,6 +63,7 @@ var curScore = 0;
 var lineClearPts = [100, 300, 500, 800] // single, double, triple, tetris
 var softDropPts = 1;
 var hardDropPts = 2;
+var tSpinPts = [800, 1200, 1600] //single, double, triple(but how?)
 var comboIncrement = 50;
 var curCombo = 0;
 var labelArt;
@@ -84,6 +88,7 @@ var hardDropLock;
 var cleaningLines;
 var waitingLineClear;
 var holdLock;
+var lastValidMoveWasASpin;
 
 var breadCrumbs = [];
 
