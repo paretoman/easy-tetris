@@ -34,6 +34,7 @@ var curPose = 0;
 var piece;
 var holdPiece;
 var nextPiece = [-1, -1, -1];
+var pieceQueue = [];
 var pieceIndex;
 var lastPieceIndex = 0;
 var nextPieceIndex = [-1, -1, -1];

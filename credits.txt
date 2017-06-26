@@ -52,6 +52,9 @@ http://tetris.wikia.com/wiki/T-Spin
 Coding T-spin
 https://katyscode.wordpress.com/2012/10/13/tetris-aside-coding-for-t-spins/
 
+Random Generator
+http://tetris.wikia.com/wiki/Random_Generator
+
 ============
 Tetris - Thema 'A' Acapella 
 Smooth McGroove

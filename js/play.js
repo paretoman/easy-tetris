@@ -345,13 +345,17 @@ function getPiece(){
 
 	nextPieceIndex[0] = nextPieceIndex[1];
 	nextPieceIndex[1] = nextPieceIndex[2];
-	nextPieceIndex[2] = game.rnd.integerInRange(0, 6);
+	nextPieceIndex[2] = pieceQueue.pop();
 
 	nextPiece[0] = nextPiece[1];
 	nextPiece[1] = nextPiece[2];
 	nextPiece[2] = tetraminos.tetraminos[nextPieceIndex[2]];
 	
 	curPose = 0;
+
+	if(pieceQueue.length == 0){
+		fillPieceQueue();
+	}
 }
 
 function hold(){
@@ -378,11 +382,29 @@ function hold(){
 	fxHold.play();
 }
 
+function fillPieceQueue(){
+	pieceQueue = [];
+	while(pieceQueue.length < 7){
+		test = game.rnd.integerInRange(0, 6);
+		count = 0;
+		for(i = 0; i<pieceQueue.length;i++){
+			if(pieceQueue[i] == test){
+				count++;
+				break;
+			}
+		}
+		if(count == 0){
+			pieceQueue.push(test);
+		}
+	}
+}
+
 function initPieces(){
-	pieceIndex = game.rnd.integerInRange(0, 6);
+	fillPieceQueue();
+	pieceIndex = pieceQueue.pop();
 	piece = tetraminos.tetraminos[pieceIndex];
 	for(var i = 0; i < 3; i++){
-		nextPieceIndex[i] = game.rnd.integerInRange(0, 6);
+		nextPieceIndex[i] = pieceQueue.pop();
 		nextPiece[i] = tetraminos.tetraminos[nextPieceIndex[i]];
 	}
 	curPose = 0;
