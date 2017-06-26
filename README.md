@@ -10,7 +10,7 @@ Play online (itch.io): [link](https://caiomga.itch.io/phaser-tetris?secret=66NJb
 You need a http server.
 I suggest [xampp](https://www.apachefriends.org/download.html).
 
-1. Down](https://bitbucket.org/repo/Gg6pneo/images/4061538203-Phaser%20Tetris%20print%2017.png)load Xampp
+1. [Download Xampp](https://bitbucket.org/repo/Gg6pneo/images/4061538203-Phaser%20Tetris%20print%2017.png)
 2. Install Xampp
 3. Download this game's files
 4. Create a folder in xampp's httpd folder (usually "C:\xampp\httpd")
