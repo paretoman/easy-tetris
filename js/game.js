@@ -81,6 +81,20 @@ var fxRotate = null;
 var fxHold = null;
 var music = null;
 var trackNames = [];
+var userKeys;
+
+//controls popup variables
+var actionTexts;
+var keysButtons;
+var keysLabels;
+var actionLabels;
+var popupPanel;
+var popupText;
+var isPopupShown;
+var waitingKeyPress;
+var keyModified;
+var tmpUserKeys;
+
 
 var gameover;
 var softDrop;

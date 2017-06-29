@@ -1,6 +1,7 @@
 var playState = {
 	create: function(){
 		resetNav();
+		initKeys();
 		bg = game.add.sprite(0, 0, 'bg'+curBg);
 		game.add.sprite(0, 0, 'board');
 		createBoardDisplay();
@@ -266,9 +267,10 @@ function drawPiece(){
 
 function getInput(){
 	hAxis = 0;
-	if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
+	//if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
+		if(game.input.keyboard.isDown(userKeys[0])){
 		hAxis --;
-	} else if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
+	} else if(game.input.keyboard.isDown(userKeys[1])){
 		hAxis++;
 	} else {
 		unlockMovement();
@@ -288,12 +290,12 @@ function getInput(){
 		movementDelayLock = false;
 	}
 	
-	if(game.input.keyboard.isDown(Phaser.Keyboard.UP)){
+	if(game.input.keyboard.isDown(userKeys[2])){
 		if(!rotateLock){
 			rotateClockWise();
 			rotateLock = true;
 		}
-	} else if(game.input.keyboard.isDown(Phaser.Keyboard.Z)){
+	} else if(game.input.keyboard.isDown(userKeys[3])){
 		if(!rotateLock){
 			rotateCounterClockWise();
 			rotateLock = true;
@@ -304,7 +306,7 @@ function getInput(){
 
 	
 
-	if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
+	if(game.input.keyboard.isDown(userKeys[4])){
 		if(!softDrop){
 			killSoftDropTimer();
 			softDrop = true;
@@ -319,7 +321,7 @@ function getInput(){
 		}
 	}
 
-	if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
+	if(game.input.keyboard.isDown(userKeys[5])){
 		if (!hardDropLock){
 			hardDropLock = true;
 			hardDrop = true;
@@ -331,7 +333,7 @@ function getInput(){
 		}
 	}
 
-	if(game.input.keyboard.isDown(Phaser.Keyboard.X)){
+	if(game.input.keyboard.isDown(userKeys[6])){
 		if(!holdLock){
 			holdLock = true;
 			hold();
@@ -1006,7 +1008,6 @@ function updateNextWindow(){
 			nextWindow[blocoY][blocoX].frameName = blocosColors[nextPieceIndex[j]];
 		}
 	}
-	
 }
 
 function updateTickSpeed(){
@@ -1016,4 +1017,8 @@ function updateTickSpeed(){
 		level++;
 		updateLabelLevel();
 	}
+}
+
+function initKeys(){
+
 }

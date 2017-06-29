@@ -80,6 +80,7 @@ var singlePlayerPrepState = {
 		level = 1;
 		tickInterval = 500;
 		lastValidMoveWasASpin = false;
+		userKeys = loadUserKeys();
 		game.state.start('play');
 	}
 };

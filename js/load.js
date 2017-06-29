@@ -4,9 +4,13 @@ var loadState = {
 		game.load.atlas('blocoatlas', 'img/blocoatlas_v3.png', 'js/blocoatlas_v2.json');
 		game.load.json('tetraminosJSON', 'js/tetraminos.json');
 		game.load.image('board', 'img/bg1.png');
+		game.load.image('line400', 'img/line.png');
+		game.load.image('popupPanel', 'img/popupPanel.png');
 		game.load.spritesheet('button', 'img/Button.png', 46, 46);
 		game.load.spritesheet('medium_button', 'img/medium_button.png', 92, 46);
 		game.load.spritesheet('big_button', 'img/big_button.png', 276, 46);
+		game.load.spritesheet('small_button', 'img/small_button.png', 32, 32);
+		game.load.spritesheet('key_assign_button', 'img/keyAssignButton.png', 400, 32);
 		//bgs
 		bgsNames = ["img/phaser_universe_bg.png", "img/bg_PROERD.png", "img/Kremlin.png", "img/virgilio_pokemon_ghosts.png", "img/virgilio_master_sword.png","img/ratinho.png"];
 		bgsTexts = ["Phaser Universe\nby Phaser", "Proerd\nby Nestablo Ramos", "Kremlin's\nSurveillance Regime\nby Bruno Moraes", "Pokemon Ghosts\nby Virgilio Silveira", "Master Sword\nby Virgilio Silveira", "Ratinho in space\nby Caio Marchi"];
