@@ -3,6 +3,12 @@ var settingsState = {
 		var titleLabel = game.add.text(80, 80, 'Settings',
 			{font: '50px Arial', fill:'#ffffff'});
 		var buttonStyle = {font: '25px Arial', fill:'#080808'};
+
+		btnResetSettings = game.add.button(game.world.width / 2, (game.world.height / 2) - 60, 'big_button', DeleteLocalSettings, this, 1, 2, 0);
+		btnResetSettings.anchor.setTo(0.5, 0.5);
+		lblResetSettings = game.add.text(game.world.width / 2, (game.world.height / 2) - 60, "Erase Local Data", buttonStyle);
+		lblResetSettings.anchor.setTo(0.5, 0.5);
+
 		btnNewGame = game.add.button(game.world.width / 2, game.world.height / 2, 'big_button', function (){show('changeBgSt')}, this, 1, 2, 0);
 		btnNewGame.anchor.setTo(0.5, 0.5);
 		lblNewGame = game.add.text(game.world.width / 2, game.world.height / 2, "Change Background", buttonStyle);
@@ -25,3 +31,9 @@ var settingsState = {
 		
 	}
 };
+
+function DeleteLocalSettings(){
+	localStorage.clear();
+	alert("Data Erased!\n\nRestarting game");
+	game.state.start('boot');
+}
