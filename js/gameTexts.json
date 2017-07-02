@@ -1,0 +1,84 @@
+{
+  "langs": {
+    "PT_BR": {
+      "Standard": {
+        "texts": [
+          "Salvar",
+          "Cancelar",
+          "Voltar",
+          "Resetar"
+        ]
+      },
+      "MainMenu": {
+        "texts": [
+          "Feito com Phaser.js",
+          "Novo Jogo",
+          "Configurações",
+          "Placar",
+          "Créditos"
+        ]
+      },
+      "Settings": {
+        "texts": [
+          "Apagar Dados Locais",
+          "Mudar Fundo",
+          "Som/Música",
+          "Controles"
+        ]
+      },
+      "ChangeBackGround": {
+        "texts": [
+          "Selecione a Imagem"
+        ]
+      },
+      "SoundMenu": {
+        "texts": [
+          "Música/Sons",
+          "Música",
+          "Efeitos Sonoros",
+          "Informações da Trilha"
+        ]
+      },
+      "Controls": {
+        "texts": [
+          "Controles",
+          "Move para a Esquerda",
+          "Move para a Direita",
+          "Rotaciona Sentido Horário",
+          "Rotaciona Sentido Anti-Horário",
+          "Soft Drop",
+          "Hard Drop",
+          "Segurar",
+          "Confirmar",
+          "Voltar"
+        ]
+      },
+      "Leaderboard": {
+        "texts": [
+          "Maiores Pontuações"
+        ]
+      },
+      "SinglePlayerGame": {
+        "texts": [
+          "Segurando",
+          "Próximas",
+          "Informações do Fundo",
+          "Pontos",
+          "Nível",
+          "Linhas"
+        ]
+      },
+      "Gameover": {
+        "texts": [
+          "Fim de Jogo",
+          "Menu Principal",
+          "Jogar Novamente",
+          "Pontos",
+          "Nível",
+          "Linhas",
+          "Você atingiu TOP 5!"
+        ]
+      }
+    }
+  }
+}

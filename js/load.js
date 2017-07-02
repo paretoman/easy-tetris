@@ -3,6 +3,7 @@ var loadState = {
 		var loadingLabel = game.add.text(80, 150, 'loading...', {font: '30px Courier', fill:'#ffffff'});
 		game.load.atlas('blocoatlas', 'img/blocoatlas_v3.png', 'js/blocoatlas_v2.json');
 		game.load.json('tetraminosJSON', 'js/tetraminos.json');
+		game.load.json('langs', 'js/gameTexts.json');
 		game.load.image('board', 'img/bg1.png');
 		game.load.image('line400', 'img/line.png');
 		game.load.image('popupPanel', 'img/popupPanel.png');
