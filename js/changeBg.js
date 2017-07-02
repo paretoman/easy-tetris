@@ -6,7 +6,7 @@ var changeBgState = {
 		tmpBg = curBg;
 		game.add.sprite(0, 0, 'board');
 		textStyle = {font: '25px Arial', fill:'#ffffff'};
-		text = game.add.text(game.world.width / 2, 50, "Select Background", textStyle);
+		text = game.add.text(game.world.width / 2, 50, getText("ChangeBackground", 0), textStyle);
 		text.anchor.setTo(0.5, 0.5);
 		var bgArtStyle = { font: "16px Arial", fill: "#fff", 
 	        align: "left", 
@@ -73,13 +73,13 @@ function createButtons(){
 	tmpY = (game.world.height / 2) + 200;
 	btnSave = btnSettings = game.add.button(tmpX, tmpY, 'medium_button', saveSettings, this, 1, 2, 0);
 	btnSave.anchor.setTo(0.5, 0.5);
-	lblSave = game.add.text(tmpX, tmpY + 4, "SAVE", saveCancelStyle);
+	lblSave = game.add.text(tmpX, tmpY + 4, getText("Standard", 0), saveCancelStyle);
 	lblSave.anchor.setTo(0.5, 0.5);
 
 	tmpX = (game.world.width / 2) + 50;
 	btnCancel = btnSettings = game.add.button(tmpX, tmpY, 'medium_button', goBack, this, 1, 2, 0);
 	btnCancel.anchor.setTo(0.5, 0.5);
-	lblCancel = game.add.text(tmpX, tmpY + 4, "CANCEL", saveCancelStyle);
+	lblCancel = game.add.text(tmpX, tmpY + 4, getText("Standard", 1), saveCancelStyle);
 	lblCancel.anchor.setTo(0.5, 0.5);
 }
 

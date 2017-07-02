@@ -9,13 +9,13 @@ var soundMenuState = {
 		music.stop();
 		createSounds();
 		music.loopFull(music.volume);
-		var titleLabel = game.add.text(80, 80, 'Sound FX/Music',
+		var titleLabel = game.add.text(80, 80, getText("SoundMenu", 0),
 			{font: '50px Arial', fill:'#ffffff'});
 		var buttonStyle = {font: '25px Arial', fill:'#080808'};
 		var labelStyle = {font: '25px Arial', fill:'#ffffff'};
-		var musicLabel = game.add.text(game.world.width / 5, 200, "Music", labelStyle);
+		var musicLabel = game.add.text(game.world.width / 5, 200, getText("SoundMenu", 1), labelStyle);
 		musicLabel.anchor.setTo(0.5, 0.5);
-		var fxLabel = game.add.text(game.world.width / 5 ,300, "Sound FX", labelStyle);
+		var fxLabel = game.add.text(game.world.width / 5 ,300, getText("SoundMenu", 2), labelStyle);
 		fxLabel.anchor.setTo(0.5, 0.5);
 		var valueStyle = {font: '25px Arial', fill:'#ffffff'};
 		musicValue = game.add.text(140, (game.world.height / 2), "70%", valueStyle);
@@ -45,7 +45,7 @@ var soundMenuState = {
 		lblFxPlus.anchor.setTo(0.5, 0.5);
 
 		//change Track
-		trackInfoTitle = game.add.text(game.world.width / 2, 50, "Track Info", labelStyle);
+		trackInfoTitle = game.add.text(500, game.world.height / 2 , getText("SoundMenu", 3), labelStyle);
 		trackInfoTitle.anchor.setTo(0.5, 0.5);
 		var trackInfoTextStyle = { font: "20px Arial", fill: "#fff", 
 	        align: "left", 
@@ -72,13 +72,13 @@ var soundMenuState = {
 		tmpY = (game.world.height / 2) + 200;
 		btnSave = btnSettings = game.add.button(tmpX, tmpY, 'medium_button', saveAudioSettings, this, 1, 2, 0);
 		btnSave.anchor.setTo(0.5, 0.5);
-		lblSave = game.add.text(tmpX, tmpY + 4, "SAVE", saveCancelStyle);
+		lblSave = game.add.text(tmpX, tmpY + 4, getText("Standard", 0), saveCancelStyle);
 		lblSave.anchor.setTo(0.5, 0.5);
 
 		tmpX = (game.world.width / 2) + 50;
 		btnCancel = btnSettings = game.add.button(tmpX, tmpY, 'medium_button', cancelSoundSettings, this, 1, 2, 0);
 		btnCancel.anchor.setTo(0.5, 0.5);
-		lblCancel = game.add.text(tmpX, tmpY + 4, "CANCEL", saveCancelStyle);
+		lblCancel = game.add.text(tmpX, tmpY + 4, getText("Standard", 1), saveCancelStyle);
 		lblCancel.anchor.setTo(0.5, 0.5);
 
 		updateLabels();

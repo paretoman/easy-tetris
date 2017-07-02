@@ -6,7 +6,9 @@
           "Salvar",
           "Cancelar",
           "Voltar",
-          "Resetar"
+          "Resetar",
+          "Dados Locais Apagados!",
+          "Reiniciando o Jogo"
         ]
       },
       "MainMenu": {
@@ -20,13 +22,14 @@
       },
       "Settings": {
         "texts": [
+          "Configurações",
           "Apagar Dados Locais",
           "Mudar Fundo",
           "Som/Música",
           "Controles"
         ]
       },
-      "ChangeBackGround": {
+      "ChangeBackground": {
         "texts": [
           "Selecione a Imagem"
         ]
@@ -50,7 +53,8 @@
           "Hard Drop",
           "Segurar",
           "Confirmar",
-          "Voltar"
+          "Voltar",
+          "Pressione tecla para"
         ]
       },
       "Leaderboard": {
@@ -71,12 +75,13 @@
       "Gameover": {
         "texts": [
           "Fim de Jogo",
-          "Menu Principal",
+          "Menu Principal - ENTER",
           "Jogar Novamente",
-          "Pontos",
-          "Nível",
-          "Linhas",
-          "Você atingiu TOP 5!"
+          "Pontos: ",
+          "Nível: ",
+          "Linhas: ",
+          "Você atingiu TOP 5!",
+          "Você atingiu TOP 5! Digite Seu Nome: "
         ]
       }
     }

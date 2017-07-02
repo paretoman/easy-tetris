@@ -2,13 +2,13 @@ var gameoverState = {
 	create: function(){
 		resetNav();
 		music.stop();
-		var gameoverLabel = game.add.text(80, 80, 'G A M E    O V E R',
+		var gameoverLabel = game.add.text(80, 80, getText("Gameover", 0),
 			{font: '50px Arial', fill:'#ffffff'});
-		var finalScoreLabel = game.add.text(80, game.world.height - 240, 'Score: '+ curScore,
+		var finalScoreLabel = game.add.text(80, game.world.height - 240, getText("Gameover", 3) + curScore,
 			{font: '25px Arial', fill:'#ffffff'});
-		var finalLevelLabel = game.add.text(80, game.world.height - 200, 'Level: '+ level,
+		var finalLevelLabel = game.add.text(80, game.world.height - 200, getText("Gameover", 4) + level,
 			{font: '25px Arial', fill:'#ffffff'});
-		var finalLinesLabel = game.add.text(80, game.world.height - 160, 'Lines: ' + lineCount,
+		var finalLinesLabel = game.add.text(80, game.world.height - 160, getText("Gameover", 5) + lineCount,
 			{font: '25px Arial', fill:'#ffffff'});
 		var goToMainMenuLabel = game.add.text(80, game.world.height - 320, '- Press ENTER to Main Menu -',
 			{font: '25px Arial', fill:'#ffffff'});
@@ -26,7 +26,7 @@ var gameoverState = {
 }
 
 function showNewHighscore(){
-	var finalLinesLabel = game.add.text(80, game.world.height - 280, "New Highscore!",
+	var finalLinesLabel = game.add.text(80, game.world.height - 280, getText("Gameover", 6),
 			{font: '25px Arial', fill:'#cc5555'});
-	name = prompt("You got a highscore! Type your Name: ", "");if (name) {updatePlayerName(name);updateLeaderboard();}
+	name = prompt(getText("Gameover", 7), "");if (name) {updatePlayerName(name);updateLeaderboard();}
 }

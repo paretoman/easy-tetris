@@ -2,7 +2,7 @@ var controlsState = {
 	create: function(){
 		waitingKeyPress = false;
 		tmpUserKeys = loadUserKeys();
-		var titleLabel = game.add.text(80, 80, 'Controls',
+		var titleLabel = game.add.text(80, 80, getText('Controls', 0),
 			{font: '50px Arial', fill:'#ffffff'});
 		var buttonStyle = {font: '25px Arial', fill:'#080808'};
 	    
@@ -11,7 +11,7 @@ var controlsState = {
 		popupPanel.anchor.y = 0.5;
 		popupPanel.visible = false;
 
-		popupText = game.add.text(game.world.width / 2, (game.world.height / 2), "Press key for PLACE_HOLDER", {font: '32px Arial', fill:'#080808', align:'center'});
+		popupText = game.add.text(game.world.width / 2, (game.world.height / 2), "PLACE_HOLDER", {font: '32px Arial', fill:'#080808', align:'center'});
 		popupText.anchor.x = 0.5;
 		popupText.anchor.y = 0.5;
 		popupText.visible = false;
@@ -28,19 +28,19 @@ var controlsState = {
 		tmpY = (game.world.height / 2) + 200;
 		btnSave = btnSettings = game.add.button(tmpX, tmpY, 'medium_button', saveControls, this, 1, 2, 0);
 		btnSave.anchor.setTo(0.5, 0.5);
-		lblSave = game.add.text(tmpX, tmpY + 4, "SAVE", saveCancelStyle);
+		lblSave = game.add.text(tmpX, tmpY + 4, getText("Standard", 0), saveCancelStyle);
 		lblSave.anchor.setTo(0.5, 0.5);
 
 		tmpX = (game.world.width / 2);
 		btnCancel = btnSettings = game.add.button(tmpX, tmpY, 'medium_button', goBack, this, 1, 2, 0);
 		btnCancel.anchor.setTo(0.5, 0.5);
-		lblCancel = game.add.text(tmpX, tmpY + 4, "CANCEL", saveCancelStyle);
+		lblCancel = game.add.text(tmpX, tmpY + 4, getText("Standard", 1), saveCancelStyle);
 		lblCancel.anchor.setTo(0.5, 0.5);
 
 		tmpX = (game.world.width / 2) + 100;
 		btnReset = btnSettings = game.add.button(tmpX, tmpY, 'medium_button', resetKeys, this, 1, 2, 0);
 		btnReset.anchor.setTo(0.5, 0.5);
-		lblReset = game.add.text(tmpX, tmpY + 4, "RESET", saveCancelStyle);
+		lblReset = game.add.text(tmpX, tmpY + 4, getText("Standard", 3), saveCancelStyle);
 		lblReset.anchor.setTo(0.5, 0.5);
 
 		game.world.bringToTop(popupGroup);
@@ -65,14 +65,19 @@ function assignKey(keyIndex){
 		keyModified = keyIndex;
 		isPopupShown = true;
 		popupPanel.visible = true;
-		popupText.text = "Press key for\n" + actionTexts[keyIndex];
+		popupText.text = getText("Controls", 10)+"\n" + actionTexts[keyIndex];
 		popupText.visible = true;
 	}
 }
 
 function createKeyAssignmentButtons(){
 	keysButtons = [];
-	actionTexts = ['Move Left','Move Right','Rotate Clockwise','Rotate Counter-Clockwise','Soft Drop','Hard Drop','Hold', 'Menu Confirm', 'Menu Back'];
+	//actionTexts = ['Move Left','Move Right','Rotate Clockwise','Rotate Counter-Clockwise','Soft Drop','Hard Drop','Hold', 'Menu Confirm', 'Menu Back'];
+	actionTexts = [];
+	for(i = 1; i < 10; i++){
+		actionTexts.push(getText("Controls", i));
+	}
+
 	var actionLabelStyle = {
 		font: "18px Arial", fill: "#fff", 
         align: "left", 
