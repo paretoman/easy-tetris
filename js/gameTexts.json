@@ -16,7 +16,7 @@
           "Feito com Phaser.js",
           "Novo Jogo",
           "Configurações",
-          "Placar",
+          "Maiores Pontuações",
           "Créditos"
         ]
       },
@@ -194,7 +194,7 @@
         "texts": [
           "Ajustes",
           "Borrar datos locales",
-          "Cambiar Image de el fondo",
+          "Cambiar Image del fondo",
           "Sonidos/Música",
           "Controles"
         ]
@@ -254,6 +254,93 @@
           "¡Tienes una Pontuación Alta! Escribe tu nombre: "
         ]
       }
+    },
+    "GE": {
+      "Standard": {
+        "texts": [
+          "Sparen",
+          "Stornieren",
+          "Zurück",
+          "Zurücksetzen",
+          "Lokale Daten gelöscht!",
+          "Spiel neu starten ..."
+        ]
+      },
+      "MainMenu": {
+        "texts": [
+          "Mit Phaser.js gemacht",
+          "Neues Spiel",
+          "Einstellungen",
+          "Bestenliste",
+          "Kredite"
+        ]
+      },
+      "Settings": {
+        "texts": [
+          "Einstellungen",
+          "Lokale Daten löschen",
+          "Hintergrund ändern",
+          "Sound FX / Musik",
+          "Steuert"
+        ]
+      },
+      "ChangeBackground": {
+        "texts": [
+          "Hintergrund auswählen"
+        ]
+      },
+      "SoundMenu": {
+        "texts": [
+          "Musik / Sound FX",
+          "Musik",
+          "Sound FX",
+          "Track Info"
+        ]
+      },
+      "Controls": {
+        "texts": [
+          "Kontrollen",
+          "Geh nach links",
+          "Nach rechts bewegen",
+          "Im Uhrzeiger sinn drehen",
+          "Gegen den Uhrzeigersinn drehen",
+          "Soft Drop",
+          "Hard Drop",
+          "Halt",
+          "Menü bestätigen",
+          "Menü zurück",
+          "Taste für drücken "
+        ]
+      },
+      "Leaderboard": {
+        "texts": [
+          "Bestenliste"
+        ]
+      },
+      "SinglePlayerGame": {
+        "texts": [
+          "Halt",
+          "Nächster",
+          "Hintergrundinformation",
+          "Ergebnis",
+          "Ebene",
+          "Linien"
+        ]
+      },
+      "Gameover": {
+        "texts": [
+          "SPIEL IST AUS",
+          "Hauptmenü - Drücken Sie Enter",
+          "Spiel nochmal",
+          "Ergebnis: ",
+          "Ebene: ",
+          "Zeilen:",
+          "Du hast ein HIGHSCORE!",
+          "Du hast einen HIGHSCORE! Geben Sie Ihren Namen ein: "
+        ]
+      }
     }
+
+
   }
 }

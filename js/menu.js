@@ -2,7 +2,7 @@ var menuState = {
 	create: function(){
 		resetNav();
 
-		var titleLabel = game.add.text(80, 80, 'Tetris by Caio Marchi\n'+getText("MainMenu", 0),
+		var titleLabel = game.add.text(80, 80, 'Tetris-clone\n'+getText("MainMenu", 0),
 			{font: '50px Arial', fill:'#ffffff'});
 		//var enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 		var buttonStyle = {font: '25px Arial', fill:'#080808'};
@@ -29,8 +29,15 @@ var menuState = {
 		lblCredits = game.add.text(game.world.width / 2, (game.world.height / 2) + 180, getText("MainMenu", 4), buttonStyle);
 		lblCredits.anchor.setTo(0.5, 0.5);
 		
+		createLanguageFlags();
 	},
 	start: function(){
 		game.state.start('singlePlayerPrep');
 	}
 };
+
+function updateLanguage(newLang){
+	console.log(newLang);
+	setLang(newLang);
+	game.state.start('menu');
+}

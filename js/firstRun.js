@@ -25,4 +25,7 @@ function initScoreSystem(){
 	//init keys
 	keys = getDefaultUserKeys();
 	saveUserKeys(keys);
+
+	//init language
+	localStorage.setItem("curLang", "PT_BR");
 }
