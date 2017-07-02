@@ -169,6 +169,91 @@
           "You got a HIGHSCORE! Type your name:  "
         ]
       }
+    },
+    "ES": {
+      "Standard": {
+        "texts": [
+          "Salvar",
+          "Cancelar",
+          "Espalda",
+          "Reiniciar",
+          "¡Datos locales borrados!",
+          "Reiniciando el juego..."
+        ]
+      },
+      "MainMenu": {
+        "texts": [
+          "Hecho con Phaser.js",
+          "Nuevo Juego",
+          "Ajustes",
+          "Placar",
+          "Créditos"
+        ]
+      },
+      "Settings": {
+        "texts": [
+          "Ajustes",
+          "Borrar datos locales",
+          "Cambiar Image de el fondo",
+          "Sonidos/Música",
+          "Controles"
+        ]
+      },
+      "ChangeBackground": {
+        "texts": [
+          "Escoge el fondo"
+        ]
+      },
+      "SoundMenu": {
+        "texts": [
+          "Música / Sonidos",
+          "Música",
+          "Sonidos",
+          "Información de la pista"
+        ]
+      },
+      "Controls": {
+        "texts": [
+          "Controles",
+          "Mover hacia la izquierda",
+          "Mover hacia a la derecha",
+          "Girar en sentido horario",
+          "Girar en sentido antihorario",
+          "Soft Drop",
+          "Hard Drop",
+          "Sostener",
+          "Confirmar",
+          "Volver Atrás",
+          "Pressione la tecla para"
+        ]
+      },
+      "Leaderboard": {
+        "texts": [
+          "Placar"
+        ]
+      },
+      "SinglePlayerGame": {
+        "texts": [
+          "Sostener",
+          "Siguientes",
+          "Información del Arte",
+          "Ponctuación",
+          "Nivel",
+          "Líneas"
+        ]
+      },
+      "Gameover": {
+        "texts": [
+          "Fim del Juego",
+          "Menú Principal - Pressione Enter",
+          "Juega de Nuevo",
+          "Pontuación: ",
+          "Nivel: ",
+          "Líneas: ",
+          "¡Tienes una Pontuación Alta!",
+          "¡Tienes una Pontuación Alta! Escribe tu nombre: "
+        ]
+      }
     }
   }
 }
