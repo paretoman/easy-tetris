@@ -84,6 +84,91 @@
           "Você atingiu TOP 5! Digite Seu Nome: "
         ]
       }
+    },
+    "EN": {
+      "Standard": {
+        "texts": [
+          "Save",
+          "Cancel",
+          "Back",
+          "Reset",
+          "Local Data Erased!",
+          "Restarting game..."
+        ]
+      },
+      "MainMenu": {
+        "texts": [
+          "Made with Phaser.js",
+          "New Game",
+          "Settings",
+          "Leaderboard",
+          "Credits"
+        ]
+      },
+      "Settings": {
+        "texts": [
+          "Settings",
+          "Erase Local Data",
+          "Change Background",
+          "Sound FX/Music",
+          "Controls"
+        ]
+      },
+      "ChangeBackground": {
+        "texts": [
+          "Choose Background"
+        ]
+      },
+      "SoundMenu": {
+        "texts": [
+          "Music/Sound FX",
+          "Music",
+          "Sound FX",
+          "Track Info"
+        ]
+      },
+      "Controls": {
+        "texts": [
+          "Controls",
+          "Move Left",
+          "Move RIght",
+          "Rotate Clockwise",
+          "Rotate Counter-Clockwise",
+          "Soft Drop",
+          "Hard Drop",
+          "Hold",
+          "Menu Confirm",
+          "Menu Back",
+          "Press key for"
+        ]
+      },
+      "Leaderboard": {
+        "texts": [
+          "Leaderboard"
+        ]
+      },
+      "SinglePlayerGame": {
+        "texts": [
+          "Hold",
+          "Next",
+          "Background Info",
+          "Score",
+          "Level",
+          "Lines"
+        ]
+      },
+      "Gameover": {
+        "texts": [
+          "G A M E   O V E R",
+          "Main Menu - Press Enter",
+          "Play Again",
+          "Score: ",
+          "Level: ",
+          "Lines: ",
+          "You got a HIGHSCORE!",
+          "You got a HIGHSCORE! Type your name:  "
+        ]
+      }
     }
   }
 }
