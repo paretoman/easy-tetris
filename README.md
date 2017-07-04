@@ -3,7 +3,7 @@ Devlog: [link](https://imgur.com/a/G2Ze6)
 
 Play online (itch.io): [link](https://caiomga.itch.io/phaser-tetris?secret=66NJblPliFVtiOHQARnsaDyWvqs)
 
-![Phaser Tetris print 17.png](https://bitbucket.org/repo/Gg6pneo/images/2615998205-Phaser%20Tetris%20print%2017.png)
+![Phaser Tetris print 19.PNG](https://bitbucket.org/repo/Gg6pneo/images/2160035586-Phaser%20Tetris%20print%2019.PNG)
 
 ##How to run?##
 
