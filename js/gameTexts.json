@@ -424,7 +424,8 @@
           "Вы достигли TOP 5 Введите Ваше имя: "
         ]
       }
-    },"JP": {
+    },
+    "JP": {
       "Standard": {
         "texts": [
           "セーブ",
@@ -506,6 +507,176 @@
           "行：",
           "あなたは「HIGHSCORE」を持っています！",
           "あなたは「HIGHSCORE」を持っています！あなたの名前をタイプしてください： "
+        ]
+      }
+    },
+    "IT": {
+      "Standard": {
+        "texts": [
+          "Salvare",
+          "Annulla",
+          "Indietro",
+          "Reset",
+          "Dati locali cancellati!",
+          "Ripristino del gioco ..."
+        ]
+      },
+      "MainMenu": {
+        "texts": [
+          "Creato con Phaser.js",
+          "Nuovo gioco",
+          "Impostazioni",
+          "Classifica",
+          "Crediti"
+        ]
+      },
+      "Settings": {
+        "texts": [
+          "Impostazioni",
+          "Cancella i dati locali",
+          "Cambia sfondo",
+          "Suoni / Musica",
+          "Comandi"
+        ]
+      },
+      "ChangeBackground": {
+        "texts": [
+          "Scegli lo sfondo"
+        ]
+      },
+      "SoundMenu": {
+        "texts": [
+          "Musica / Suoni",
+          "Musica",
+          "Suoni",
+          "Dettagli della canzone"
+        ]
+      },
+      "Controls": {
+        "texts": [
+          "Comandi",
+          "Vai a sinistra",
+          "Vai a destra",
+          "Ruotare in senso orario",
+          "Ruotare in senso antiorario",
+          "Soft Drop",
+          "Hard Drop",
+          "Hold",
+          "Menu Conferma",
+          "Menu Ritorno",
+          "Premere il tasto per"
+        ]
+      },
+      "Leaderboard": {
+        "texts": [
+          "Classifica"
+        ]
+      },
+      "SinglePlayerGame": {
+        "texts": [
+          "Tenere",
+          "Prossimo",
+          "Informazioni sfondo",
+          "Punto",
+          "Livello",
+          "Linee"
+        ]
+      },
+      "Gameover": {
+        "texts": [
+          "FINE DI GIOCO",
+          "Menu principale - Premere Invio",
+          "Gioca ancora",
+          "Punto: ",
+          "Livello:",
+          "Linee: ",
+          "Hai un HIGH SCORE!",
+          "Hai un HIGH SCORE! Inserisci il tuo nome: "
+        ]
+      }
+    },
+    "FR": {
+      "Standard": {
+        "texts": [
+          "Enregistrer",
+          "Annuler",
+          "Retour",
+          "Reset",
+          "Données supprimées local!",
+          "Relancer le jeu"
+        ]
+      },
+      "MainMenu": {
+        "texts": [
+          "Fabriqué avec Phaser.js",
+          "Nouveau jeu",
+          "Paramètres",
+          "Top Notes",
+          "Crédits"
+        ]
+      },
+      "Settings": {
+        "texts": [
+          "Paramètres",
+          "Efface les données",
+          "Changer l'image de fond",
+          "Son / Musique",
+          "Commandes"
+        ]
+      },
+      "ChangeBackground": {
+        "texts": [
+          "Sélectionner l'image"
+        ]
+      },
+      "SoundMenu": {
+        "texts": [
+          "Musique / Sons",
+          "Musique",
+          "Effets sonores",
+          "Détails de la chanson"
+        ]
+      },
+      "Controls": {
+        "texts": [
+          "Commandes",
+          "Déplacer vers la gauche",
+          "Déplacer vers la droite",
+          "Tourner dans le sens horaire",
+          "Tourner dans le sens antihoraire",
+          "Soft Drop",
+          "Hard Drop",
+          "Tenir",
+          "Confirmer",
+          "Retour",
+          "Presser la touche pour"
+        ]
+      },
+      "Leaderboard": {
+        "texts": [
+          "Top Notes"
+        ]
+      },
+      "SinglePlayerGame": {
+        "texts": [
+          "Tenir",
+          "Prochain",
+          "Informations de fond",
+          "Points",
+          "Niveau",
+          "Lignes"
+        ]
+      },
+      "Gameover": {
+        "texts": [
+          "Game Over",
+          "Menu principal - Presse ENTER",
+          "Rejouer",
+          "Points",
+          "Niveau",
+          "Lignes",
+          "Vous avez atteint TOP 5!",
+          "Vous avez atteint TOP 5. Tapez votre nom: "
         ]
       }
     }
