@@ -10,7 +10,7 @@ var gameoverState = {
 			{font: '25px Arial', fill:'#ffffff'});
 		var finalLinesLabel = game.add.text(80, game.world.height - 160, getText("Gameover", 5) + lineCount,
 			{font: '25px Arial', fill:'#ffffff'});
-		var goToMainMenuLabel = game.add.text(80, game.world.height - 320, '- Press ENTER to Main Menu -',
+		var goToMainMenuLabel = game.add.text(80, game.world.height - 320, getText("Gameover", 1),
 			{font: '25px Arial', fill:'#ffffff'});
 
 		var enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);

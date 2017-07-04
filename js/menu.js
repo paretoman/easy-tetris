@@ -35,9 +35,3 @@ var menuState = {
 		game.state.start('singlePlayerPrep');
 	}
 };
-
-function updateLanguage(newLang){
-	console.log(newLang);
-	setLang(newLang);
-	game.state.start('menu');
-}
