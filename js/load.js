@@ -35,9 +35,14 @@ var loadState = {
 		curBg = parseInt(localStorage.curBg);
 
 		initLang();
+		createSounds();
 	},
 
-	create: function(){
-		game.state.start('menu');
+	update: function(){
+		//only start the game after songs being ready
+		if(game.cache.isSoundDecoded('theme-a') && game.cache.isSoundDecoded('chaves')){
+			console.log("music decoded");
+			game.state.start('menu');
+		}
 	}
 };

@@ -10,9 +10,9 @@ var playState = {
 		tetraminos = game.cache.getJSON('tetraminosJSON');
 		initPieces();
 		createTexts();
+		testTick();
 		createSounds();
 		music.loopFull(music.volume);
-		testTick();
 	},
 
 	update: function(){
