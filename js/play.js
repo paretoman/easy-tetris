@@ -12,7 +12,6 @@ var playState = {
 		createTexts();
 		createSounds();
 		music.loopFull(music.volume);
-		//music.volume = 0.2; //testing purposes
 		testTick();
 	},
 
@@ -55,10 +54,10 @@ var playState = {
 				updateNextWindow();
 			}
 		} else {
-			game.state.start('gameover');
 			clearNextWindow();
 			clearBoardDisplay();
 			softDrop = false;
+			game.state.start('gameover');
 		}
 	}
 };
@@ -184,7 +183,7 @@ function createHoldWindow(){
 
 function createNextWindow(){
 	var nextMargin = 0;
-	var marginIncrement = 5;
+	var marginIncrement = 3;
 	for(var i = 0; i < 3; i++){
 		for(var j = 0; j < 12; j++){
 			if((j) % 4 == 0 && j > 3){
@@ -206,7 +205,7 @@ function createTexts(){
     labelArt = game.add.text(0, 0, bgArtText, bgArtStyle);
     labelArt.setTextBounds(463, 378, 154, 92);
 
-	var scoreStyle = { font: "16px Arial", fill: "#fff", 
+	var scoreStyle = { font: "18px Arial", fill: "#fff", 
         align: "center", 
         boundsAlignH: "center", 
         boundsAlignV: "middle", 
@@ -222,6 +221,35 @@ function createTexts(){
 	var linesText = lineCount;
     labelLines = game.add.text(0, 0, linesText, scoreStyle);
     labelLines.setTextBounds(23, 446, 159, 23);
+
+    var labelGameStyle = {
+    	font: "16px Arial",
+    	fill: "#fff", 
+        align: "center", 
+        boundsAlignH: "center", 
+        boundsAlignV: "middle", 
+        wordWrap: false,
+        wordWrapWidth: 159,
+        stroke: '#080808',
+        strokeThickness: 4
+        };
+    l = game.add.text(0, 0, getText("SinglePlayerGame", 0), labelGameStyle);
+    l.setTextBounds(23, 28, 159, 23);
+
+    l = game.add.text(0, 0, getText("SinglePlayerGame", 1), labelGameStyle);
+    l.setTextBounds(463, 28, 159, 23);
+
+    l = game.add.text(0, 0, getText("SinglePlayerGame", 2), labelGameStyle);
+    l.setTextBounds(463, 350, 159, 23);
+
+    l = game.add.text(0, 0, getText("SinglePlayerGame", 3), labelGameStyle);
+    l.setTextBounds(23, 320, 159, 23);
+
+    l = game.add.text(0, 0, getText("SinglePlayerGame", 4), labelGameStyle);
+    l.setTextBounds(23, 372, 159, 23);
+
+    l = game.add.text(0, 0, getText("SinglePlayerGame", 5), labelGameStyle);
+    l.setTextBounds(23, 422, 159, 23);
 }
 
 function drawGhost(){
