@@ -3,9 +3,8 @@ var controlsState = {
 		drawPatternBG("#880000", "225555");
 		waitingKeyPress = false;
 		tmpUserKeys = loadUserKeys();
-		var titleLabel = game.add.text(80, 80, getText('Controls', 0),
-			{font: '50px Arial', fill:'#ffffff'});
-		var buttonStyle = {font: '25px Arial', fill:'#080808'};
+		var titleLabel = game.add.text(80, 80, getText('Controls', 0),getStyle("title"));
+		var buttonStyle = getStyle("button_regular");
 	    
 		popupPanel = game.add.sprite(game.world.width / 2, game.world.height / 2, 'popupPanel');
 		popupPanel.anchor.x = 0.5;
@@ -23,7 +22,7 @@ var controlsState = {
 		popupGroup.add(popupPanel);
 		popupGroup.add(popupText);
 
-		saveCancelStyle = {font: '18px Arial', fill:'#080808'};
+		saveCancelStyle = getStyle("button_small");
 
 		tmpX = (game.world.width / 2) - 100;
 		tmpY = (game.world.height / 2) + 200;
@@ -79,19 +78,9 @@ function createKeyAssignmentButtons(){
 		actionTexts.push(getText("Controls", i));
 	}
 
-	var actionLabelStyle = {
-		font: "18px Arial", fill: "#fff", 
-        align: "left", 
-        boundsAlignH: "left", 
-        boundsAlignV: "top"
-    };
+	var actionLabelStyle = getStyle("controls_action");
 
-    var keysLabelStyle = {
-		font: "16px Arial", fill: "#fff", 
-        align: "right", 
-        boundsAlignH: "right", 
-        boundsAlignV: "top"
-	    };
+    var keysLabelStyle = getStyle("controls_key");
 
 	keysLabels = [];
 	actionLabels = [];

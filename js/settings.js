@@ -1,9 +1,8 @@
 var settingsState = {
 	create: function(){
 		drawPatternBG("#000088", "777722");
-		var titleLabel = game.add.text(80, 80, getText("Settings", 0),
-			{font: '50px Arial', fill:'#ffffff'});
-		var buttonStyle = {font: '25px Arial', fill:'#080808'};
+		var titleLabel = game.add.text(80, 80, getText("Settings", 0),getStyle("title"));
+		var buttonStyle = getStyle("button_regular");
 
 		btnResetSettings = game.add.button(game.world.width / 2, (game.world.height / 2) - 60, 'big_button', DeleteLocalSettings, this, 1, 2, 0);
 		btnResetSettings.anchor.setTo(0.5, 0.5);

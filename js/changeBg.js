@@ -6,14 +6,10 @@ var changeBgState = {
 		bg = game.add.sprite(0, 0, 'bg'+curBg);
 		tmpBg = curBg;
 		game.add.sprite(0, 0, 'board');
-		textStyle = {font: '25px Arial', fill:'#ffffff'};
+		textStyle = getStyle("text_big");
 		text = game.add.text(game.world.width / 2, 50, getText("ChangeBackground", 0), textStyle);
 		text.anchor.setTo(0.5, 0.5);
-		var bgArtStyle = { font: "16px Arial", fill: "#fff", 
-	        align: "left", 
-	        boundsAlignH: "left", 
-	        boundsAlignV: "middle", 
-	        wordWrap: true, wordWrapWidth: 300 };
+		var bgArtStyle = getStyle("bg_art");
 	    var bgArtText = bgsTexts[curBg];
 	    labelArt = game.add.text(0, 0, bgArtText, bgArtStyle);
 	    labelArt.setTextBounds(463, 378, 154, 92);
@@ -28,7 +24,7 @@ function changeBg(bgIndex){
 }
 
 function createButtons(){
-	lblStyle = {font: '25px Arial', fill:'#080808'};
+	lblStyle = getStyle("button_regular");
 	tmpX = (game.world.width / 2) - 25;
 	tmpY = (game.world.height / 2);
 	btns[0] = btnSettings = game.add.button(tmpX, tmpY, 'button', function(){changeBg(0)}, this, 1, 2, 0);
@@ -68,7 +64,7 @@ function createButtons(){
 	lbls[5] = game.add.text(tmpX, tmpY, "6", lblStyle);
 	lbls[5].anchor.setTo(0.5, 0.5);
 
-	saveCancelStyle = {font: '18px Arial', fill:'#080808'};
+	saveCancelStyle = getStyle("button_small");
 
 	tmpX = (game.world.width / 2) - 50;
 	tmpY = (game.world.height / 2) + 200;

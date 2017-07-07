@@ -10,15 +10,14 @@ var soundMenuState = {
 		music.stop();
 		createSounds();
 		music.loopFull(music.volume);
-		var titleLabel = game.add.text(80, 80, getText("SoundMenu", 0),
-			{font: '50px Arial', fill:'#ffffff'});
-		var buttonStyle = {font: '25px Arial', fill:'#080808'};
-		var labelStyle = {font: '25px Arial', fill:'#ffffff'};
+		var titleLabel = game.add.text(80, 80, getText("SoundMenu", 0), getStyle("title"));
+		var buttonStyle = getStyle("button_regular");
+		var labelStyle = getStyle("text_big");
 		var musicLabel = game.add.text(game.world.width / 5, 200, getText("SoundMenu", 1), labelStyle);
 		musicLabel.anchor.setTo(0.5, 0.5);
 		var fxLabel = game.add.text(game.world.width / 5 ,300, getText("SoundMenu", 2), labelStyle);
 		fxLabel.anchor.setTo(0.5, 0.5);
-		var valueStyle = {font: '25px Arial', fill:'#ffffff'};
+		var valueStyle = getStyle("text_big");
 		musicValue = game.add.text(140, (game.world.height / 2), "70%", valueStyle);
 		musicValue.anchor.setTo(0.5, 0.5);
 		fxValue = game.add.text(140, (game.world.height / 2) + 100, "70%", valueStyle);
@@ -48,11 +47,7 @@ var soundMenuState = {
 		//change Track
 		trackInfoTitle = game.add.text(500, game.world.height / 2 , getText("SoundMenu", 3), labelStyle);
 		trackInfoTitle.anchor.setTo(0.5, 0.5);
-		var trackInfoTextStyle = { font: "20px Arial", fill: "#fff", 
-	        align: "left", 
-	        boundsAlignH: "left", 
-	        boundsAlignV: "middle", 
-	        wordWrap: true, wordWrapWidth: 300 };
+		var trackInfoTextStyle = getStyle("track_info");
 	    trackInfoText = trackDesc[trackNames.indexOf(music.name)];
 	    labelInfo = game.add.text(0, 0, trackInfoText, trackInfoTextStyle);
 	    labelInfo.setTextBounds(game.world.width / 2 + 100, game.world.height / 2, 200, 100);
@@ -68,7 +63,7 @@ var soundMenuState = {
 		lblNextTrack.anchor.setTo(0.5, 0.5);
 
 		//save / cancel
-		saveCancelStyle = {font: '18px Arial', fill:'#080808'};
+		saveCancelStyle = getStyle("button_small");
 		tmpX = (game.world.width / 2) - 50;
 		tmpY = (game.world.height / 2) + 200;
 		btnSave = btnSettings = game.add.button(tmpX, tmpY, 'medium_button', saveAudioSettings, this, 1, 2, 0);

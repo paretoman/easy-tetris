@@ -90,7 +90,6 @@ function bringLinesDown(){
 				if(board[i][j] < 10){
 					board[i][j] = -1;
 				}
-
 			}
 		}
 		lineCount++;
@@ -197,20 +196,12 @@ function createNextWindow(){
 }
 
 function createTexts(){
-	var bgArtStyle = { font: "16px Arial", fill: "#fff", 
-        align: "left", 
-        boundsAlignH: "left", 
-        boundsAlignV: "middle", 
-        wordWrap: true, wordWrapWidth: 300 };
+	var bgArtStyle = getStyle("bg_art");
     var bgArtText = bgsTexts[curBg];
     labelArt = game.add.text(0, 0, bgArtText, bgArtStyle);
     labelArt.setTextBounds(463, 378, 154, 92);
 
-	var scoreStyle = { font: "18px Arial", fill: "#fff", 
-        align: "center", 
-        boundsAlignH: "center", 
-        boundsAlignV: "middle", 
-        wordWrap: false, wordWrapWidth: 159 };
+	var scoreStyle = getStyle("text_single_player");
     var scoreText = curScore;
     labelScore = game.add.text(0, 0, scoreText, scoreStyle);
     labelScore.setTextBounds(23, 348, 159, 23);
@@ -223,17 +214,7 @@ function createTexts(){
     labelLines = game.add.text(0, 0, linesText, scoreStyle);
     labelLines.setTextBounds(23, 446, 159, 23);
 
-    var labelGameStyle = {
-    	font: "16px Arial",
-    	fill: "#fff", 
-        align: "center", 
-        boundsAlignH: "center", 
-        boundsAlignV: "middle", 
-        wordWrap: false,
-        wordWrapWidth: 159,
-        stroke: '#080808',
-        strokeThickness: 4
-        };
+    var labelGameStyle = getStyle("text_single_player_label");
     l = game.add.text(0, 0, getText("SinglePlayerGame", 0), labelGameStyle);
     l.setTextBounds(23, 28, 159, 23);
 

@@ -1,10 +1,9 @@
 var leaderboardState = {
 	create: function(){
 		drawPatternBG("#008888", "#882222");
-		var titleLabel = game.add.text(80, 80, getText('Leaderboard', 0),
-			{font: '50px Arial', fill:'#ffffff'});
-		var buttonStyle = {font: '25px Arial', fill:'#080808'};
-		var boardStyle = {font: '25px Arial', fill:'#ffffff'};
+		var titleLabel = game.add.text(80, 80, getText('Leaderboard', 0), getStyle("title"));
+		var buttonStyle = getStyle("button_regular");
+		var boardStyle = getStyle("text_big");
 		getLeaderboard();
 		leader0 = game.add.text(game.world.width / 2, (game.world.height / 2) - 50, leaderNames[0] + " - " + highscores[0], boardStyle);
 		leader0.anchor.setTo(0.5, 0.5);
@@ -19,7 +18,7 @@ var leaderboardState = {
 
 		btnBack = game.add.button(game.world.width / 2, (game.world.height / 2) + 180, 'big_button', goBack, this, 1, 2, 0);
 		btnBack.anchor.setTo(0.5, 0.5);
-		lblBack = game.add.text(game.world.width / 2, (game.world.height / 2) + 180, "Back", buttonStyle);
+		lblBack = game.add.text(game.world.width / 2, (game.world.height / 2) + 180, getText("Standard", 2), buttonStyle);
 		lblBack.anchor.setTo(0.5, 0.5);
 	}
 };
