@@ -1,6 +1,7 @@
 var creditsState = {
 
 	create: function(){
+		drawPatternBG("#008800", "552255");
 		var buttonStyle = {font: '25px Arial', fill:'#080808'};
 		var titleLabel = game.add.text(80, 80, 'Tetris\nby Caio marchi\nCreated by Alexey Pajitnov',
 			{font: '40px Arial', fill:'#ffffff'});

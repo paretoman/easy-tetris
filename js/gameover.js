@@ -1,5 +1,6 @@
 var gameoverState = {
 	create: function(){
+		drawPatternBG("#222222", "#444444");
 		resetNav();
 		music.stop();
 		var gameoverLabel = game.add.text(80, 80, getText("Gameover", 0),

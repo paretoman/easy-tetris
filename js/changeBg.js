@@ -1,5 +1,6 @@
 var changeBgState = {
 	create: function(){
+		game.stage.backgroundColor = "#000000";
 		btns = [,,,,,]; //buttons
 		lbls = [,,,,,]; //labels
 		bg = game.add.sprite(0, 0, 'bg'+curBg);

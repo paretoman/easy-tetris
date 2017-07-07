@@ -1,5 +1,6 @@
 var controlsState = {
 	create: function(){
+		drawPatternBG("#880000", "225555");
 		waitingKeyPress = false;
 		tmpUserKeys = loadUserKeys();
 		var titleLabel = game.add.text(80, 80, getText('Controls', 0),

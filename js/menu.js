@@ -1,7 +1,7 @@
 var menuState = {
 	create: function(){
 		resetNav();
-
+		drawPatternBG("#888800", "222277");
 		var titleLabel = game.add.text(80, 80, 'Tetris-clone\n'+getText("MainMenu", 0),
 			{font: '50px Arial', fill:'#ffffff'});
 		//var enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);

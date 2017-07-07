@@ -5,6 +5,7 @@ var loadState = {
 		game.load.json('tetraminosJSON', 'js/tetraminos.json');
 		game.load.json('langs', 'js/gameTexts.json');
 		game.load.image('board', 'img/bg1.png');
+		game.load.image('pattern_bg', 'img/tetrominos_pattern_bg.png');
 		game.load.image('line400', 'img/line.png');
 		game.load.image('popupPanel', 'img/popupPanel.png');
 		game.load.spritesheet('button', 'img/Button.png', 46, 46);

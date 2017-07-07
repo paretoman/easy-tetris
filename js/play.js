@@ -1,5 +1,6 @@
 var playState = {
 	create: function(){
+		game.stage.backgroundColor = "#000000";
 		resetNav();
 		initKeys();
 		bg = game.add.sprite(0, 0, 'bg'+curBg);

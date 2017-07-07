@@ -1,5 +1,6 @@
 var settingsState = {
 	create: function(){
+		drawPatternBG("#000088", "777722");
 		var titleLabel = game.add.text(80, 80, getText("Settings", 0),
 			{font: '50px Arial', fill:'#ffffff'});
 		var buttonStyle = {font: '25px Arial', fill:'#080808'};
@@ -34,6 +35,7 @@ var settingsState = {
 
 function DeleteLocalSettings(){
 	localStorage.clear();
+	game.stage.backgroundColor = "#000000";
 	alert(getText("Standard",4)+"\n\n"+getText("Standard",5));
 	game.state.start('boot');
 }

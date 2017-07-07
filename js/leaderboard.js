@@ -1,5 +1,6 @@
 var leaderboardState = {
 	create: function(){
+		drawPatternBG("#008888", "#882222");
 		var titleLabel = game.add.text(80, 80, getText('Leaderboard', 0),
 			{font: '50px Arial', fill:'#ffffff'});
 		var buttonStyle = {font: '25px Arial', fill:'#080808'};

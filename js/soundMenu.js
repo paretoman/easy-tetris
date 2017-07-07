@@ -6,6 +6,7 @@ var curFxVolume = 0;
 var labelInfo = 0;
 var soundMenuState = {
 	create: function(){
+		drawPatternBG("#880088", "228822");
 		music.stop();
 		createSounds();
 		music.loopFull(music.volume);
