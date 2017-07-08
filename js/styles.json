@@ -44,6 +44,12 @@
     "wordWrap": false,
     "wordWrapWidth": 159
   },
+  "text_warning_big": {
+    "font": "25px Arial",
+    "fill": "#00dd00",
+    "stroke": "#002200",
+    "strokeThickness": "3"
+  },
   "button_regular": {
     "font": "25px Arial",
     "fill": "#080808"

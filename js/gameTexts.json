@@ -75,7 +75,7 @@
       "Gameover": {
         "texts": [
           "Fim de Jogo",
-          "Menu Principal - ENTER",
+          "Menu Principal",
           "Jogar Novamente",
           "Pontos: ",
           "Nível: ",
@@ -160,7 +160,7 @@
       "Gameover": {
         "texts": [
           "G A M E   O V E R",
-          "Main Menu - Press Enter",
+          "Main Menu",
           "Play Again",
           "Score: ",
           "Level: ",
@@ -245,7 +245,7 @@
       "Gameover": {
         "texts": [
           "Fim del Juego",
-          "Menú Principal - Pressione Enter",
+          "Menú Principal",
           "Juega de Nuevo",
           "Pontuación: ",
           "Nivel: ",
@@ -330,7 +330,7 @@
       "Gameover": {
         "texts": [
           "SPIEL IST AUS",
-          "Hauptmenü - Drücken Sie Enter",
+          "Hauptmenü",
           "Spiel nochmal",
           "Ergebnis: ",
           "Ebene: ",
@@ -415,7 +415,7 @@
       "Gameover": {
         "texts": [
           "Конец игры",
-          "Главное меню - ENTER",
+          "Главное меню",
           "играть снова",
           "Точка",
           "Уровень",
@@ -464,7 +464,7 @@
           "音楽/サウンド",
           "音楽",
           "音",
-          "Track Info"
+          "歌詳細"
         ]
       },
       "Controls": {
@@ -500,7 +500,7 @@
       "Gameover": {
         "texts": [
           "ゲームオーバー",
-          "Enterを押してメインメニューに移動",
+          "メインメニュー",
           "再びプレー",
           "スコア： ",
           "レベル：",
@@ -585,7 +585,7 @@
       "Gameover": {
         "texts": [
           "FINE DI GIOCO",
-          "Menu principale - Premere Invio",
+          "Menu principale",
           "Gioca ancora",
           "Punto: ",
           "Livello:",
@@ -670,7 +670,7 @@
       "Gameover": {
         "texts": [
           "Game Over",
-          "Menu principal - Presse ENTER",
+          "Menu principal",
           "Rejouer",
           "Points",
           "Niveau",
