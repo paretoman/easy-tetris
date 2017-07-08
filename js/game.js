@@ -108,6 +108,7 @@ var holdLock;
 var lastValidMoveWasASpin;
 var lastSecondActive;
 var lastSecondAdjustmentsActive;
+var floorKicked;
 
 var breadCrumbs = [];
 

@@ -15,6 +15,7 @@ var playState = {
 		createSounds();
 		music.loopFull(music.volume);
 		hardDropped = false;
+		floorKicked = false;
 	},
 
 	update: function(){
@@ -494,6 +495,7 @@ function placeOnBoard(){
 	var tmpX;
 	var tmpY;
 	lastSecondActive = false;
+	floorKicked = false;
 	for(var i = 0; i < 4; i++){
 		tmpX = piece.poses[curPose][i][0] + curX ;
 		tmpY = piece.poses[curPose][i][1] + curY;
@@ -534,6 +536,16 @@ function rotateClockWise(){
 		}
 		drawPiece();
 		fxRotate.play();
+	} else if(!floorKicked && testRotateClockWise(curX, curY -1)){ //test floor Kick
+		clearPiece();
+		curPose++;
+		curY--;
+		floorKicked = true;
+		if(curPose > 3){
+			curPose = 0;
+		}
+		drawPiece();
+		fxRotate.play();
 	} else if(!testWallKicks(true)){
 		if(curY +1 <= MAX_INDEX_VERTICAL){
 			if(testRotateClockWise(curX, curY + 1)){ //test down kick
@@ -554,6 +566,24 @@ function rotateCounterClockWise(){
 	if(testRotateCounterClockWise(curX, curY)){
 		clearPiece();
 		curPose--;
+		if(curPose < 0){
+			curPose = 3;
+		}
+		drawPiece();
+		fxRotate.play();
+	} else if( !floorKicked && testRotateCounterClockWise(curX, curY - 1)){
+		clearPiece();
+		curPose--;
+		curY --;
+		if(curPose < 0){
+			curPose = 3;
+		}
+		drawPiece();
+		fxRotate.play();
+	} else if( !floorKicked && testRotateCounterClockWise(curX, curY - 2)){
+		clearPiece();
+		curPose--;
+		curY --;
 		if(curPose < 0){
 			curPose = 3;
 		}
