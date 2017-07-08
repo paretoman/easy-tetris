@@ -1,5 +1,7 @@
 var loadState = {
 	preload: function(){
+		game.plugins.add(PhaserNineSlice.Plugin);
+
 		var loadingLabel = game.add.text(80, 150, 'loading...', {font: '30px Courier', fill:'#ffffff'});
 		game.load.atlas('blocoatlas', 'img/blocoatlas_v3.png', 'js/blocoatlas_v2.json');
 		game.load.json('tetraminosJSON', 'js/tetraminos.json');
@@ -9,6 +11,8 @@ var loadState = {
 		game.load.image('pattern_bg', 'img/tetrominos_pattern_bg.png');
 		game.load.image('line400', 'img/line.png');
 		game.load.image('popupPanel', 'img/popupPanel.png');
+		game.load.nineSlice('sliced_button', 'img/9patchButton.png', 8);
+		game.load.nineSlice('sliced_panel', 'img/9patchPanel.png', 8);
 		game.load.spritesheet('button', 'img/Button.png', 46, 46);
 		game.load.spritesheet('medium_button', 'img/medium_button.png', 92, 46);
 		game.load.spritesheet('big_button', 'img/big_button.png', 276, 46);
