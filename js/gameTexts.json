@@ -69,7 +69,10 @@
           "Informações do Fundo",
           "Pontos",
           "Nível",
-          "Linhas"
+          "Linhas",
+          "Pronto?",
+          "Vai!",
+          "OK"
         ]
       },
       "Gameover": {
@@ -154,7 +157,10 @@
           "Background Info",
           "Score",
           "Level",
-          "Lines"
+          "Lines",
+          "Ready?",
+          "Go!",
+          "OK"
         ]
       },
       "Gameover": {
@@ -239,7 +245,10 @@
           "Información del Arte",
           "Ponctuación",
           "Nivel",
-          "Líneas"
+          "Líneas",
+          "Listo?",
+          "¡Vaya!",
+          "OK"
         ]
       },
       "Gameover": {
@@ -324,7 +333,10 @@
           "Hintergrundinformation",
           "Ergebnis",
           "Ebene",
-          "Linien"
+          "Linien",
+          "Bereit?",
+          "Geh!",
+          "OK"
         ]
       },
       "Gameover": {
@@ -409,7 +421,10 @@
           "Справочная информация",
           "Точка",
           "Уровень",
-          "Линия"
+          "Линия",
+          "Готов?",
+          "иди!",
+          "OK"
         ]
       },
       "Gameover": {
@@ -494,7 +509,10 @@
           "背景情報",
           "スコア",
           "レベル",
-          "ライン"
+          "ライン",
+          "「Ready」？",
+          "「GO!」",
+          "OK"
         ]
       },
       "Gameover": {
@@ -579,7 +597,10 @@
           "Informazioni sfondo",
           "Punto",
           "Livello",
-          "Linee"
+          "Linee",
+          "Pronto?",
+          "Vai!",
+          "OK"
         ]
       },
       "Gameover": {
@@ -664,7 +685,10 @@
           "Informations de fond",
           "Points",
           "Niveau",
-          "Lignes"
+          "Lignes",
+          "Prêt?",
+          "Jouer!",
+          "OK"
         ]
       },
       "Gameover": {

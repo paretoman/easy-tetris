@@ -11,15 +11,16 @@ var playState = {
 		tetraminos = game.cache.getJSON('tetraminosJSON');
 		initPieces();
 		createTexts();
-		testTick();
 		createSounds();
-		music.loopFull(music.volume);
 		hardDropped = false;
 		floorKicked = false;
+		startCountDown();
 	},
 
 	update: function(){
-		if(!gameover){
+		if(preGameCountDown){
+			//wait
+		} else if(!gameover){
 			if(cleaningLines){
 				if(!waitingLineClear){
 					waitingLineClear = true;
@@ -165,6 +166,46 @@ function clearPiece(){
 			board[tmpY][tmpX] = -1;
 		}
 	}
+}
+
+function startCountDown(){
+	preGameCountDown = true;
+	countDownCount = 3;
+	countDownText = game.add.text(game.world.width / 2, game.world.height / 2, getText("SinglePlayerGame", 6), getStyle("countDown"));
+	countDownText.anchor.set(0.5, 0.5);
+	countDownText.alpha = 1;
+	countDownButton = game.add.button(game.world.width / 2, (game.world.height / 2) + 70, "medium_button", readyButton, this, 1, 2, 0);
+	countDownButton.anchor.set(0.5, 0.5);
+	countDownButtonLabel = game.add.text(game.world.width / 2, (game.world.height / 2) + 70, getText("SinglePlayerGame", 8), getStyle("button_regular"));
+	countDownButtonLabel.anchor.set(0.5, 0.5);
+}
+
+function countDown(){
+	if(countDownCount > -1){
+		tmpTime = 0;
+		if(countDownText.alpha <= 0.1){
+			countDownText.fontSize = 128;
+			if(countDownCount == 0){
+				countDownText.text = getText("SinglePlayerGame", 7);
+			} else {
+				countDownText.text = countDownCount;
+			}
+			game.add.tween(countDownText).to({alpha: 1, fontSize:128}, 100, "Linear", true);
+			tmpTime = 600;
+		} else {
+			countDownCount--;
+			game.add.tween(countDownText).to({alpha: 0, fontSize: 160}, 400, "Linear", true);
+			tmpTime = 400;
+		}
+		game.time.events.remove(countDownTimer);
+		countDownTimer = game.time.events.loop(tmpTime, countDown, this);
+	} else {
+		game.time.events.remove(countDownTimer);
+		preGameCountDown = false;
+		music.loopFull(music.volume);
+		testTick();
+	}
+
 }
 
 function createBoardDisplay(){
@@ -525,6 +566,13 @@ function printBoard(){
 		}
 		console.log(line);
 	}
+}
+
+function readyButton(){
+	countDownText.alpha = 0;
+	countDown();
+	countDownButton.pendingDestroy = true;
+	countDownButtonLabel.pendingDestroy = true;
 }
 
 function rotateClockWise(){

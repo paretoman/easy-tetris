@@ -95,5 +95,13 @@
     "boundsAlignV": "middle",
     "wordWrap": true,
     "wordWrapWidth": 300
+  },
+  "countDown": {
+    "font" : "64px Arial",
+    "fill": "#ffffff",
+    "stroke": "#080808",
+    "strokeThickness": 6,
+    "align": "center",
+    "boundsAlignH": "center"
   }
 }

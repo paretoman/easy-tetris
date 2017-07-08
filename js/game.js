@@ -83,6 +83,12 @@ var fxHold = null;
 var music = null;
 var trackNames = [];
 var userKeys;
+var countDownCount;
+var countDownTimer;
+var countDownTweens;
+var countDownText;
+var countDownButton;
+var countDownButtonLabel;
 
 //controls popup variables
 var actionTexts;
@@ -109,6 +115,7 @@ var lastValidMoveWasASpin;
 var lastSecondActive;
 var lastSecondAdjustmentsActive;
 var floorKicked;
+var preGameCountDown;
 
 var breadCrumbs = [];
 
