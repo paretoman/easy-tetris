@@ -14,6 +14,7 @@ var playState = {
 		testTick();
 		createSounds();
 		music.loopFull(music.volume);
+		hardDropped = false;
 	},
 
 	update: function(){
@@ -48,6 +49,7 @@ var playState = {
 						drawPiece();
 					}
 					hardDrop = false;
+					hardDropped = true;
 					testTick();
 				}
 				updateTickSpeed();
@@ -335,6 +337,7 @@ function getInput(){
 		if (!hardDropLock){
 			hardDropLock = true;
 			hardDrop = true;
+			hardDropped = false;
 			lastValidMoveWasASpin = false;
 		}
 	} else {
@@ -490,6 +493,7 @@ function placeOnBoard(){
 	//unecessary testings
 	var tmpX;
 	var tmpY;
+	lastSecondActive = false;
 	for(var i = 0; i < 4; i++){
 		tmpX = piece.poses[curPose][i][0] + curX ;
 		tmpY = piece.poses[curPose][i][1] + curY;
@@ -704,9 +708,9 @@ function testRotateClockWise(x, y){
 		tmpX = piece.poses[testPose][i][0] + x;
 		tmpY = piece.poses[testPose][i][1] + y;
 		if(tmpY < 0){
-			if(tmpX > MAX_INDEX_HORIZONTAL || tmpX < 0){
-				return false;
-			}
+			//do nothing
+		} else if((tmpX > MAX_INDEX_HORIZONTAL || tmpX < 0) || (tmpY > MAX_INDEX_VERTICAL)){
+			return false;
 		} else {
 			if(tmpX > -1 && tmpX < MAX_BLOCK_COUNT_HORIZONTAL){
 				if(board[tmpY][tmpX] >= 10){
@@ -755,15 +759,26 @@ function testTick(){
 		tick();
 	} else {
 		if(!testGameOver()){
-			if(!waitingLineClear){
-				placeOnBoard();
-				newPiece();
-				drawPiece();
+			if(!lastSecondActive && !hardDropped){
+				activateLastSecondAdjustments();
 			}
-			testLineClear();
+			if(lastSecondAdjustmentsActive){
+				//testTick();
+				if(hardDrop){
+					lastSecondAdjustmentsCancel();
+				}
+			} else {
+				if(!waitingLineClear){
+					placeOnBoard();
+					newPiece();
+					drawPiece();
+					hardDropped = false;
+				}
+				testLineClear();
+			}
 		}
 	}
-	if(softDrop){
+	if(softDrop && !lastSecondActive){
 		score(softDropPts);
 	}
 
@@ -778,6 +793,21 @@ function testTick(){
 		ticktimer = game.time.events.loop(ticktime , testTick, this);
 	}
 }
+
+function lastSecondAdjustmentsCancel(){
+	lastSecondAdjustmentsActive = false;
+	game.time.events.remove(lastSecondTimer);
+
+}
+
+function activateLastSecondAdjustments(){
+	if(!lastSecondActive){
+		lastSecondActive = true;
+		lastSecondAdjustmentsActive = true;
+		lastSecondTimer = game.time.events.loop(Phaser.Timer.SECOND / 2, lastSecondAdjustmentsCancel, this);
+	}
+}
+
 
 function testTSpin(){
 	occupied = 0;

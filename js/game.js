@@ -58,6 +58,7 @@ var linesToClear = [];
 var lineClearX = 0;
 var lineClearInterval = 50;
 var lineClearTimer;
+var lastSecondTimer;
 var ghostY = 0;
 var level = 1;
 var curScore = 0;
@@ -99,11 +100,14 @@ var tmpUserKeys;
 var gameover;
 var softDrop;
 var hardDrop;
+var hardDropped;
 var hardDropLock;
 var cleaningLines;
 var waitingLineClear;
 var holdLock;
 var lastValidMoveWasASpin;
+var lastSecondActive;
+var lastSecondAdjustmentsActive;
 
 var breadCrumbs = [];
 
