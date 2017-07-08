@@ -1,6 +1,7 @@
 var controlsState = {
 	create: function(){
 		drawPatternBG("#880000", "225555");
+		game.add.nineSlice(110, 145, "sliced_panel", "sliced_panel", 420, 250);
 		waitingKeyPress = false;
 		tmpUserKeys = loadUserKeys();
 		var titleLabel = game.add.text(80, 80, getText('Controls', 0),getStyle("title"));

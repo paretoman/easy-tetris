@@ -7,6 +7,9 @@ var labelInfo = 0;
 var soundMenuState = {
 	create: function(){
 		drawPatternBG("#880088", "228822");
+		game.add.nineSlice(15, 210, "sliced_panel", "sliced_panel", 240, 60);
+		game.add.nineSlice(15, 310, "sliced_panel", "sliced_panel", 240, 60);
+		game.add.nineSlice(385, 210, "sliced_panel", "sliced_panel", 240, 160);
 		music.stop();
 		createSounds();
 		music.loopFull(music.volume);
@@ -45,12 +48,12 @@ var soundMenuState = {
 		lblFxPlus.anchor.setTo(0.5, 0.5);
 
 		//change Track
-		trackInfoTitle = game.add.text(500, game.world.height / 2 , getText("SoundMenu", 3), labelStyle);
+		trackInfoTitle = game.add.text(500, game.world.height / 2 - 50, getText("SoundMenu", 3), labelStyle);
 		trackInfoTitle.anchor.setTo(0.5, 0.5);
 		var trackInfoTextStyle = getStyle("track_info");
 	    trackInfoText = trackDesc[trackNames.indexOf(music.name)];
 	    labelInfo = game.add.text(0, 0, trackInfoText, trackInfoTextStyle);
-	    labelInfo.setTextBounds(game.world.width / 2 + 100, game.world.height / 2, 200, 100);
+	    labelInfo.setTextBounds(game.world.width / 2 + 100, game.world.height / 2 -40, 200, 100);
 
 	    btnPrevTrack = game.add.button((game.world.width / 2) + 100, (game.world.height / 2) + 100, 'button', function(){prevTrack();updateLabels()}, this, 1, 2, 0);
 		btnPrevTrack.anchor.setTo(0.5, 0.5);

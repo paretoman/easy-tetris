@@ -1,6 +1,7 @@
 var gameoverState = {
 	create: function(){
 		drawPatternBG("#222222", "#444444");
+		game.add.nineSlice(70, 190, "sliced_panel", "sliced_panel", 490, 120);
 		resetNav();
 		music.stop();
 		var gameoverLabel = game.add.text(80, 80, getText("Gameover", 0), getStyle("title"));

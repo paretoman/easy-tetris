@@ -1,6 +1,7 @@
 var leaderboardState = {
 	create: function(){
 		drawPatternBG("#008888", "#882222");
+		game.add.nineSlice(120, 170, "sliced_panel", "sliced_panel", 400,200);
 		var titleLabel = game.add.text(80, 80, getText('Leaderboard', 0), getStyle("title"));
 		var buttonStyle = getStyle("button_regular");
 		var boardStyle = getStyle("text_big");
