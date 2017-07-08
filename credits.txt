@@ -68,3 +68,9 @@ https://www.youtube.com/watch?v=5Yk_3qI2gp8
 Kremilin's Surveillance
 Bruno Moraes
 http://bbrunomoraes.deviantart.com/art/Kremlin-s-surveillance-regime-597900665
+
+===========
+Phaser Nine Slice - by Orange Games
+https://github.com/orange-games/phaser-nineslice
+
+===========
