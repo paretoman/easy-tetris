@@ -1,6 +1,7 @@
 var controlsState = {
 	create: function(){
 		drawPatternBG("#880000", "225555");
+		buttonTint = 0x77efbe;
 		game.add.nineSlice(110, 145, "sliced_panel", "sliced_panel", 420, 250);
 		waitingKeyPress = false;
 		tmpUserKeys = loadUserKeys();
@@ -29,18 +30,21 @@ var controlsState = {
 		tmpY = (game.world.height / 2) + 200;
 		btnSave = btnSettings = game.add.button(tmpX, tmpY, 'medium_button', saveControls, this, 1, 2, 0);
 		btnSave.anchor.setTo(0.5, 0.5);
+		btnSave.tint = buttonTint;
 		lblSave = game.add.text(tmpX, tmpY + 4, getText("Standard", 0), saveCancelStyle);
 		lblSave.anchor.setTo(0.5, 0.5);
 
 		tmpX = (game.world.width / 2);
 		btnCancel = btnSettings = game.add.button(tmpX, tmpY, 'medium_button', goBack, this, 1, 2, 0);
 		btnCancel.anchor.setTo(0.5, 0.5);
+		btnCancel.tint = buttonTint;
 		lblCancel = game.add.text(tmpX, tmpY + 4, getText("Standard", 1), saveCancelStyle);
 		lblCancel.anchor.setTo(0.5, 0.5);
 
 		tmpX = (game.world.width / 2) + 100;
 		btnReset = btnSettings = game.add.button(tmpX, tmpY, 'medium_button', resetKeys, this, 1, 2, 0);
 		btnReset.anchor.setTo(0.5, 0.5);
+		btnReset.tint = buttonTint;
 		lblReset = game.add.text(tmpX, tmpY + 4, getText("Standard", 3), saveCancelStyle);
 		lblReset.anchor.setTo(0.5, 0.5);
 
