@@ -10,7 +10,9 @@ var bootState = {
 		}
 		//uses fonts and solves text messed BUG
 		tmp = document.getElementById("loader");
-		tmp.parentElement.removeChild(tmp);
+		if(tmp != null){
+			tmp.parentElement.removeChild(tmp);
+		}
 		game.state.start('load');
 	}
 };
