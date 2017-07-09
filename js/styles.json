@@ -96,6 +96,15 @@
     "wordWrap": true,
     "wordWrapWidth": 300
   },
+  "credits": {
+    "font": "13px MartelSans",
+    "fill": "#ffffff",
+    "align": "left",
+    "boundsAlignH": "left",
+    "boundsAlignV": "top",
+    "wordWrap": true,
+    "wordWrapWidth": 300
+  },
   "countDown": {
     "font" : "64px MartelSans",
     "fill": "#ffffff",
@@ -209,6 +218,16 @@
     "wordWrap": true,
     "wordWrapWidth": 300
   },
+  "alt_credits": {
+    "font": "13px Arial",
+    "fill": "#ffffff",
+    "align": "left",
+    "boundsAlignH": "left",
+    "boundsAlignV": "top",
+    "wordWrap": true,
+    "wordWrapWidth": 300
+  },
+
   "alt_countDown": {
     "font" : "64px Arial",
     "fill": "#ffffff",
