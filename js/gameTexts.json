@@ -86,6 +86,21 @@
           "Você atingiu TOP 5!",
           "Você atingiu TOP 5! Digite Seu Nome: "
         ]
+      },
+      "Credits": {
+        "texts": [
+          "Programador",
+          "Ferramentas",
+          "Recursos",
+          "Arte de Fundo",
+          "Menu Design",
+          "Fontes",
+          "Agradecimentos Especiais",
+          "criador do Phaser",
+          "Musica",
+          "Tetris foi criado por Alexey Pajitnov",
+          "Este é um jogo criado por um fã para uso não-comercial"
+        ]
       }
     },
     "EN": {
@@ -173,6 +188,21 @@
           "Lines: ",
           "You got a HIGHSCORE!",
           "You got a HIGHSCORE! Type your name:  "
+        ]
+      },
+      "Credits": {
+        "texts": [
+          "Programmer",
+          "Tools",
+          "Resources",
+          "Background Art",
+          "Menu Design",
+          "Fonts",
+          "Special Thanks",
+          "Phaser creator",
+          "Music",
+          "Tetris was created by Alexey Pajitnov",
+          "This is a fan-made game created for non-commercial use"
         ]
       }
     },
@@ -262,6 +292,21 @@
           "¡Tienes una Pontuación Alta!",
           "¡Tienes una Pontuación Alta! Escribe tu nombre: "
         ]
+      },
+      "Credits": {
+        "texts": [
+          "Programador",
+          "Herramientas",
+          "Recursos",
+          "Fondo de arte",
+          "Diseño de menú",
+          "Fuentes",
+          "Gracias especiales",
+          "creador de Phaser",
+          "Música",
+          "Tetris fue creado por Alexey Pajitnov",
+          "Este es un juego hecho por un fan creado para uso no comercial"
+        ]
       }
     },
     "GE": {
@@ -349,6 +394,21 @@
           "Zeilen:",
           "Du hast ein HIGHSCORE!",
           "Du hast einen HIGHSCORE! Geben Sie Ihren Namen ein: "
+        ]
+      },
+      "Credits": {
+        "texts": [
+          "Programmierer",
+          "Werkzeuge",
+          "Ressourcen",
+          "Hintergrund",
+          "Menü Design",
+          "Schriftarten",
+          "Besonderen Dank",
+          "Phaser schöpfer",
+          "Musik",
+          "Tetris wurde von Alexey Pajitnov geschaffen",
+          "Dies ist ein Fan-made-Spiel für nicht-kommerzielle Nutzung erstellt"
         ]
       }
     },
@@ -438,6 +498,21 @@
           "Вы достигли ТОП 5!",
           "Вы достигли TOP 5 Введите Ваше имя: "
         ]
+      },
+      "Credits": {
+        "texts": [
+          "Программист",
+          "Инструменты",
+          "Ресурсы",
+          "Предыстория",
+          "Дизайн меню",
+          "Шрифты",
+          "Особая благодарность",
+          "Создатель Phaser",
+          "Музыка",
+          "Тетрис был создан Алексеем Пажитновым",
+          "Это фан-игра, созданная для некоммерческого использования"
+        ]
       }
     },
     "JP": {
@@ -454,17 +529,17 @@
       "MainMenu": {
         "texts": [
           "正式リリースではありません\n「Phaser.js」で作られた",
-          "新しいゲーム", 
-          "設定", 
-          "リーダーボード", 
+          "新しいゲーム",
+          "設定",
+          "リーダーボード",
           "クレジット"
         ]
       },
       "Settings": {
         "texts": [
-          "設定", 
-          "ローカルデータの消去", 
-          "背景の変更", 
+          "設定",
+          "ローカルデータの消去",
+          "背景の変更",
           "サウンドエフェクト/音楽",
           "コントロール"
         ]
@@ -525,6 +600,21 @@
           "行：",
           "あなたは「HIGHSCORE」を持っています！",
           "あなたは「HIGHSCORE」を持っています！あなたの名前をタイプしてください： "
+        ]
+      },
+      "Credits": {
+        "texts": [
+          "プログラマー",
+          "ツール",
+          "リソース",
+          "背景技術",
+          "メニューデザイン",
+          "フォント",
+          "特別な感謝",
+          "フェイザークリエイター",
+          "音楽",
+          "テトリスはAlexey Pajitnovによって作成されました",
+          "これは非営利目的で作られたファン製のゲームです"
         ]
       }
     },
@@ -614,6 +704,21 @@
           "Hai un HIGH SCORE!",
           "Hai un HIGH SCORE! Inserisci il tuo nome: "
         ]
+      },
+      "Credits": {
+        "texts": [
+          "Programmatore",
+          "Utensili",
+          "Risorse",
+          "Arte di fondo",
+          "Menu Design",
+          "Caratteri",
+          "Ringraziamenti speciali",
+          "Creatore di Phaser",
+          "Musica",
+          "Tetris è stato creato da Alexey Pajitnov",
+          "Questo è un gioco fan creato per uso non commerciale"
+        ]
       }
     },
     "FR": {
@@ -701,6 +806,21 @@
           "Lignes",
           "Vous avez atteint TOP 5!",
           "Vous avez atteint TOP 5. Tapez votre nom: "
+        ]
+      },
+      "Credits": {
+        "texts": [
+          "Programmeur",
+          "Outils",
+          "Ressources",
+          "Art antérieur",
+          "Design de menu",
+          "Polices",
+          "Remerciement spécial",
+          "créateur Phaser",
+          "La musique",
+          "Tetris a été créé par Alexey Pajitnov",
+          "C'est un jeu fan-made créé pour une utilisation non commerciale"
         ]
       }
     }
