@@ -180,10 +180,10 @@ function startCountDown(){
 	countDownButtonLabel = game.add.text(game.world.width / 2, (game.world.height / 2) + 70, getText("SinglePlayerGame", 8), getStyle("button_regular"));
 	countDownButtonLabel.anchor.set(0.5, 0.5);
 
-	quitDownButton = game.add.button(game.world.width / 2, (game.world.height / 2) + 120, "medium_button", goBack, this, 1, 2, 0);
-	quitDownButton.anchor.set(0.5, 0.5);
-	quitDownButtonLabel = game.add.text(game.world.width / 2, (game.world.height / 2) + 120, getText("Standard", 2), getStyle("button_regular"));
-	quitDownButtonLabel.anchor.set(0.5, 0.5);
+	quitButton = game.add.button(game.world.width / 2, (game.world.height / 2) + 120, "medium_button", goBack, this, 1, 2, 0);
+	quitButton.anchor.set(0.5, 0.5);
+	quitButtonLabel = game.add.text(game.world.width / 2, (game.world.height / 2) + 120, getText("Standard", 2), getStyle("button_regular"));
+	quitButtonLabel.anchor.set(0.5, 0.5);
 }
 
 function countDown(){
@@ -579,6 +579,8 @@ function readyButton(){
 	countDown();
 	countDownButton.pendingDestroy = true;
 	countDownButtonLabel.pendingDestroy = true;
+	quitButton.pendingDestroy = true;
+	quitButtonLabel.pendingDestroy = true;
 }
 
 function rotateClockWise(){
