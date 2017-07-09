@@ -8,6 +8,9 @@ var bootState = {
 			console.log("fist run");
 			firstRun();
 		}
+		//uses fonts and solves text messed BUG
+		tmp = document.getElementById("loader");
+		tmp.parentElement.removeChild(tmp);
 		game.state.start('load');
 	}
 };
