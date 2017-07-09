@@ -200,7 +200,7 @@
         "texts": [
           "Ajustes",
           "Borrar datos locales",
-          "Cambiar Image del fondo",
+          "Cambiar Image",
           "Sonidos/Música",
           "Controles"
         ]
@@ -375,7 +375,7 @@
       "Settings": {
         "texts": [
           "Настройка",
-          "Удалить Локальные данные",
+          "Удаление данных",
           "Изменение фона",
           "Звук / Музыка",
           "Контроль"
@@ -640,7 +640,7 @@
         "texts": [
           "Paramètres",
           "Efface les données",
-          "Changer l'image de fond",
+          "Changer l'image",
           "Son / Musique",
           "Commandes"
         ]
