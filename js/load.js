@@ -11,6 +11,7 @@ var loadState = {
 		game.load.image('pattern_bg', 'img/tetrominos_pattern_bg.png');
 		game.load.image('line400', 'img/line.png');
 		game.load.image('popupPanel', 'img/popupPanel.png');
+		game.load.image('logo', 'img/Tetris Clone Logo.png');
 		game.load.nineSlice('sliced_button', 'img/9patchButton.png', 8);
 		game.load.nineSlice('sliced_panel', 'img/9patchPanel.png', 8);
 		game.load.spritesheet('button', 'img/Button.png', 46, 46);

@@ -13,7 +13,7 @@
       },
       "MainMenu": {
         "texts": [
-          "Feito com Phaser.js",
+          "Não é um jogo oficial\nFeito com Phaser.js",
           "Novo Jogo",
           "Configurações",
           "Maiores Pontuações",
@@ -101,7 +101,7 @@
       },
       "MainMenu": {
         "texts": [
-          "Made with Phaser.js",
+          "Not an official release\nMade with Phaser.js",
           "New Game",
           "Settings",
           "Leaderboard",
@@ -189,7 +189,7 @@
       },
       "MainMenu": {
         "texts": [
-          "Hecho con Phaser.js",
+          "No es un lanzamiento oficial\nHecho con Phaser.js",
           "Nuevo Juego",
           "Ajustes",
           "Placar",
@@ -277,7 +277,7 @@
       },
       "MainMenu": {
         "texts": [
-          "Mit Phaser.js gemacht",
+          "Das ist kein offizielles Produkt\nMit Phaser.js gemacht",
           "Neues Spiel",
           "Einstellungen",
           "Bestenliste",
@@ -365,7 +365,7 @@
       },
       "MainMenu": {
         "texts": [
-          "Сделано с Phaser.js",
+          "Не официальный релиз\nСделано с Phaser.js",
           "Новая игра",
           "Настройка",
           "Высокие результаты",
@@ -453,7 +453,7 @@
       },
       "MainMenu": {
         "texts": [
-          "「Phaser.js」で作られた",
+          "正式リリースではありません\n「Phaser.js」で作られた",
           "新しいゲーム", 
           "設定", 
           "リーダーボード", 
@@ -541,7 +541,7 @@
       },
       "MainMenu": {
         "texts": [
-          "Creato con Phaser.js",
+          "Questo non è un prodotto ufficiale\nCreato con Phaser.js",
           "Nuovo gioco",
           "Impostazioni",
           "Classifica",
@@ -629,7 +629,7 @@
       },
       "MainMenu": {
         "texts": [
-          "Fabriqué avec Phaser.js",
+          "Ce n'est pas une version officielle\nFabriqué avec Phaser.js",
           "Nouveau jeu",
           "Paramètres",
           "Top Notes",

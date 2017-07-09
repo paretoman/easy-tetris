@@ -2,7 +2,12 @@ var menuState = {
 	create: function(){
 		resetNav();
 		drawPatternBG("#888800", "222277");
-		var titleLabel = game.add.text(80, 80, 'Tetris-clone\n'+getText("MainMenu", 0), getStyle("title"));
+		logo = game.add.sprite(game.world.width / 2, 80, 'logo', );
+		logo.anchor.setTo(0.5, 0.5);
+
+		var titleLabel = game.add.text(game.world.width / 2, 180, getText("MainMenu", 0), getStyle("text_regular"));
+		titleLabel.anchor.setTo(0.5, 0.5);
+		titleLabel.align = "center";
 		//var enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 		var buttonStyle = getStyle("button_regular");
 

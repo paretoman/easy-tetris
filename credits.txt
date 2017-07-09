@@ -74,3 +74,13 @@ Phaser Nine Slice - by Orange Games
 https://github.com/orange-games/phaser-nineslice
 
 ===========
+
+Leckerli One font
+
+https://www.fontsquirrel.com/fonts/leckerli-one
+
+===========
+
+MartelSans font
+
+https://fonts.google.com/specimen/Martel+Sans
