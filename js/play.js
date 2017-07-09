@@ -174,10 +174,16 @@ function startCountDown(){
 	countDownText = game.add.text(game.world.width / 2, game.world.height / 2, getText("SinglePlayerGame", 6), getStyle("countDown"));
 	countDownText.anchor.set(0.5, 0.5);
 	countDownText.alpha = 1;
+	
 	countDownButton = game.add.button(game.world.width / 2, (game.world.height / 2) + 70, "medium_button", readyButton, this, 1, 2, 0);
 	countDownButton.anchor.set(0.5, 0.5);
 	countDownButtonLabel = game.add.text(game.world.width / 2, (game.world.height / 2) + 70, getText("SinglePlayerGame", 8), getStyle("button_regular"));
 	countDownButtonLabel.anchor.set(0.5, 0.5);
+
+	quitDownButton = game.add.button(game.world.width / 2, (game.world.height / 2) + 120, "medium_button", goBack, this, 1, 2, 0);
+	quitDownButton.anchor.set(0.5, 0.5);
+	quitDownButtonLabel = game.add.text(game.world.width / 2, (game.world.height / 2) + 120, getText("Standard", 2), getStyle("button_regular"));
+	quitDownButtonLabel.anchor.set(0.5, 0.5);
 }
 
 function countDown(){
