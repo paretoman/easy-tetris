@@ -1,5 +1,6 @@
 var menuState = {
 	create: function(){
+		nowPlaying = false;
 		resetNav();
 		drawPatternBG("#888800", "222277");
 		//buttonTint = 0xa3d0e5;

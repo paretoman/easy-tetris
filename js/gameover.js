@@ -2,6 +2,7 @@ var gameoverState = {
 	create: function(){
 		drawPatternBG("#222222", "#444444");
 		buttonTint = 0xbbbbbb;
+		nowPlaying = false;
 		game.add.nineSlice(70, 190, "sliced_panel", "sliced_panel", 490, 120);
 		resetNav();
 		music.stop();

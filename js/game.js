@@ -116,6 +116,7 @@ var lastSecondActive;
 var lastSecondAdjustmentsActive;
 var floorKicked;
 var preGameCountDown;
+var nowPlaying;
 
 var breadCrumbs = [];
 
@@ -131,5 +132,6 @@ game.state.add('controls', controlsState);
 game.state.add('soundMenu', soundMenuState);
 game.state.add('leaderboard', leaderboardState);
 game.state.add('gameover', gameoverState);
+game.state.add('singlePlayerPaused', singlePlayerPausedState);
 
 game.state.start('boot');

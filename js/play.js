@@ -9,9 +9,12 @@ var playState = {
 		createNextWindow();
 		createHoldWindow();
 		tetraminos = game.cache.getJSON('tetraminosJSON');
-		initPieces();
+		if(!nowPlaying){
+			initPieces();
+		}
 		createTexts();
 		createSounds();
+		createPauseButton();
 		hardDropped = false;
 		floorKicked = false;
 		startCountDown();
@@ -62,6 +65,7 @@ var playState = {
 			clearNextWindow();
 			clearBoardDisplay();
 			softDrop = false;
+			nowPlaying = false;
 			game.state.start('gameover');
 		}
 	}
@@ -244,6 +248,16 @@ function createNextWindow(){
 		nextMargin = 0;
 	}
 }
+
+function createPauseButton(){
+	pauseButton = game.add.button(5, 5, "small_button", pauseGame, this, 1,2,0);
+	pauseButtonIcon = game.add.sprite(5, 5, "pause_icon");
+	pauseButtonIcon.tint = 0x222222;
+}
+function pauseGame(){
+	show("singlePlayerPaused");
+}
+
 
 function createTexts(){
 	var bgArtStyle = getStyle("bg_art");
@@ -491,8 +505,6 @@ function lineClear(){
 	}
 }
 
-
-
 function moveRight(){
 	if(testMoveRight()){
 		clearPiece();
@@ -575,6 +587,7 @@ function printBoard(){
 }
 
 function readyButton(){
+	nowPlaying = true;
 	countDownText.alpha = 0;
 	countDown();
 	countDownButton.pendingDestroy = true;

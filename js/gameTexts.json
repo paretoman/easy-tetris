@@ -1,6 +1,12 @@
 {
   "langs": {
     "PT_BR": {
+      "SinglePlayerPaused":{
+        "texts": [
+          "Pausado",
+          "Retomar"
+        ]
+      },
       "Standard": {
         "texts": [
           "Salvar",
@@ -104,6 +110,12 @@
       }
     },
     "EN": {
+      "SinglePlayerPaused":{
+        "texts": [
+          "Paused",
+          "Resume"
+        ]
+      },
       "Standard": {
         "texts": [
           "Save",
@@ -207,6 +219,12 @@
       }
     },
     "ES": {
+      "SinglePlayerPaused":{
+        "texts": [
+          "Pausado",
+          "Retomar"
+        ]
+      },
       "Standard": {
         "texts": [
           "Salvar",
@@ -310,6 +328,12 @@
       }
     },
     "GE": {
+      "SinglePlayerPaused":{
+        "texts": [
+          "Pausiert",
+          "Spiel fortsetzen"
+        ]
+      },
       "Standard": {
         "texts": [
           "Sparen",
@@ -413,6 +437,12 @@
       }
     },
     "RU": {
+      "SinglePlayerPaused":{
+        "texts": [
+          "Приостановлена",
+          "Продолжить игру"
+        ]
+      },
       "Standard": {
         "texts": [
           "Сохранить",
@@ -516,6 +546,12 @@
       }
     },
     "JP": {
+      "SinglePlayerPaused":{
+        "texts": [
+          "一時停止中",
+          "ゲームを再開する"
+        ]
+      },
       "Standard": {
         "texts": [
           "セーブ",
@@ -619,6 +655,12 @@
       }
     },
     "IT": {
+      "SinglePlayerPaused":{
+        "texts": [
+          "Pausa",
+          "Torna al gioco"
+        ]
+      },
       "Standard": {
         "texts": [
           "Salvare",
@@ -722,6 +764,12 @@
       }
     },
     "FR": {
+      "SinglePlayerPaused":{
+        "texts": [
+          "Pause",
+          "Reprise du jeu"
+        ]
+      },
       "Standard": {
         "texts": [
           "Enregistrer",
