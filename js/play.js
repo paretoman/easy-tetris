@@ -845,12 +845,11 @@ function testRotateCounterClockWise(x, y){
 		} else if((tmpX > MAX_INDEX_HORIZONTAL || tmpX < 0) || (tmpY > MAX_INDEX_VERTICAL)){
 			return false;
 		} else if(tmpX > -1 && tmpX < MAX_BLOCK_COUNT_HORIZONTAL && tmpY < MAX_BLOCK_COUNT_VERTICAL){
-				if(board[tmpY][tmpX] >= 10){
-					return false;
-				}
-			} else {
+			if(board[tmpY][tmpX] >= 10){
 				return false;
 			}
+		} else {
+			return false;
 		}
 	}
 	lastValidMoveWasASpin = true;
