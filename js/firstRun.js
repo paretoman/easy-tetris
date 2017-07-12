@@ -8,16 +8,8 @@ function firstRun(){
 }
 
 function initScoreSystem(){
-	for(i = 0; i < 5; i++){
-		localStorage.setItem("leaderboard_" + i, 1000 - (i * 100));
-	}
-
 	//Leaderboard
-	localStorage.setItem("leaderNames_0", "Caio");
-	localStorage.setItem("leaderNames_1", "Dalton");
-	localStorage.setItem("leaderNames_2", "Rogers");
-	localStorage.setItem("leaderNames_3", "Zumba");
-	localStorage.setItem("leaderNames_4", "Pajitnov");
+	resetLeaderBoard();
 
 	//sounds
 	localStorage.setItem("musicVolume", "1.5");
@@ -30,4 +22,16 @@ function initScoreSystem(){
 
 	//init language
 	localStorage.setItem("curLang", "PT_BR");
+}
+
+function resetLeaderboard(){
+	for(i = 0; i < 5; i++){
+		localStorage.setItem("leaderboard_" + i, 1000 - (i * 100));
+	}
+	
+	localStorage.setItem("leaderNames_0", "Caio");
+	localStorage.setItem("leaderNames_1", "Dalton");
+	localStorage.setItem("leaderNames_2", "Rogers");
+	localStorage.setItem("leaderNames_3", "Zumba");
+	localStorage.setItem("leaderNames_4", "Pajitnov");
 }
