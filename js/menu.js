@@ -1,5 +1,13 @@
 var menuState = {
 	create: function(){
+		//prevent page from moving around
+		this.input.keyboard.addKeyCapture([Phaser.Keyboard.UP,
+			Phaser.Keyboard.DOWN,
+			Phaser.Keyboard.LEFT,
+			Phaser.Keyboard.RIGHT,
+			Phaser.Keyboard.SPACEBAR]);
+
+
 		nowPlaying = false;
 		resetNav();
 		drawPatternBG("#888800", "222277");
