@@ -32,6 +32,7 @@ var playState = {
 					lineClearTimer = game.time.events.loop(Phaser.Timer.SECOND * lineClearInterval / 1000, lineClear, this);
 					if(lastValidMoveWasASpin && lastPieceIndex==0 && testTSpin()){ //if it is a t, if the last valid move was a rotation and if the t-spin verification is OK
 						score(tSpinPts[linesToClear.length - 1] * level + (comboIncrement * curCombo));
+						showTspinAnimation(lastX, lastY);
 					} else {
 						score(lineClearPts[linesToClear.length - 1] * level + (comboIncrement * curCombo));
 					}
@@ -315,6 +316,10 @@ function createTexts(){
     multiplierFeedbackText = game.add.text(0, 0, "", getStyle("multiplier"));
     multiplierFeedbackText.anchor.setTo(0.5, 0.5);
     multiplierFeedbackText.alpha = 0;
+
+    tSpinText = game.add.text(0, 0, "T-Spin", getStyle("multiplier"));
+    tSpinText.anchor.setTo(0.5, 0.5);
+    tSpinText.alpha = 0;
 }
 
 function drawGhost(){
@@ -940,6 +945,15 @@ function showMultiplier(x, y){
 	multiplierFeedbackText.scale.y = 1 + (curCombo / 10);
 	game.add.tween(multiplierFeedbackText).to({alpha: 0}, 800, "Linear", true);
 	game.add.tween(multiplierFeedbackText.scale).to({x: 0.5, y:0.5}, 800, "Linear", true);
+}
+
+function showTspinAnimation(x, y){
+	tSpinText.x = DISPLAY_OFFSET_HORIZONTAL+ x * BLOCK_SIDE;
+	tSpinText.y = DISPLAY_OFFSET_VERTICAL + y * BLOCK_SIDE;
+	tSpinText.alpha = 1;
+	game.add.tween(tSpinText).to({alpha: 0}, 800, "Linear", true);
+	game.add.tween(tSpinText.scale).to({x: 0.5, y:0.5}, 800, "Linear", true);
+	console.log("T-SPIN!");
 }
 
 function showLevelUpAnimation(){
