@@ -808,6 +808,9 @@ function testRotateClockWise(x, y){
 		tmpY = piece.poses[testPose][i][1] + y;
 		if(tmpY < 0){
 			//do nothing
+			if((tmpX > MAX_INDEX_HORIZONTAL || tmpX < 0) || (tmpY > MAX_INDEX_VERTICAL)){
+				return false;
+			}
 		} else if((tmpX > MAX_INDEX_HORIZONTAL || tmpX < 0) || (tmpY > MAX_INDEX_VERTICAL)){
 			return false;
 		} else {
@@ -835,11 +838,13 @@ function testRotateCounterClockWise(x, y){
 		tmpX = piece.poses[testPose][i][0] + x;
 		tmpY = piece.poses[testPose][i][1] + y;
 		if(tmpY < 0){
-			if(tmpX > MAX_INDEX_HORIZONTAL || tmpX < 0){
+			//do nothing
+			if((tmpX > MAX_INDEX_HORIZONTAL || tmpX < 0) || (tmpY > MAX_INDEX_VERTICAL)){
 				return false;
 			}
-		} else {
-			if(tmpX > -1 && tmpX < MAX_BLOCK_COUNT_HORIZONTAL && tmpY < MAX_BLOCK_COUNT_VERTICAL){
+		} else if((tmpX > MAX_INDEX_HORIZONTAL || tmpX < 0) || (tmpY > MAX_INDEX_VERTICAL)){
+			return false;
+		} else if(tmpX > -1 && tmpX < MAX_BLOCK_COUNT_HORIZONTAL && tmpY < MAX_BLOCK_COUNT_VERTICAL){
 				if(board[tmpY][tmpX] >= 10){
 					return false;
 				}
