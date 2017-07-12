@@ -1,7 +1,9 @@
 #Tetris-clone made with JavaScript + Phaser#
 Devlog: [link](https://imgur.com/a/G2Ze6)
 
-Play online (itch.io): [link](https://caiomga.itch.io/phaser-tetris?secret=66NJblPliFVtiOHQARnsaDyWvqs)
+Play online (itch.io): [link](https://caiomga.itch.io/phaser-tetris)
+
+![Phaser Tetris print 29.PNG](https://bitbucket.org/repo/Gg6pneo/images/4233605095-Phaser%20Tetris%20print%2029.PNG)
 
 ![Phaser Tetris print 19.PNG](https://bitbucket.org/repo/Gg6pneo/images/2160035586-Phaser%20Tetris%20print%2019.PNG)
 
