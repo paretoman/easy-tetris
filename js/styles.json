@@ -34,7 +34,6 @@
     "stroke": "#080808",
     "strokeThickness": 4
   },
-
   "text_single_player": {
     "font": "18px MartelSans",
     "fill": "#ffffff", 
@@ -119,6 +118,13 @@
     "stroke": "#117777",
     "strokeThickness": 4
   },
+  "multiplier" : {
+    "font":"25px MartelSans",
+    "fill": "#ffff00",
+    "stroke": "#000000",
+    "alpha": 0,
+    "strokeThickness": 5
+  },
 
 
   "alt_title": {
@@ -156,7 +162,6 @@
     "stroke": "#080808",
     "strokeThickness": 4
   },
-
   "alt_text_single_player": {
     "font": "18px Arial",
     "fill": "#ffffff", 
@@ -227,7 +232,6 @@
     "wordWrap": true,
     "wordWrapWidth": 300
   },
-
   "alt_countDown": {
     "font" : "64px Arial",
     "fill": "#ffffff",

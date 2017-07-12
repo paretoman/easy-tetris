@@ -27,17 +27,18 @@ var playState = {
 			if(cleaningLines){
 				if(!waitingLineClear){
 					waitingLineClear = true;
-
+					curCombo += 1;
 					lineClearTimer = game.time.events.loop(Phaser.Timer.SECOND * lineClearInterval / 1000, lineClear, this);
 					if(lastValidMoveWasASpin && lastPieceIndex==0 && testTSpin()){ //if it is a t, if the last valid move was a rotation and if the t-spin verification is OK
 						score(tSpinPts[linesToClear.length - 1] * level + (comboIncrement * curCombo));
 					} else {
 						score(lineClearPts[linesToClear.length - 1] * level + (comboIncrement * curCombo));
 					}
-					if(curCombo > 0){
+					
+					if(curCombo > 1){
 						fxCombo.play();
+						showMultiplier(lastX, lastY);
 					}
-					curCombo += 1;
 					if(linesToClear.length == 4){
 						fxTetris.play();
 					} else {
@@ -296,6 +297,10 @@ function createTexts(){
 
     l = game.add.text(0, 0, getText("SinglePlayerGame", 5), labelGameStyle);
     l.setTextBounds(23, 422, 159, 23);
+
+    multiplierFeedbackText = game.add.text(0, 0, "", getStyle("multiplier"));
+    multiplierFeedbackText.anchor.setTo(0.5, 0.5);
+    multiplierFeedbackText.alpha = 0;
 }
 
 function drawGhost(){
@@ -911,6 +916,17 @@ function activateLastSecondAdjustments(){
 	}
 }
 
+function showMultiplier(x, y){
+	multiplierFeedbackText.x = DISPLAY_OFFSET_HORIZONTAL+ x * BLOCK_SIDE;
+	multiplierFeedbackText.y = DISPLAY_OFFSET_VERTICAL + y * BLOCK_SIDE;
+	multiplierFeedbackText.rotation = (Math.random()* 0.5) + (-0.5);
+	multiplierFeedbackText.alpha = 1;
+	multiplierFeedbackText.text = "x" + curCombo.toString();
+	multiplierFeedbackText.scale.x = 1 + (curCombo / 10);
+	multiplierFeedbackText.scale.y = 1 + (curCombo / 10);
+	game.add.tween(multiplierFeedbackText).to({alpha: 0}, 800, "Linear", true);
+	game.add.tween(multiplierFeedbackText.scale).to({x: 0.5, y:0.5}, 800, "Linear", true);
+}
 
 function testTSpin(){
 	occupied = 0;

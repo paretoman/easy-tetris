@@ -89,6 +89,7 @@ var countDownTweens;
 var countDownText;
 var countDownButton;
 var countDownButtonLabel;
+var multiplierFeedbackText;
 
 //controls popup variables
 var actionTexts;
