@@ -9,7 +9,7 @@ function firstRun(){
 
 function initScoreSystem(){
 	//Leaderboard
-	resetLeaderBoard();
+	resetLeaderboard();
 
 	//sounds
 	localStorage.setItem("musicVolume", "1.5");
