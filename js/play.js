@@ -15,6 +15,7 @@ var playState = {
 		createTexts();
 		createSounds();
 		createPauseButton();
+		createParticleEmitters();
 		hardDropped = false;
 		floorKicked = false;
 		startCountDown();
@@ -248,6 +249,19 @@ function createNextWindow(){
 		}
 		nextMargin = 0;
 	}
+}
+
+function createParticleEmitters(){
+	levelUpEmitter = game.add.emitter(100, 410, 100);
+	levelUpEmitter.makeParticles('upArrow');
+	levelUpEmitter.minParticleSpeed.set(0, -30);
+	levelUpEmitter.maxParticleSpeed.set(0, 0);
+	levelUpEmitter.gravity = -200;
+	levelUpEmitter.width = 159;
+	levelUpEmitter.setRotation(0, 0);
+	levelUpEmitter.children.forEach( function(p) {
+		p.tint = 0x00dd00;
+	});
 }
 
 function createPauseButton(){
@@ -928,6 +942,15 @@ function showMultiplier(x, y){
 	game.add.tween(multiplierFeedbackText.scale).to({x: 0.5, y:0.5}, 800, "Linear", true);
 }
 
+function showLevelUpAnimation(){
+	levelUpEmitter.start(false, 300, 50);
+	game.time.events.add(Phaser.Timer.SECOND, stopLevelUpAnimation, this);
+}
+
+function stopLevelUpAnimation(){
+	levelUpEmitter.on = false;
+}
+
 function testTSpin(){
 	occupied = 0;
 	tmpX = lastX -1;
@@ -1174,6 +1197,7 @@ function updateTickSpeed(){
 		tickInterval *= 0.75;
 		speedUpGoal += 10;
 		level++;
+		showLevelUpAnimation();
 		updateLabelLevel();
 	}
 }

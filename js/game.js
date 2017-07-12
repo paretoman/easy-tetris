@@ -90,6 +90,7 @@ var countDownText;
 var countDownButton;
 var countDownButtonLabel;
 var multiplierFeedbackText;
+var levelUpEmitter;
 
 //controls popup variables
 var actionTexts;
