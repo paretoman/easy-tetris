@@ -1,8 +1,10 @@
 function firstRun(){
+	d = new Date();
 	localStorage.clear();
 	initScoreSystem();
 	localStorage.setItem("curBg", "0");
 	localStorage.setItem("firstRun", "DONE");
+	localStorage.setItem("firstRunDate", d.getTime());
 }
 
 function initScoreSystem(){
