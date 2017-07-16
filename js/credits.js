@@ -12,7 +12,7 @@ var creditsState = {
 		panel1 = game.add.text(0, 0, panel1Text, getStyle("credits"));
 	    panel1.setTextBounds(9, 130, 201, 336);
 
-	    panel2Text = decoIN+getText("Credits", 3)+decoOUT+"1. Phaser Universe - Phaser\n2. PROERD - Nestablo Ramos\n3. Kremlin's Surveillance - Bruno Moraes\n4. Pokemon Ghosts - Virgilio Silveira\n5. Master Sword - Virgilio Silveira\n6. Ratinho in Space - Caio Marchi\n"+decoIN+getText("Credits", 11)+decoOUT+"Aleksandr Beljakov\n"+decoIN+getText("Credits", 12)+decoOUT+"Zimi\n"+decoIN+getText("Credits", 5)+decoOUT+"1. Exo - Natanael Gama\n2. MartelSans - Dan Reynolds + Mathieu Reguer";
+	    panel2Text = decoIN+getText("Credits", 3)+decoOUT+"1. Phaser Universe - Phaser\n2. PROERD - Nestablo Ramos\n3. Kremlin's Surveillance - Bruno Moraes\n4. Pokemon Ghosts - Virgilio Silveira\n5. Master Sword - Virgilio Silveira\n6. Ratinho in Space - Caio Marchi\n"+decoIN+getText("Credits", 11)+decoOUT+"Aleksandr Beljakov\n"+decoIN+getText("Credits", 12)+decoOUT+"Shim Take\n"+decoIN+getText("Credits", 5)+decoOUT+"1. Exo - Natanael Gama\n2. MartelSans - Dan Reynolds + Mathieu Reguer";
 		panel2 = game.add.text(0, 0, "", getStyle("credits"));
 		panel2.setTextBounds(220, -10, 205, 481);
 		panel2.text = panel2Text;
