@@ -120,6 +120,7 @@ var lastSecondAdjustmentsActive;
 var floorKicked;
 var preGameCountDown;
 var nowPlaying;
+var yghostCrumbled = [];
 
 var breadCrumbs = [];
 

@@ -131,7 +131,8 @@ function clearGhost(){
 	var tmpY;
 	for(var i = 0; i < 4; i++){
 		tmpX = piece.poses[curPose][i][0] + curX ;
-		tmpY = piece.poses[curPose][i][1] + ghostY;
+		if (yghostCrumbled.length < 4) break; // no ghost to clear
+		tmpY = yghostCrumbled[i]
 		if(tmpX < 0 || tmpY < 0){
 			// do nothing
 		} else if(tmpX > MAX_INDEX_HORIZONTAL || tmpY > MAX_INDEX_VERTICAL){
@@ -332,6 +333,7 @@ function drawGhost(){
 		}
 	}
 	if(ghostY < MAX_BLOCK_COUNT_VERTICAL){
+		yghostCrumbled = []
 		for(var i = 0; i < 4; i++){
 			tmpX = piece.poses[curPose][i][0] + curX ;
 			tmpY = piece.poses[curPose][i][1] + ghostY;
@@ -340,7 +342,13 @@ function drawGhost(){
 			} else if(tmpX > MAX_INDEX_HORIZONTAL || tmpY > MAX_INDEX_VERTICAL){
 				// do nothing
 			} else {
-				board[tmpY][tmpX] = -2;//ghost index
+				
+				// count how many pieces are stacked on the board and add this guy to the top
+				for (var k = MAX_INDEX_VERTICAL; k > 0; k--) {
+					if (board[k][tmpX] < 10 && board[k][tmpX] != -2) break;
+				}
+				board[k][tmpX] = -2;
+				yghostCrumbled.push(k)
 			}
 		}
 	}
@@ -350,19 +358,20 @@ function drawPiece(){
 	drawGhost();
 	var tmpX;
 	var tmpY;
-	for(var i = 0; i < 4; i++){
+	for(var i = 0; i < 4; i++){ // each tetromino has 4 parts, and we loop through these
 		tmpX = piece.poses[curPose][i][0] + curX ;
 		tmpY = piece.poses[curPose][i][1] + curY;
-		if(tmpX < 0 || tmpY < 0){
+		if(tmpX < 0 || tmpY < 0){ // not on the board
+				// wait shouldn't this be <=0 ? or I guess we are just catching exceptions
 			// do nothing
 		} else if(tmpX > MAX_INDEX_HORIZONTAL || tmpY > MAX_INDEX_VERTICAL){
 			// do nothing
+			// just catching exceptions... this shouldn't happen
 		} else {
 			board[tmpY][tmpX] = pieceIndex;
 		}
 	}
 }
-
 function getInput(){
 	hAxis = 0;
 	//if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
@@ -579,6 +588,8 @@ function placeOnBoard(){
 	var tmpY;
 	lastSecondActive = false;
 	floorKicked = false;
+	
+	clearPiece();
 	for(var i = 0; i < 4; i++){
 		tmpX = piece.poses[curPose][i][0] + curX ;
 		tmpY = piece.poses[curPose][i][1] + curY;
@@ -587,7 +598,12 @@ function placeOnBoard(){
 		} else if(tmpX > MAX_INDEX_HORIZONTAL || tmpY > MAX_INDEX_VERTICAL){
 			// do nothing
 		} else {
-			board[tmpY][tmpX] = pieceIndex + 10;
+			// count how many pieces are stacked on the board and add this guy to the top
+			for (var k = MAX_INDEX_VERTICAL; k > 0; k--) {
+				if (board[k][tmpX] < 10) break;
+			}
+			board[k][tmpX] = pieceIndex + 10;
+
 		}
 	}
 	if(holdLock){
